@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>てぃあんだぁクラブ｜お母さんの安心づくりの家庭教育サポート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fdfefb;
+            --text-main: #5a524c;
+            --text-muted: #8c8b85;
+            --accent-color: rgb(185, 208, 139);
+            --accent-dark: rgb(145, 168, 99);
+            --highlight-color: #f2e6b6;
+            --info-bg: #f7faf4;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.8;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            color: var(--text-main);
+            transition: opacity 0.2s;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Header */
+        header {
+            padding: 4rem 0 3rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            letter-spacing: 0.05em;
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+        }
+
+        .header-msg {
+            background-color: rgba(255, 255, 255, 0.6);
+            display: inline-block;
+            padding: 1rem 2rem;
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .header-img {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .header-img img {
+            max-width: 160px;
+            opacity: 0.85;
+            border-radius: 12px;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 4rem;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            text-align: center;
+            margin-bottom: 2rem;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        h2::after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 4px;
+            background: var(--highlight-color);
+            position: absolute;
+            bottom: -5px;
+            border-radius: 2px;
+            opacity: 0.6;
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: var(--accent-dark);
+            margin: 1.5rem 0 0.5rem;
+            border-bottom: 1px dashed var(--accent-color);
+            padding-bottom: 0.2rem;
+        }
+
+        /* Box / Card Style */
+        .box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .intro-box {
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            border: 2px solid var(--highlight-color);
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            padding: 0.8rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        /* Service Grid */
+        .service-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 2rem;
+            height: 100%;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-3px);
+        }
+
+        .service-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+            text-align: center;
+        }
+
+        .service-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--text-main);
+        }
+
+        .service-desc {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        ul,
+        ol {
+            padding-left: 1.2rem;
+            margin: 0 0 1rem;
+            color: var(--text-main);
+            font-size: 0.95rem;
+        }
+
+        li {
+            margin-bottom: 0.3rem;
+        }
+
+        .note {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-top: auto;
+        }
+
+        .schedule-item {
+            margin-top: 0.5rem;
+            padding-bottom: 0.3rem;
+        }
+
+        .schedule-item:not(:last-child) {
+            border-bottom: 1px dashed #ddd;
+        }
+
+        .schedule-time {
+            color: var(--accent-color);
+            font-weight: bold;
+        }
+
+        /* Media & History */
+        .history-details {
+            margin-top: 1.5rem;
+            border-top: 1px dashed #ddd;
+            padding-top: 1rem;
+        }
+
+        .history-summary {
+            font-size: 0.9rem;
+            color: #888;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .history-content {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.6;
+            margin-top: 0.5rem;
+        }
+
+        .media-link {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-bottom: 0.3rem;
+        }
+
+        .media-note {
+            font-size: 0.85rem;
+            color: #666;
+            margin-top: 3rem;
+            padding-top: 1rem;
+            border-top: 1px dashed #eee;
+        }
+
+        /* Buttons */
+        .btn {
+            display: block;
+            text-align: center;
+            padding: 0.8rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 0.8rem;
+            transition: all 0.2s;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            background: #fff;
+            border: 2px solid var(--accent-color);
+            color: var(--accent-color);
+        }
+
+        .btn-outline:hover {
+            background: #fafafa;
+        }
+
+        .btn-subtext {
+            display: block;
+            font-size: 0.7rem;
+            font-weight: normal;
+            margin-top: 4px;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            text-align: center;
+            background-color: #fff;
+            border: 2px solid var(--accent-color);
+        }
+
+        .contact-main {
+            margin-bottom: 3rem;
+        }
+
+        .contact-sub {
+            border-top: 1px dashed var(--accent-color);
+            padding-top: 2rem;
+        }
+
+        .btn-contact {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 1rem 2rem;
+            border-radius: 40px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s;
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+        }
+
+        .tel-number {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--accent-dark);
+            margin: 0.5rem 0;
+            display: block;
+        }
+
+        /* Voice Box */
+        .voice-box {
+            background-color: #fff;
+            border-left: 5px solid var(--accent-color);
+            font-style: italic;
+        }
+
+        /* Footer */
+        footer {
+            background-color: white;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            border-top: 1px solid #eee;
+            margin-top: 4rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-related {
+            margin-top: 4rem;
+            padding-top: 2rem;
+            border-top: 1px solid #eee;
+        }
+
+        .footer-related-title {
+            font-size: 0.85rem;
+            color: #777;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .footer-card {
+            display: block;
+            text-decoration: none;
+            color: #333;
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 12px;
+            padding: 1.25rem;
+            transition: border-color 0.2s;
+        }
+
+        .footer-card:hover {
+            border-color: var(--accent-color);
+        }
+
+        .footer-card-label {
+            font-size: 0.7rem;
+            color: #999;
+            margin: 0 0 0.3rem;
+        }
+
+        .footer-card-title {
+            margin: 0 0 0.5rem;
+            font-size: 1rem;
+            color: var(--text-main);
+        }
+
+        .footer-card-desc {
+            font-size: 0.85rem;
+            color: #666;
+            margin: 0;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>てぃあんだぁクラブ</h1>
+            <p class="subtitle">
+                子どもの「好き」と「得意」を見つけ、<br>
+                <strong>お母さんの安心を育てる</strong>家庭教育サポート
+            </p>
+
+            <div class="header-msg">
+                <p style="margin:0;">
+                    「子どもが学校に行けない」「子どもが勉強についていけない」<br>
+                    そんな時も、ひとりで抱えなくて大丈夫です。
+                </p>
+            </div>
+            <div class="header-img">
+                <img src="https://assets.softr-files.com/applications/876a45c9-9cb9-4e95-ab93-c1e5b9bcf07f/assets/afb7b164-df2e-4ad9-b85a-53cc241b9285.jpeg"
+                    alt="てぃあんだぁクラブの犬" />
+            </div>
+        </header>
+
+        <section>
+            <div class="box intro-box">
+                <h2 style="font-size:1.3rem; margin-top:0;">てぃあんだぁクラブについて</h2>
+                <p>
+                    てぃあんだぁクラブは、<br>
+                    子どもを変える場所ではありません。
+                </p>
+                <p style="font-size:1.1rem;">
+                    まずは<strong>お母さんが立ち止まり、安心すること</strong>。<br>
+                    そこから、子どもとの関わり方や学び直しを一緒に考えます。
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>サービスのご案内</h2>
+
+            <div class="service-grid">
+
+                <!-- ワンコイン勉強会 -->
+                <div class="service-card">
+                    <span class="service-icon">✏️</span>
+                    <div class="service-title">ワンコイン勉強会</div>
+                    <div class="service-desc">
+                        学校に通えていない小・中学生、中学卒業後に高校受験を目指す子のための学びの場です。
+                        「久しぶりに人と学ぶ」ための、無理のない入口です。
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>📅 開催スケジュール</strong>
+                        <div class="schedule-item">
+                            <span class="schedule-time">水曜 10-12時</span><br>
+                            豊見城市 cafe LUANA
+                        </div>
+                        <div class="schedule-item">
+                            <span class="schedule-time">金曜 10-12時</span><br>
+                            うるま市 田場区公民館
+                        </div>
+                    </div>
+
+                    <ul>
+                        <li>1回500円 / 少人数・個別対応</li>
+                        <li>勉強＋相談の時間</li>
+                    </ul>
+
+                    <details class="history-details">
+                        <summary class="history-summary">始まりの場所（2013年〜）</summary>
+                        <div class="history-content">
+                            <p><strong>〜那覇市 仲井真教室の思い出〜</strong></p>
+                            <p>「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」</p>
+                            <p>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。</p>
+                            <p>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。</p>
+                            <img src="https://scontent.fitm2-1.fna.fbcdn.net/v/t39.30808-6/611357331_26003771609243794_5413105133652074342_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=127cfc&_nc_ohc=JN9s8wpoBRAQ7kNvwGk79Vv&_nc_oc=AdlAJMjW43NCBlIDkvpWKqRwglgvNsmKzhhdY2TDaXMl1m2jSetFAIeLkq5RM7-fkTfLw39FYZ7VnySBI4MSDNN&_nc_zt=23&_nc_ht=scontent.fitm2-1.fna&_nc_gid=bdioqCwyZgFRbwMgc3Kezw&oh=00_AfpYGejmqlwic1bPDKvMj81LC4YAymGxYRfCAK0wj00VIA&oe=69606FF6"
+                                alt="仲井真教室の様子（2013年頃）"
+                                style="width: 100%; border-radius: 8px; margin-top: 1rem; border: 1px solid #eee;">
+                        </div>
+                    </details>
+
+                    <div class="media-note">
+                        <p>
+                            ※ メディア掲載・インタビュー記事は
+                            <a href="https://universe.tea-under.club" style="color:#555; text-decoration: underline;">
+                                てぃあんだぁクラブ universe
+                            </a>
+                            にまとめています。
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 個別授業 -->
+                <div class="service-card">
+                    <span class="service-icon">🏠</span>
+                    <div class="service-title">個別授業</div>
+                    <div class="service-desc">
+                        授業についていけない小中学生のための個別学習サポート。<br>
+                        多重知能（MI）チェックで得意・苦手を可視化し、保護者の方と相談しながら内容を決められます。
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>🌱 選べる内容の例</strong>
+                        <ul style="margin-top: 0.5rem; margin-bottom: 0;">
+                            <li>好きな科目 / 興味のあるテーマ</li>
+                            <li>家庭学習の習慣づけサポート</li>
+                            <li>学校での感情コントロール</li>
+                            <li>行動支援（アンガーマネジメント）</li>
+                        </ul>
+                    </div>
+
+                    <p class="note">※ 1回90分 / 本人のペースで進めます</p>
+                </div>
+
+                <!-- アンガーマネジメント -->
+                <div class="service-card">
+                    <span class="service-icon">🌼</span>
+                    <div class="service-title">アンガーマネジメント</div>
+                    <div class="service-desc">
+                        感情のコントロールが難しいお子さんと、その対応に悩む保護者のための心理教育プログラムです。
+                    </div>
+                    <h3>子ども向け</h3>
+                    <ul>
+                        <li>体と心のサインを知る</li>
+                        <li>落ち着く方法（54321法など）</li>
+                        <li>感情の整理・伝え方を練習するワーク</li>
+                    </ul>
+                    <h3>保護者向け</h3>
+                    <ul>
+                        <li>子どもの感情を受け止める「聴き方」「伝え方」</li>
+                        <li>怒りの奥にあるSOSの理解</li>
+                        <li>家庭での共感的コミュニケーション</li>
+                    </ul>
+                </div>
+
+                <!-- 子育て勉強会 -->
+                <div class="service-card">
+                    <span class="service-icon">📚</span>
+                    <div class="service-title">子育て勉強会</div>
+                    <div class="service-desc">
+                        親も学び、つながり、安心できる場です。
+                        不登校・思春期・気分の波など、家庭での関わりに迷うお母さん同士が語り合います。
+                    </div>
+                    <p class="note">
+                        ※開催案内はメルマガ「ワンコ通信」でお知らせしています。
+                    </p>
+
+                    <ul>
+                        <li>参加費：1,000円（保護者は半額）</li>
+                        <li>お子様連れでの参加も可能です</li>
+                    </ul>
+
+                    <div style="text-align: center; margin: 1rem 0;">
+                        <img src="https://scontent.fitm2-2.fna.fbcdn.net/v/t39.30808-6/608172105_26003610375926584_1885128601265573495_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=YImgOKuY4AoQ7kNvwGT152c&_nc_oc=Adlb3rp3Elef8ULg5orzm5k8o44TXLjI4pkQ0t0J_Ybvy0zq8SbadPr-8ktc42tAEYVQSLTq-Pg2S_I7kCodOXou&_nc_zt=23&_nc_ht=scontent.fitm2-2.fna&_nc_gid=oycLvS4GZZfEPFqpul0-QQ&oh=00_AfoG57FElnvVutaHaB0h71WwZo0GWZZE2mUgJfhMi9jShA&oe=696073B0"
+                            alt="子育て勉強会の様子"
+                            style="max-width: 80%; border-radius: 12px; height: auto; opacity: 0.9; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);">
+                    </div>
+
+                    <div style="margin-top: 1rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-primary">
+                            勉強会の相談・お申し込み
+                        </a>
+                        <a href="https://teaunderclub.substack.com" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-primary">
+                            メルマガ配信登録
+                            <span class="btn-subtext">（リンク先でアドレスを入力し「subscribe」をクリック）</span>
+                        </a>
+                        <a href="https://teaunderclub.substack.com/archive" target="_blank" rel="noopener noreferrer"
+                            class="btn btn-outline">
+                            ワンコ通信 バックナンバー
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2>お問い合わせ</h2>
+            <div class="box contact-box">
+
+                <p style="margin-bottom: 2rem;">
+                    お子さんの学び・気持ち・進路について、<br>
+                    どんな小さなことでもご相談ください。
+                </p>
+
+                <!-- メイン：問い合わせフォーム -->
+                <div class="contact-main">
+                    <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" rel="noopener noreferrer"
+                        class="btn-contact">
+                        ✉️ お問い合わせフォームはこちら
+                    </a>
+                    <p class="note" style="margin-top: 0.5rem;">※ 基本はこちらからご連絡をお願いします</p>
+                </div>
+
+                <!-- サブ：電話相談 -->
+                <div class="contact-sub">
+                    <p style="font-weight: bold; margin-bottom: 0.5rem; color: var(--text-main);">
+                        お急ぎの場合は、お電話でも大丈夫です
+                    </p>
+                    <p class="note" style="margin-bottom: 0.5rem; color: var(--accent-dark);">
+                        盆・正月・休日でも、いつでも受け付けています☕️
+                    </p>
+                    <div class="tel-number">📞 070-5692-4173</div>
+                    <p class="note">担当：佐渡山（さどやま）<br>（留守電・SMS対応可／通話料不要）</p>
+                </div>
+
+            </div>
+        </section>
+
+        <section>
+            <h2 style="font-size:1.2rem; margin-bottom:1.5rem;">利用者の声</h2>
+            <div class="box voice-box">
+                <p style="margin:0;">
+                    「進路の選択肢が増えて安心しました」<br>
+                    「子どもへの声かけが変わりました」<br>
+                    「話すことで気持ちが整理できました」
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>よくある質問</h2>
+            <div class="box">
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="font-weight: bold; color: var(--accent-dark); margin-bottom: 0.2rem;">Q.
+                        不登校の子どものご家庭に紹介してもいいですか？</p>
+                    <p style="margin-top: 0;">A. はい。無料電話相談もあるので、ホームページと合わせてご紹介ください。</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="font-weight: bold; color: var(--accent-dark); margin-bottom: 0.2rem;">Q.
+                        学校のことで相談だけでもできますか？</p>
+                    <p style="margin-top: 0;">A. はい。無料の電話相談からご利用ください。</p>
+                </div>
+                <div style="margin-bottom: 1.5rem;">
+                    <p style="font-weight: bold; color: var(--accent-dark); margin-bottom: 0.2rem;">Q.
+                        特別支援級と普通学級を行き来しています。宿題や授業のサポートはできますか？</p>
+                    <p style="margin-top: 0;">A. はい。福祉サービスではないので自費になりますが、よろしければ可能です。</p>
+                </div>
+                <div>
+                    <p style="font-weight: bold; color: var(--accent-dark); margin-bottom: 0.2rem;">Q.
+                        勉強したいときだけお願いできますか？</p>
+                    <p style="margin-top: 0;">A. はい。時間が合えば当日予約もできます。まずはお電話での無料相談や個別学習を踏まえて、ご相談ください。</p>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <div class="footer-related">
+            <p class="footer-related-title">
+                てぃあんだぁクラブから、つながっている場所
+            </p>
+
+            <div class="footer-grid">
+
+                <!-- universe -->
+                <a href="https://universe.tea-under.club" class="footer-card" target="_blank">
+                    <p class="footer-card-label">教材・実践・作品の棚</p>
+                    <h4 class="footer-card-title">てぃあんだぁクラブ universe</h4>
+                    <p class="footer-card-desc">
+                        支えてきた時間が、<br>
+                        そのまま残る場所
+                    </p>
+                </a>
+
+                <!-- alpaca -->
+                <a href="https://alpaca-school.okinawa" class="footer-card" target="_blank">
+                    <p class="footer-card-label">現実社会を学ぶ</p>
+                    <h4 class="footer-card-title">アルパカすく〜る</h4>
+                    <p class="footer-card-desc">
+                        外の世界を、<br>
+                        無理なく試す
+                    </p>
+                </a>
+
+                <!-- yumetsumugi -->
+                <a href="https://yumetsumugi.ainoie1962.com/" class="footer-card" target="_blank">
+                    <p class="footer-card-label">内側を整える</p>
+                    <h4 class="footer-card-title">わたしの夢つむぎ</h4>
+                    <p class="footer-card-desc">
+                        立ち止まって、<br>
+                        気持ちをほどく
+                    </p>
+                </a>
+
+            </div>
+        </div>
+
+        <p class="note" style="margin-top: 3rem;">
+            © 2013-2025 てぃあんだぁクラブ
+        </p>
+    </footer>
+
+</body>
+
+</html>
