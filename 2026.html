@@ -32,7 +32,7 @@
   --r-sm:    4px;
 
   /* 強調色（「無料」オレンジ） */
-  --orange:  #e8722a;
+  --orange:  #c8956c;
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--bg); font-size:13px; line-height:1.6; -webkit-text-size-adjust:100%; }
@@ -542,7 +542,7 @@ const CONTENTS = {
     <div class="sec">
       <div class="sec-lbl">📲 まずはここから</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px;">
-        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#e8722a;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#c8956c;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">📞</span>電話する
           <span style="font-size:10px;font-weight:400;opacity:.88;">070-5692-4173</span>
         </a>
@@ -746,6 +746,81 @@ const CONTENTS = {
           <div class="ogp-desc">文学・イラスト・漫画・ハンドメイドなど。子どもから大人まで誰もが主役になれる場所。</div>
         </div>
       </a>
+      <div class="sec-lbl" style="margin-top:0;">🌱 社会参加へのサポート</div>
+
+      <!-- 段階的参加の説明カード -->
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
+        <p style="font-size:12px;color:var(--txt);line-height:1.9;margin-bottom:12px;">
+          学校に行きにくい子どもたちが、<strong>自分のペースで社会とつながっていく</strong>ためのサポートです。<br>
+          「行く」のではなく、<em style="font-style:normal;color:var(--acc-dd);">「来たくなる場所」</em>からはじめています。
+        </p>
+
+        <!-- 3ステップ -->
+        <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
+
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">まず、来てみる</div>
+              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">猫がいて、手を動かせる場所があります。話さなくても、廊下にいるだけでも大丈夫。<br>「チラッと見る」ところから始まります。</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);border-bottom:1px solid var(--border);">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">好きなことを一緒にやってみる</div>
+              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">折り紙・フェルト手芸・アロマ・ビーズ・塗り絵…「不器用だから」でも大丈夫。作りながら自然と話が生まれます。<br>「家族に見せたら驚かれた」という声も。</div>
+            </div>
+          </div>
+
+          <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);">
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+            <div>
+              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">外の人に、自分の言葉で伝える</div>
+              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">文芸フリマでのワークショップ出展、展示、本の寄贈…。「お客様に説明できた」という経験が、自信になります。</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 実績ハイライト -->
+      <div style="background:var(--hi);border-bottom:1px solid var(--border);padding:14px 16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">📋 これまでの活動からの声</div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+            「最初は廊下にいたけど、作ってるのを見て入ってきた。自分のペースで仕上げて持ち帰った。」
+          </div>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+            「フリマ当日、最初はポツリポツリだった説明が、最後はなめらかにできるようになっていた。」
+          </div>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+            「不器用だから、と言っていた子が、家族の前で作ってみせたと報告してくれた。」
+          </div>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+            「来たことがない行事に、自分から参加できた。笑顔をたくさん見られた。」
+          </div>
+        </div>
+      </div>
+
+      <!-- セラピーキャットの役割 -->
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
+        <div style="font-size:28px;flex-shrink:0;">🐾</div>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;">セラピーキャットがいる場所</div>
+          <div style="font-size:11px;color:var(--txt-m);line-height:1.8;">猫がいるだけで、場の空気が変わります。話さなくても、猫を撫でているうちに自然と言葉が出てくる。てぃあんだぁクラブの活動でも、猫がきっかけで外に出てきた子がたくさんいます。</div>
+        </div>
+      </div>
+
+      <!-- 相談CTA -->
+      <div style="padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border);">
+        <p style="font-size:12px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかどうか分からない」そんなときこそ、まずお電話ください。</p>
+        <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#c8956c;color:#fff;border-radius:8px;padding:13px;text-decoration:none;font-size:13px;font-weight:700;">
+          📞 無料電話相談（担当：佐渡山）
+        </a>
+      </div>
+
       <div class="enen-card">
         <div class="enen-ttl">🪷 ご縁カードをお持ちの方へ</div>
         <p>必要な人にそっと渡せる案内カード。<br>初回の勉強会を安心価格でご参加いただけます。</p>
