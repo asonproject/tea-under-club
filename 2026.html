@@ -31,20 +31,27 @@
   --r:       8px;
   --r-sm:    4px;
 
+  /* UD フォントサイズ */
+  --fs-xs:   12px;
+  --fs-sm:   14px;
+  --fs-md:   16px;
+  --fs-lg:   18px;
+  --fs-xl:   20px;
+
   /* 強調色（「無料」オレンジ） */
   --orange:  #c8956c;
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--bg); font-size:13px; line-height:1.6; -webkit-text-size-adjust:100%; }
+body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--bg); font-size:16px; line-height:1.8; -webkit-text-size-adjust:100%; }
 
 /* =============================================
    共通コンポーネント
    ============================================= */
 .sec { padding:8px 0 0; }
-.sec-lbl { font-size:11px; font-weight:700; color:var(--txt); margin-bottom:8px; padding:8px 0 8px 10px; border-left:3px solid var(--acc-d); background:var(--info); display:flex; align-items:center; gap:6px; margin-left:-16px; margin-right:-16px; padding-left:16px; }
+.sec-lbl { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:8px; padding:10px 0 10px 10px; border-left:4px solid var(--acc-d); background:var(--info); display:flex; align-items:center; gap:6px; margin-left:-16px; margin-right:-16px; padding-left:16px; }
 .sec-lbl::after { display:none; }
 
-.card { background:var(--white); border-radius:0; padding:13px 15px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+.card { background:var(--white); border-radius:0; padding:15px 16px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
 .card:hover { background:#fafafa; }
 .card:active { background:#f0f0f0; }
 .card-row { display:flex; align-items:center; gap:11px; }
@@ -54,8 +61,8 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .ci.o { background:rgba(255,159,67,.15); }
 .ci.s { background:var(--info); }
 .card-info { flex:1; min-width:0; }
-.card-title { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:2px; }
-.card-sub { font-size:11px; color:var(--txt-m); line-height:1.5; }
+.card-title { font-size:15px; font-weight:700; color:var(--txt); margin-bottom:4px; }
+.card-sub { font-size:13px; color:var(--txt-m); line-height:1.6; }
 .card-arr { color:#ccc; font-size:18px; }
 .card-arr { font-size:16px; color:var(--acc); flex-shrink:0; }
 
@@ -63,129 +70,129 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .ev-card:hover { opacity:.92; }
 .ev-card:active { opacity:.82; }
 .ev-badge { font-size:10px; background:rgba(255,255,255,.22); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:7px; }
-.ev-card h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.ev-card h3 { font-size:17px; font-weight:700; margin-bottom:8px; }
 .ev-meta { display:flex; gap:10px; flex-wrap:wrap; }
-.ev-meta span { font-size:11px; opacity:.88; }
-.ev-btn { margin-top:11px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.5); color:#fff; font-size:12px; font-weight:700; padding:7px 16px; border-radius:4px; cursor:pointer; display:inline-block; font-family:'Zen Maru Gothic',sans-serif; letter-spacing:.04em; }
+.ev-meta span { font-size:13px; opacity:.88; }
+.ev-btn { margin-top:12px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.5); color:#fff; font-size:14px; font-weight:700; padding:10px 20px; border-radius:4px; cursor:pointer; display:inline-block; font-family:'Zen Maru Gothic',sans-serif; letter-spacing:.04em; }
 
 .svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; }
-.svc-card { background:var(--white); border-radius:0; padding:14px 10px; cursor:pointer; transition:background .1s; text-align:center; border-top:none; }
+.svc-card { background:var(--white); border-radius:0; padding:18px 10px; cursor:pointer; transition:background .1s; text-align:center; border-top:none; }
 .svc-card:hover { background:#fafafa; }
 .svc-card:active { background:#f0f0f0; }
-.svc-icon { font-size:26px; margin-bottom:5px; display:block; }
-.svc-title { font-size:12px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
-.svc-sub { font-size:10px; color:var(--txt-m); margin-top:2px; }
+.svc-icon { font-size:30px; margin-bottom:6px; display:block; }
+.svc-title { font-size:14px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
+.svc-sub { font-size:12px; color:var(--txt-m); margin-top:3px; }
 
 .intro-box { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:14px 16px; }
-.intro-box p { font-size:13px; line-height:1.85; }
+.intro-box p { font-size:15px; line-height:1.9; }
 .intro-box strong { color:var(--acc-dd); }
 
 .hero { position:relative; overflow:hidden; }
 .hero-img-wrap { height:180px; background:var(--acc-d); }
 .hero-img { width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; filter:brightness(.72); }
 .hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(80,115,40,.88) 0%,rgba(80,115,40,.3) 55%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
-.hero-overlay h2 { font-size:21px; font-weight:700; color:#fff; line-height:1.5; margin-bottom:5px; }
+.hero-overlay h2 { font-size:26px; font-weight:700; color:#fff; line-height:1.5; margin-bottom:8px; }
 .hero-overlay h2 em { font-style:normal; color:var(--hi); }
-.hero-overlay p { font-size:11px; color:rgba(255,255,255,.75); line-height:1.8; }
+.hero-overlay p { font-size:14px; color:rgba(255,255,255,.9); line-height:1.8; }
 
 .rel-sites { display:flex; flex-direction:column; gap:8px; }
 .rel-a { display:flex; align-items:center; gap:10px; background:var(--white); border:none; border-bottom:1px solid var(--border); border-radius:0; padding:13px 15px; text-decoration:none; transition:background .1s; }
 .rel-a:hover { background:#fafafa; }
 .rel-ico { font-size:20px; width:34px; text-align:center; flex-shrink:0; }
 .rel-info { flex:1; min-width:0; }
-.rel-title { font-size:13px; font-weight:700; color:var(--acc-dd); }
-.rel-sub { font-size:10px; color:var(--txt-m); }
+.rel-title { font-size:15px; font-weight:700; color:var(--acc-dd); }
+.rel-sub { font-size:13px; color:var(--txt-m); }
 .rel-arr { font-size:14px; color:#ccc; }
 
 /* 安心タブ */
 .ansin-hero { background:var(--acc-dd); padding:16px 16px 18px; text-align:left; position:relative; overflow:hidden; border-bottom:1px solid rgba(0,0,0,.1); }
 .ansin-hero::before { display:none; }
-.ansin-hero h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
-.ansin-hero p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ansin-hero h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; }
+.ansin-hero p { font-size:14px; color:rgba(255,255,255,.9); line-height:1.8; }
 
 .stamp-wrap { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:15px 16px; }
-.stamp-ttl { font-size:12px; font-weight:700; color:var(--txt); margin-bottom:3px; }
-.stamp-sub { font-size:11px; color:var(--txt-m); margin-bottom:11px; }
+.stamp-ttl { font-size:15px; font-weight:700; color:var(--txt); margin-bottom:5px; }
+.stamp-sub { font-size:13px; color:var(--txt-m); margin-bottom:13px; }
 .stamps { display:flex; flex-direction:column; gap:7px; }
-.sbtn { display:flex; align-items:center; gap:9px; padding:10px 12px; border-radius:var(--r-sm); border:1px solid var(--border); background:var(--white); cursor:pointer; transition:background .1s; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; color:var(--txt); text-align:left; }
-.sbtn .si { font-size:17px; }
+.sbtn { display:flex; align-items:center; gap:10px; padding:13px 14px; border-radius:var(--r-sm); border:1px solid var(--border); background:var(--white); cursor:pointer; transition:background .1s; font-family:'Zen Maru Gothic',sans-serif; font-size:14px; color:var(--txt); text-align:left; }
+.sbtn .si { font-size:20px; }
 .sbtn.sel { background:var(--hi); border-color:var(--acc-d); color:var(--acc-dd); font-weight:700; }
-.stamp-ok { margin-top:11px; background:var(--acc); color:#fff; border:none; width:100%; padding:12px; border-radius:11px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Zen Maru Gothic',sans-serif; display:none; }
+.stamp-ok { margin-top:13px; background:var(--acc); color:#fff; border:none; width:100%; padding:14px; border-radius:11px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Zen Maru Gothic',sans-serif; display:none; }
 
 .memo-wrap { margin:0; background:var(--white); border-bottom:1px solid var(--border); padding:15px 16px; }
-.memo-ttl { font-size:12px; font-weight:700; margin-bottom:3px; }
-.memo-note { font-size:10px; color:var(--txt-m); line-height:1.7; margin-bottom:9px; }
+.memo-ttl { font-size:15px; font-weight:700; margin-bottom:5px; }
+.memo-note { font-size:13px; color:var(--txt-m); line-height:1.75; margin-bottom:10px; }
 .memo-note em { font-style:normal; background:rgba(242,230,182,.7); color:var(--acc-dd); padding:1px 4px; border-radius:3px; font-weight:700; }
-textarea { width:100%; min-height:84px; background:var(--info); border:1.5px solid #e0e8d0; border-radius:10px; padding:10px 12px; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; color:var(--txt); resize:none; outline:none; transition:border-color .2s; line-height:1.7; }
+textarea { width:100%; min-height:96px; background:var(--info); border:1.5px solid #e0e8d0; border-radius:10px; padding:12px 14px; font-family:'Zen Maru Gothic',sans-serif; font-size:15px; color:var(--txt); resize:none; outline:none; transition:border-color .2s; line-height:1.8; }
 textarea:focus { border-color:var(--acc-d); }
 textarea::placeholder { color:var(--txt-m); }
 
 .contact-btns { margin:10px 16px 0; display:flex; gap:8px; }
-.cbtn { flex:1; padding:12px 5px; border-radius:var(--r-sm); border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; font-weight:700; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; transition:opacity .15s; }
+.cbtn { flex:1; padding:14px 5px; border-radius:var(--r-sm); border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; transition:opacity .15s; }
 .cbtn:hover { opacity:.88; }
-.cbtn .cico { font-size:21px; }
+.cbtn .cico { font-size:24px; }
 .cbtn.tel { background:var(--orange); color:#fff; }
 .cbtn.form { background:var(--acc); color:#fff; }
 .cbtn.merumaga { background:var(--info); color:var(--acc-dd); border:1.5px solid var(--acc); }
 
 .faq-wrap { background:var(--white); border-radius:0; padding:0; border-top:1px solid var(--border); }
-.faq-item { margin-bottom:0; border-bottom:1px solid var(--border); padding:13px 16px; }
+.faq-item { margin-bottom:0; border-bottom:1px solid var(--border); padding:16px; }
 .faq-item:last-child { border-bottom:none; }
-.faq-q { font-weight:700; color:var(--txt); font-size:13px; display:block; margin-bottom:4px; }
-.faq-a { font-size:12px; color:var(--txt-m); margin:0; line-height:1.75; }
+.faq-q { font-weight:700; color:var(--txt); font-size:15px; display:block; margin-bottom:6px; }
+.faq-a { font-size:14px; color:var(--txt-m); margin:0; line-height:1.8; }
 
 /* つながるタブ */
 .ev-list-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.ev-list-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
-.ev-list-hdr p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ev-list-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ev-list-hdr p { font-size:13px; color:rgba(255,255,255,.8); line-height:1.7; }
 .ev-item { background:var(--white); border-radius:0; padding:15px 16px; margin-bottom:0; border-bottom:1px solid var(--border); border-top:none; }
 .ev-item-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }
-.ev-item-title { font-size:14px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
+.ev-item-title { font-size:16px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
 .ev-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:10px; flex-shrink:0; }
 .ev-tag.r { background:rgba(185,208,139,.25); color:var(--acc-dd); }
 .ev-tag.g { background:rgba(185,208,139,.18); color:var(--acc-d); }
 .ev-tag.b { background:rgba(242,230,182,.6); color:#8a7a30; }
-.ev-price { font-size:13px; font-weight:700; color:var(--acc-dd); margin-bottom:9px; }
-.hl-box { background:var(--info); border-radius:10px; padding:10px 12px; margin-bottom:9px; font-size:12px; }
-.apbtn { width:100%; padding:11px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:opacity .15s; }
+.ev-price { font-size:15px; font-weight:700; color:var(--acc-dd); margin-bottom:10px; }
+.hl-box { background:var(--info); border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:14px; }
+.apbtn { width:100%; padding:14px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); font-family:'Zen Maru Gothic',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:opacity .15s; }
 .apbtn:hover { opacity:.88; }
 .apbtn.o { background:var(--orange); }
 .apbtn.y { background:var(--acc-d); }
 .enen-card { background:var(--hi); border:1px solid var(--acc); border-radius:var(--r-sm); padding:15px 16px; margin:8px 0; text-align:center; }
-.enen-ttl { font-size:14px; font-weight:700; color:var(--acc-dd); margin-bottom:6px; }
-.enen-card p { font-size:11px; color:var(--txt-m); line-height:1.8; margin-bottom:11px; }
+.enen-ttl { font-size:16px; font-weight:700; color:var(--acc-dd); margin-bottom:8px; }
+.enen-card p { font-size:14px; color:var(--txt-m); line-height:1.8; margin-bottom:13px; }
 .enen-btn { background:var(--acc-d); color:#fff; border:none; border-radius:20px; padding:9px 22px; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; font-weight:700; cursor:pointer; }
 
 /* 学ぶタブ */
 .manabu-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.manabu-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
-.manabu-hdr p { font-size:11px; color:rgba(255,255,255,.8); }
+.manabu-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
+.manabu-hdr p { font-size:13px; color:rgba(255,255,255,.8); }
 .art-card { background:var(--white); border-radius:0; padding:13px 15px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
 .art-card:hover { background:#fafafa; }
 .art-row { display:flex; gap:11px; }
-.art-thumb { width:54px; height:54px; border-radius:10px; background:var(--info); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:24px; }
+.art-thumb { width:64px; height:64px; border-radius:10px; background:var(--info); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:28px; }
 .art-info { flex:1; min-width:0; }
-.art-tag { font-size:10px; font-weight:700; color:var(--acc-d); margin-bottom:3px; display:block; }
-.art-title { font-size:13px; font-weight:700; color:var(--txt); line-height:1.4; margin-bottom:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.art-date { font-size:10px; color:var(--txt-m); }
+.art-tag { font-size:12px; font-weight:700; color:var(--acc-d); margin-bottom:4px; display:block; }
+.art-title { font-size:15px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.art-date { font-size:12px; color:var(--txt-m); }
 .sub-btn { display:flex; align-items:center; justify-content:space-between; background:var(--info); border:1.5px solid var(--acc); border-radius:var(--r); padding:13px 15px; margin-bottom:9px; cursor:pointer; text-decoration:none; transition:background .15s; }
 .sub-btn:hover { background:#f5f7f3; }
-.sub-btn span { font-size:13px; font-weight:700; color:var(--acc-dd); }
+.sub-btn span { font-size:15px; font-weight:700; color:var(--acc-dd); }
 .sub-btn .arr { font-size:14px; color:var(--acc); }
 
 /* わたしの歩みタブ */
 .ayumi-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.ayumi-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
-.ayumi-hdr p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ayumi-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ayumi-hdr p { font-size:13px; color:rgba(255,255,255,.8); line-height:1.7; }
 .ayumi-empty { text-align:center; padding:28px 18px; }
 .ayumi-empty .big { font-size:42px; margin-bottom:10px; }
-.ayumi-empty p { font-size:12px; color:var(--txt-m); line-height:1.8; }
+.ayumi-empty p { font-size:15px; color:var(--txt-m); line-height:1.9; }
 .log-item { background:var(--white); border-radius:0; padding:12px 15px; margin-bottom:0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:11px; }
 .log-ico { width:34px; height:34px; border-radius:9px; background:var(--info); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
-.log-text strong { font-size:12px; display:block; }
-.log-text span { font-size:10px; color:var(--txt-m); }
+.log-text strong { font-size:14px; display:block; }
+.log-text span { font-size:12px; color:var(--txt-m); }
 .priv-note { background:var(--hi); border:none; border-bottom:1px solid var(--border); border-radius:0; padding:11px 16px; margin:0; }
-.priv-note p { font-size:11px; color:var(--acc-dd); line-height:1.8; text-align:center; }
+.priv-note p { font-size:13px; color:var(--acc-dd); line-height:1.8; text-align:center; }
 
 /* モーダル */
 #mo { display:none; position:fixed; inset:0; background:rgba(58,74,40,.5); z-index:9999; align-items:flex-end; backdrop-filter:blur(2px); }
@@ -194,12 +201,12 @@ textarea::placeholder { color:var(--txt-m); }
 #md { background:var(--white); border-radius:12px 12px 0 0; padding:18px 18px 32px; width:100%; max-height:82vh; overflow-y:auto; animation:su .27s ease; }
 @keyframes su { from{transform:translateY(26px);opacity:0} to{transform:translateY(0);opacity:1} }
 .md-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 14px; }
-.md-title { font-size:18px; font-weight:700; color:var(--acc-dd); margin-bottom:4px; }
-.md-sub { font-size:12px; color:var(--txt-m); margin-bottom:13px; line-height:1.8; }
-.md-body { font-size:13px; color:var(--txt); line-height:1.9; }
+.md-title { font-size:20px; font-weight:700; color:var(--acc-dd); margin-bottom:6px; }
+.md-sub { font-size:14px; color:var(--txt-m); margin-bottom:14px; line-height:1.8; }
+.md-body { font-size:15px; color:var(--txt); line-height:1.9; }
 .md-body a { color:var(--acc-d); }
 .md-body strong { color:var(--acc-dd); }
-.md-close { width:100%; margin-top:16px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); padding:13px; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+.md-close { width:100%; margin-top:16px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); padding:16px; font-family:'Zen Maru Gothic',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
 
 /* トースト */
 #toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--acc-dd); color:#fff; padding:10px 20px; border-radius:20px; font-size:12px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; z-index:9998; }
@@ -229,8 +236,8 @@ textarea::placeholder { color:var(--txt-m); }
   #sp-topbar::after { display:none; }
   .tb-logo { display:flex; align-items:center; gap:10px; }
   .tb-logo-img { width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,.6); flex-shrink:0; background:var(--acc-d); }
-  .tb-left h1 { font-size:15px; font-weight:700; color:var(--txt); line-height:1.3; }
-  .tb-left span { font-size:9px; color:var(--txt-m); letter-spacing:.07em; display:block; margin-top:1px; }
+  .tb-left h1 { font-size:17px; font-weight:700; color:var(--txt); line-height:1.3; }
+  .tb-left span { font-size:11px; color:var(--txt-m); letter-spacing:.05em; display:block; margin-top:2px; }
   .tb-right { width:34px; height:34px; background:var(--info); border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:17px; cursor:pointer; flex-shrink:0; }
 
   /* スマホ スクロールエリア */
@@ -247,8 +254,8 @@ textarea::placeholder { color:var(--txt-m); }
     padding-bottom:env(safe-area-inset-bottom,0px);
     border-top:1px solid var(--border);
   }
-  .bn { flex:1; padding:8px 2px 9px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:9px; line-height:1.4; transition:color .18s; user-select:none; }
-  .bn .bico { font-size:20px; display:block; margin-bottom:2px; transition:transform .18s; }
+  .bn { flex:1; padding:8px 2px 10px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:11px; line-height:1.4; transition:color .18s; user-select:none; }
+  .bn .bico { font-size:22px; display:block; margin-bottom:3px; transition:transform .18s; }
   .bn.on { color:var(--acc-dd); font-weight:700; }
   .bn.on .bico { transform:translateY(-2px); }
 
@@ -290,7 +297,7 @@ textarea::placeholder { color:var(--txt-m); }
   .pc-logo-name { font-size:14px; font-weight:700; color:#fff; text-align:center; line-height:1.4; }
   .pc-logo-sub { font-size:10px; color:rgba(255,255,255,.55); margin-top:3px; text-align:center; }
 
-  .pc-nav-item { display:flex; align-items:center; gap:12px; padding:12px 20px; cursor:pointer; color:rgba(255,255,255,.6); font-size:13px; font-weight:700; transition:all .18s; border-left:3px solid transparent; user-select:none; }
+  .pc-nav-item { display:flex; align-items:center; gap:12px; padding:14px 20px; cursor:pointer; color:rgba(255,255,255,.7); font-size:15px; font-weight:700; transition:all .18s; border-left:3px solid transparent; user-select:none; }
   .pc-nav-item .pico { font-size:18px; }
   .pc-nav-item:hover { background:rgba(255,255,255,.1); color:#fff; }
   .pc-nav-item.on { background:rgba(255,255,255,.15); color:#fff; border-left-color:var(--acc); }
@@ -315,8 +322,8 @@ textarea::placeholder { color:var(--txt-m); }
 
   /* PC トップバー（メインの上部） */
   #pc-topbar { background:#fff; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
-  .pt-title { font-size:14px; font-weight:700; color:var(--acc-dd); }
-  .pt-sub { font-size:11px; color:var(--txt-m); }
+  .pt-title { font-size:16px; font-weight:700; color:var(--acc-dd); }
+  .pt-sub { font-size:13px; color:var(--txt-m); }
   .pt-about { width:30px; height:30px; background:var(--info); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer; flex-shrink:0; }
 
   /* PCでは全セクションを縦に並べて表示 */
@@ -746,14 +753,12 @@ const CONTENTS = {
           <div class="ogp-desc">文学・イラスト・漫画・ハンドメイドなど。子どもから大人まで誰もが主役になれる場所。</div>
         </div>
       </a>
-      <div class="sec-lbl" style="margin-top:0;">🌱 社会参加へのサポート</div>
+      <div class="sec-lbl" style="margin-top:0;">🌱 保護者のヒント集</div>
 
       <!-- 段階的参加の説明カード -->
       <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
-        <p style="font-size:12px;color:var(--txt);line-height:1.9;margin-bottom:12px;">
-          学校に行きにくい子どもたちが、<strong>自分のペースで社会とつながっていく</strong>ためのサポートです。<br>
-          「行く」のではなく、<em style="font-style:normal;color:var(--acc-dd);">「来たくなる場所」</em>からはじめています。
-        </p>
+        <p style="font-size:12px;color:var(--txt);line-height:1.9;margin-bottom:4px;font-weight:700;">子どもの社会参加を<br>焦らず支えたい保護者のために</p>
+        <p style="font-size:11px;color:var(--txt-m);line-height:1.85;margin-bottom:12px;">「どう関わればいいか分からない」「無理に行かせるのも違う気がする」——そんなお母さんへ。実際の活動から見えてきた、子どもが少しずつ外に出ていくプロセスをお伝えします。</p>
 
         <!-- 3ステップ -->
         <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
@@ -787,19 +792,19 @@ const CONTENTS = {
 
       <!-- 実績ハイライト -->
       <div style="background:var(--hi);border-bottom:1px solid var(--border);padding:14px 16px;">
-        <div style="font-size:11px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">📋 これまでの活動からの声</div>
+        <div style="font-size:11px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 現場で聞こえた声（保護者・子ども）</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-            「最初は廊下にいたけど、作ってるのを見て入ってきた。自分のペースで仕上げて持ち帰った。」
+  「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:10px;color:var(--txt-s);">── 活動記録より</span>
           </div>
           <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-            「フリマ当日、最初はポツリポツリだった説明が、最後はなめらかにできるようになっていた。」
+  「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:10px;color:var(--txt-s);">── 保護者の声より</span>
           </div>
           <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-            「不器用だから、と言っていた子が、家族の前で作ってみせたと報告してくれた。」
+  「不器用だからって言ってたのに、家で家族の前で作ってみせたんです。」<br><span style="font-size:10px;color:var(--txt-s);">── 活動後の変化</span>
           </div>
           <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-            「来たことがない行事に、自分から参加できた。笑顔をたくさん見られた。」
+  「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:10px;color:var(--txt-s);">── 担当者より</span>
           </div>
         </div>
       </div>
@@ -815,7 +820,7 @@ const CONTENTS = {
 
       <!-- 相談CTA -->
       <div style="padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border);">
-        <p style="font-size:12px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかどうか分からない」そんなときこそ、まずお電話ください。</p>
+        <p style="font-size:12px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかな？」「どこまで関わればいい？」<br>一人で悩まず、まずお電話ください。保護者だけでのご相談もOKです。</p>
         <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#c8956c;color:#fff;border-radius:8px;padding:13px;text-decoration:none;font-size:13px;font-weight:700;">
           📞 無料電話相談（担当：佐渡山）
         </a>
@@ -862,9 +867,9 @@ const CONTENTS = {
         .ogp-img { width:100%; height:160px; object-fit:cover; display:block; background:var(--info); }
         .ogp-img-placeholder { width:100%; height:160px; background:linear-gradient(135deg,var(--acc),var(--acc-d)); display:flex; align-items:center; justify-content:center; font-size:40px; }
         .ogp-body { padding:12px 14px; }
-        .ogp-tag { font-size:10px; font-weight:700; color:var(--acc-d); letter-spacing:.06em; margin-bottom:4px; display:block; }
-        .ogp-title { font-size:13px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:3px; }
-        .ogp-desc { font-size:11px; color:var(--txt-m); line-height:1.5; }
+        .ogp-tag { font-size:12px; font-weight:700; color:var(--acc-d); letter-spacing:.05em; margin-bottom:5px; display:block; }
+        .ogp-title { font-size:15px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; }
+        .ogp-desc { font-size:13px; color:var(--txt-m); line-height:1.6; }
       </style>
 
       <a class="ogp-card" href="https://news.ryukyu-tane.com/251130-nichiyougakkou-furugenchu/" target="_blank" id="ogp-1">
