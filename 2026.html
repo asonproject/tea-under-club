@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>てぃあんだぁクラブ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  /* てぃあんだぁクラブ公式カラー（画像から抽出） */
+  --bg:      #f5f5f5;
+  --txt:     #2a2a2a;
+  --txt-m:   #666666;
+  --txt-s:   #999999;
+
+  /* メイングリーン（LINEボタン・ハンバーガー） */
+  --acc:     #b3c38e;   /* 明るいオリーブグリーン */
+  --acc-d:   #97ad64;   /* メインボタン色 */
+  --acc-dd:  #7a9448;   /* 濃いオリーブグリーン */
+
+  /* ハイライト・背景 */
+  --hi:      #eef3e2;   /* キャラ背景系の薄いグリーン */
+  --info:    #f8f8f8;
+  --white:   #ffffff;
+  --border:  #e0e0e0;
+  --sh:      none;
+  --sh-sm:   0 1px 3px rgba(0,0,0,0.08);
+  --r:       8px;
+  --r-sm:    4px;
+
+  /* 強調色（「無料」オレンジ） */
+  --orange:  #e8722a;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--bg); font-size:13px; line-height:1.6; -webkit-text-size-adjust:100%; }
+
+/* =============================================
+   共通コンポーネント
+   ============================================= */
+.sec { padding:8px 0 0; }
+.sec-lbl { font-size:11px; font-weight:700; color:var(--txt); margin-bottom:8px; padding:8px 0 8px 10px; border-left:3px solid var(--acc-d); background:var(--info); display:flex; align-items:center; gap:6px; margin-left:-16px; margin-right:-16px; padding-left:16px; }
+.sec-lbl::after { display:none; }
+
+.card { background:var(--white); border-radius:0; padding:13px 15px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+.card:hover { background:#fafafa; }
+.card:active { background:#f0f0f0; }
+.card-row { display:flex; align-items:center; gap:11px; }
+.ci { width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+.ci.g { background:rgba(185,208,139,.2); }
+.ci.y { background:rgba(242,230,182,.5); }
+.ci.o { background:rgba(255,159,67,.15); }
+.ci.s { background:var(--info); }
+.card-info { flex:1; min-width:0; }
+.card-title { font-size:13px; font-weight:700; color:var(--txt); margin-bottom:2px; }
+.card-sub { font-size:11px; color:var(--txt-m); line-height:1.5; }
+.card-arr { color:#ccc; font-size:18px; }
+.card-arr { font-size:16px; color:var(--acc); flex-shrink:0; }
+
+.ev-card { background:var(--acc-dd); border-radius:var(--r-sm); padding:14px 16px; margin-bottom:1px; color:#fff; cursor:pointer; transition:opacity .15s; }
+.ev-card:hover { opacity:.92; }
+.ev-card:active { opacity:.82; }
+.ev-badge { font-size:10px; background:rgba(255,255,255,.22); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:7px; }
+.ev-card h3 { font-size:15px; font-weight:700; margin-bottom:6px; }
+.ev-meta { display:flex; gap:10px; flex-wrap:wrap; }
+.ev-meta span { font-size:11px; opacity:.88; }
+.ev-btn { margin-top:11px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.5); color:#fff; font-size:12px; font-weight:700; padding:7px 16px; border-radius:4px; cursor:pointer; display:inline-block; font-family:'Zen Maru Gothic',sans-serif; letter-spacing:.04em; }
+
+.svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; }
+.svc-card { background:var(--white); border-radius:0; padding:14px 10px; cursor:pointer; transition:background .1s; text-align:center; border-top:none; }
+.svc-card:hover { background:#fafafa; }
+.svc-card:active { background:#f0f0f0; }
+.svc-icon { font-size:26px; margin-bottom:5px; display:block; }
+.svc-title { font-size:12px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
+.svc-sub { font-size:10px; color:var(--txt-m); margin-top:2px; }
+
+.intro-box { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:14px 16px; }
+.intro-box p { font-size:13px; line-height:1.85; }
+.intro-box strong { color:var(--acc-dd); }
+
+.hero { position:relative; overflow:hidden; }
+.hero-img-wrap { height:180px; background:var(--acc-d); }
+.hero-img { width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; filter:brightness(.72); }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(80,115,40,.88) 0%,rgba(80,115,40,.3) 55%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:18px; }
+.hero-overlay h2 { font-size:21px; font-weight:700; color:#fff; line-height:1.5; margin-bottom:5px; }
+.hero-overlay h2 em { font-style:normal; color:var(--hi); }
+.hero-overlay p { font-size:11px; color:rgba(255,255,255,.75); line-height:1.8; }
+
+.rel-sites { display:flex; flex-direction:column; gap:8px; }
+.rel-a { display:flex; align-items:center; gap:10px; background:var(--white); border:none; border-bottom:1px solid var(--border); border-radius:0; padding:13px 15px; text-decoration:none; transition:background .1s; }
+.rel-a:hover { background:#fafafa; }
+.rel-ico { font-size:20px; width:34px; text-align:center; flex-shrink:0; }
+.rel-info { flex:1; min-width:0; }
+.rel-title { font-size:13px; font-weight:700; color:var(--acc-dd); }
+.rel-sub { font-size:10px; color:var(--txt-m); }
+.rel-arr { font-size:14px; color:#ccc; }
+
+/* 安心タブ */
+.ansin-hero { background:var(--acc-dd); padding:16px 16px 18px; text-align:left; position:relative; overflow:hidden; border-bottom:1px solid rgba(0,0,0,.1); }
+.ansin-hero::before { display:none; }
+.ansin-hero h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:4px; }
+.ansin-hero p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+
+.stamp-wrap { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:15px 16px; }
+.stamp-ttl { font-size:12px; font-weight:700; color:var(--txt); margin-bottom:3px; }
+.stamp-sub { font-size:11px; color:var(--txt-m); margin-bottom:11px; }
+.stamps { display:flex; flex-direction:column; gap:7px; }
+.sbtn { display:flex; align-items:center; gap:9px; padding:10px 12px; border-radius:var(--r-sm); border:1px solid var(--border); background:var(--white); cursor:pointer; transition:background .1s; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; color:var(--txt); text-align:left; }
+.sbtn .si { font-size:17px; }
+.sbtn.sel { background:var(--hi); border-color:var(--acc-d); color:var(--acc-dd); font-weight:700; }
+.stamp-ok { margin-top:11px; background:var(--acc); color:#fff; border:none; width:100%; padding:12px; border-radius:11px; font-size:13px; font-weight:700; cursor:pointer; font-family:'Zen Maru Gothic',sans-serif; display:none; }
+
+.memo-wrap { margin:0; background:var(--white); border-bottom:1px solid var(--border); padding:15px 16px; }
+.memo-ttl { font-size:12px; font-weight:700; margin-bottom:3px; }
+.memo-note { font-size:10px; color:var(--txt-m); line-height:1.7; margin-bottom:9px; }
+.memo-note em { font-style:normal; background:rgba(242,230,182,.7); color:var(--acc-dd); padding:1px 4px; border-radius:3px; font-weight:700; }
+textarea { width:100%; min-height:84px; background:var(--info); border:1.5px solid #e0e8d0; border-radius:10px; padding:10px 12px; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; color:var(--txt); resize:none; outline:none; transition:border-color .2s; line-height:1.7; }
+textarea:focus { border-color:var(--acc-d); }
+textarea::placeholder { color:var(--txt-m); }
+
+.contact-btns { margin:10px 16px 0; display:flex; gap:8px; }
+.cbtn { flex:1; padding:12px 5px; border-radius:var(--r-sm); border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; font-weight:700; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px; text-decoration:none; transition:opacity .15s; }
+.cbtn:hover { opacity:.88; }
+.cbtn .cico { font-size:21px; }
+.cbtn.tel { background:var(--orange); color:#fff; }
+.cbtn.form { background:var(--acc); color:#fff; }
+.cbtn.merumaga { background:var(--info); color:var(--acc-dd); border:1.5px solid var(--acc); }
+
+.faq-wrap { background:var(--white); border-radius:0; padding:0; border-top:1px solid var(--border); }
+.faq-item { margin-bottom:0; border-bottom:1px solid var(--border); padding:13px 16px; }
+.faq-item:last-child { border-bottom:none; }
+.faq-q { font-weight:700; color:var(--txt); font-size:13px; display:block; margin-bottom:4px; }
+.faq-a { font-size:12px; color:var(--txt-m); margin:0; line-height:1.75; }
+
+/* つながるタブ */
+.ev-list-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.ev-list-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ev-list-hdr p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ev-item { background:var(--white); border-radius:0; padding:15px 16px; margin-bottom:0; border-bottom:1px solid var(--border); border-top:none; }
+.ev-item-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }
+.ev-item-title { font-size:14px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
+.ev-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:10px; flex-shrink:0; }
+.ev-tag.r { background:rgba(185,208,139,.25); color:var(--acc-dd); }
+.ev-tag.g { background:rgba(185,208,139,.18); color:var(--acc-d); }
+.ev-tag.b { background:rgba(242,230,182,.6); color:#8a7a30; }
+.ev-price { font-size:13px; font-weight:700; color:var(--acc-dd); margin-bottom:9px; }
+.hl-box { background:var(--info); border-radius:10px; padding:10px 12px; margin-bottom:9px; font-size:12px; }
+.apbtn { width:100%; padding:11px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:opacity .15s; }
+.apbtn:hover { opacity:.88; }
+.apbtn.o { background:var(--orange); }
+.apbtn.y { background:var(--acc-d); }
+.enen-card { background:var(--hi); border:1px solid var(--acc); border-radius:var(--r-sm); padding:15px 16px; margin:8px 0; text-align:center; }
+.enen-ttl { font-size:14px; font-weight:700; color:var(--acc-dd); margin-bottom:6px; }
+.enen-card p { font-size:11px; color:var(--txt-m); line-height:1.8; margin-bottom:11px; }
+.enen-btn { background:var(--acc-d); color:#fff; border:none; border-radius:20px; padding:9px 22px; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; font-weight:700; cursor:pointer; }
+
+/* 学ぶタブ */
+.manabu-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.manabu-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
+.manabu-hdr p { font-size:11px; color:rgba(255,255,255,.8); }
+.art-card { background:var(--white); border-radius:0; padding:13px 15px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
+.art-card:hover { background:#fafafa; }
+.art-row { display:flex; gap:11px; }
+.art-thumb { width:54px; height:54px; border-radius:10px; background:var(--info); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:24px; }
+.art-info { flex:1; min-width:0; }
+.art-tag { font-size:10px; font-weight:700; color:var(--acc-d); margin-bottom:3px; display:block; }
+.art-title { font-size:13px; font-weight:700; color:var(--txt); line-height:1.4; margin-bottom:3px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.art-date { font-size:10px; color:var(--txt-m); }
+.sub-btn { display:flex; align-items:center; justify-content:space-between; background:var(--info); border:1.5px solid var(--acc); border-radius:var(--r); padding:13px 15px; margin-bottom:9px; cursor:pointer; text-decoration:none; transition:background .15s; }
+.sub-btn:hover { background:#f5f7f3; }
+.sub-btn span { font-size:13px; font-weight:700; color:var(--acc-dd); }
+.sub-btn .arr { font-size:14px; color:var(--acc); }
+
+/* わたしの歩みタブ */
+.ayumi-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.ayumi-hdr h2 { font-size:16px; font-weight:700; color:#fff; margin-bottom:3px; }
+.ayumi-hdr p { font-size:11px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ayumi-empty { text-align:center; padding:28px 18px; }
+.ayumi-empty .big { font-size:42px; margin-bottom:10px; }
+.ayumi-empty p { font-size:12px; color:var(--txt-m); line-height:1.8; }
+.log-item { background:var(--white); border-radius:0; padding:12px 15px; margin-bottom:0; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:11px; }
+.log-ico { width:34px; height:34px; border-radius:9px; background:var(--info); display:flex; align-items:center; justify-content:center; font-size:17px; flex-shrink:0; }
+.log-text strong { font-size:12px; display:block; }
+.log-text span { font-size:10px; color:var(--txt-m); }
+.priv-note { background:var(--hi); border:none; border-bottom:1px solid var(--border); border-radius:0; padding:11px 16px; margin:0; }
+.priv-note p { font-size:11px; color:var(--acc-dd); line-height:1.8; text-align:center; }
+
+/* モーダル */
+#mo { display:none; position:fixed; inset:0; background:rgba(58,74,40,.5); z-index:9999; align-items:flex-end; backdrop-filter:blur(2px); }
+#mo.open { display:flex; animation:fi .2s ease; }
+@keyframes fi { from{opacity:0} to{opacity:1} }
+#md { background:var(--white); border-radius:12px 12px 0 0; padding:18px 18px 32px; width:100%; max-height:82vh; overflow-y:auto; animation:su .27s ease; }
+@keyframes su { from{transform:translateY(26px);opacity:0} to{transform:translateY(0);opacity:1} }
+.md-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 14px; }
+.md-title { font-size:18px; font-weight:700; color:var(--acc-dd); margin-bottom:4px; }
+.md-sub { font-size:12px; color:var(--txt-m); margin-bottom:13px; line-height:1.8; }
+.md-body { font-size:13px; color:var(--txt); line-height:1.9; }
+.md-body a { color:var(--acc-d); }
+.md-body strong { color:var(--acc-dd); }
+.md-close { width:100%; margin-top:16px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); padding:13px; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
+
+/* トースト */
+#toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--acc-dd); color:#fff; padding:10px 20px; border-radius:20px; font-size:12px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; z-index:9998; }
+#toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
+
+/* アニメーション */
+@keyframes fu { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* =============================================
+   スマホレイアウト（~767px）
+   ============================================= */
+@media (max-width: 767px) {
+  html, body { height:100%; overflow:hidden; }
+
+  #sp-shell {
+    max-width:390px; margin:0 auto;
+    height:100dvh; display:flex; flex-direction:column;
+    background:var(--bg); overflow:hidden;
+  }
+
+  /* スマホ トップバー */
+  #sp-topbar {
+    flex-shrink:0; background:var(--white); padding:10px 16px;
+    display:flex; align-items:center; justify-content:space-between;
+    position:relative; border-bottom:1px solid var(--border);
+  }
+  #sp-topbar::after { display:none; }
+  .tb-logo { display:flex; align-items:center; gap:10px; }
+  .tb-logo-img { width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,.6); flex-shrink:0; background:var(--acc-d); }
+  .tb-left h1 { font-size:15px; font-weight:700; color:var(--txt); line-height:1.3; }
+  .tb-left span { font-size:9px; color:var(--txt-m); letter-spacing:.07em; display:block; margin-top:1px; }
+  .tb-right { width:34px; height:34px; background:var(--info); border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:17px; cursor:pointer; flex-shrink:0; }
+
+  /* スマホ スクロールエリア */
+  #sp-scroll { flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; background:var(--bg); }
+  #sp-scroll::-webkit-scrollbar { display:none; }
+
+  /* スマホ 画面切替 */
+  .sp-sc { display:none; padding-bottom:20px; animation:fu .25s ease; }
+  .sp-sc.on { display:block; }
+
+  /* スマホ ボトムナビ */
+  #sp-bnav {
+    flex-shrink:0; background:#fff; display:flex;
+    padding-bottom:env(safe-area-inset-bottom,0px);
+    border-top:1px solid var(--border);
+  }
+  .bn { flex:1; padding:8px 2px 9px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:9px; line-height:1.4; transition:color .18s; user-select:none; }
+  .bn .bico { font-size:20px; display:block; margin-bottom:2px; transition:transform .18s; }
+  .bn.on { color:var(--acc-dd); font-weight:700; }
+  .bn.on .bico { transform:translateY(-2px); }
+
+  /* PC要素を隠す */
+  #pc-shell { display:none; }
+}
+
+/* =============================================
+   PCレイアウト（768px以上）
+   左220px固定サイドナビ + 右スクロールエリア
+   ============================================= */
+@media (min-width: 768px) {
+  html, body { height:100%; overflow:hidden; background:#ebebeb; }
+
+  /* スマホ要素を隠す */
+  #sp-shell { display:none; }
+
+  /* PCシェル：左右2カラム、フル高さ */
+  #pc-shell {
+    display:flex; flex-direction:row;
+    width:100%; height:100vh;
+    max-width:1100px; margin:0 auto;
+    box-shadow:none; border-right:1px solid var(--border);
+    background:var(--bg);
+  }
+
+  /* PC サイドナビ */
+  #pc-side {
+    width:200px; flex-shrink:0;
+    background:#3d5c20;
+    display:flex; flex-direction:column;
+    height:100vh; overflow-y:auto;
+    border-right:none;
+  }
+  #pc-side::-webkit-scrollbar { display:none; }
+
+  .pc-logo-wrap { display:flex; flex-direction:column; align-items:center; padding:24px 16px 20px; border-bottom:1px solid rgba(255,255,255,.15); margin-bottom:12px; }
+  .pc-logo-img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid rgba(255,255,255,.5); margin-bottom:10px; background:var(--acc-d); }
+  .pc-logo-name { font-size:14px; font-weight:700; color:#fff; text-align:center; line-height:1.4; }
+  .pc-logo-sub { font-size:10px; color:rgba(255,255,255,.55); margin-top:3px; text-align:center; }
+
+  .pc-nav-item { display:flex; align-items:center; gap:12px; padding:12px 20px; cursor:pointer; color:rgba(255,255,255,.6); font-size:13px; font-weight:700; transition:all .18s; border-left:3px solid transparent; user-select:none; }
+  .pc-nav-item .pico { font-size:18px; }
+  .pc-nav-item:hover { background:rgba(255,255,255,.1); color:#fff; }
+  .pc-nav-item.on { background:rgba(255,255,255,.15); color:#fff; border-left-color:var(--acc); }
+
+  .pc-side-contact { margin-top:auto; padding:16px; border-top:1px solid rgba(255,255,255,.15); display:flex; flex-direction:column; gap:8px; }
+  .pc-side-contact a { display:block; text-align:center; background:rgba(255,255,255,.15); color:#fff; border-radius:8px; padding:9px 8px; font-size:12px; font-weight:700; text-decoration:none; transition:opacity .15s; border:1px solid rgba(255,255,255,.2); }
+  .pc-side-contact a:hover { opacity:.85; }
+  .pc-side-contact a:first-child { background:var(--orange); border-color:var(--orange); }
+  .pc-side-contact a.sub { background:rgba(255,255,255,.12); color:rgba(255,255,255,.85); }
+  .pc-tel { text-align:center; font-size:10px; color:rgba(255,255,255,.55); }
+  .pc-tel a { color:rgba(255,255,255,.85); font-weight:700; text-decoration:none; font-size:12px; display:block; margin-top:2px; }
+
+  /* PC メインスクロールエリア */
+  #pc-main {
+    flex:1; min-width:0;
+    height:100vh; overflow-y:auto;
+    overflow-x:hidden;
+  }
+  #pc-main::-webkit-scrollbar { width:6px; }
+  #pc-main::-webkit-scrollbar-track { background:var(--info); }
+  #pc-main::-webkit-scrollbar-thumb { background:var(--acc); border-radius:3px; }
+
+  /* PC トップバー（メインの上部） */
+  #pc-topbar { background:#fff; padding:10px 24px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:sticky; top:0; z-index:10; }
+  .pt-title { font-size:14px; font-weight:700; color:var(--acc-dd); }
+  .pt-sub { font-size:11px; color:var(--txt-m); }
+  .pt-about { width:30px; height:30px; background:var(--info); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer; flex-shrink:0; }
+
+  /* PCでは全セクションを縦に並べて表示 */
+  .pc-sc { display:block; border-bottom:8px solid #ebebeb; }
+  .pc-sc:last-child { border-bottom:none; }
+
+  /* PC用セクション区切りヘッダー */
+  .pc-sc-label {
+    background:var(--white);
+    padding:12px 24px; display:flex; align-items:center; gap:10px;
+    border-bottom:1px solid var(--border);
+    border-top:4px solid var(--acc-d);
+  }
+  .pc-sc-label h2 { font-size:16px; font-weight:700; color:#fff; margin:0; }
+  .pc-sc-label .lico { font-size:20px; }
+
+  /* PC用余白調整 */
+  .sec { padding:16px 24px 0; }
+  .intro-box { margin:16px 24px 0; }
+  .stamp-wrap, .memo-wrap { margin-left:24px; margin-right:24px; }
+  .contact-btns { margin-left:24px; margin-right:24px; }
+  .priv-note { margin:0 24px; }
+
+  /* PCではサービスカード4列 */
+  .svc-grid { grid-template-columns:repeat(4,1fr); gap:12px; }
+
+  /* PC：ヒーロー高さ */
+  .hero-img-wrap { height:260px; }
+  .hero-overlay h2 { font-size:28px; }
+  .hero-overlay p { font-size:13px; }
+
+  /* PC：関連サイト2列 */
+  .rel-sites { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+
+  /* PC：スタンプ2列 */
+  .stamps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+
+  /* スクロールアニメ用 */
+  .pc-sc { animation:fu .3s ease; }
+  .pc-sc-label h2 { font-size:15px; }
+
+  /* フッター */
+  .pc-footer { padding:20px 24px; background:var(--info); text-align:center; font-size:11px; color:var(--txt-m); }
+}
+</style>
+</head>
+<body>
+
+<!-- =============================================
+     スマホ用シェル（~767px）
+     ============================================= -->
+<div id="sp-shell">
+  <div id="sp-topbar">
+    <div class="tb-logo">
+      <img class="tb-logo-img"
+        src="https://assets.softr-files.com/applications/876a45c9-9cb9-4e95-ab93-c1e5b9bcf07f/assets/afb7b164-df2e-4ad9-b85a-53cc241b9285.jpeg"
+        alt="ロゴ" onerror="this.style.display='none'">
+      <div class="tb-left">
+        <h1>てぃあんだぁクラブ</h1>
+        <span>家庭教育サポート · 沖縄</span>
+      </div>
+    </div>
+    <div class="tb-right" onclick="openM('about')">🐾</div>
+  </div>
+
+  <div id="sp-scroll">
+    <!-- HOME -->
+    <div class="sp-sc on" id="sp-home">
+      <div id="content-home"></div>
+    </div>
+    <!-- 安心 -->
+    <div class="sp-sc" id="sp-ansin">
+      <div id="content-ansin"></div>
+    </div>
+    <!-- つながる -->
+    <div class="sp-sc" id="sp-tsunagaru">
+      <div id="content-tsunagaru"></div>
+    </div>
+    <!-- 学ぶ -->
+    <div class="sp-sc" id="sp-manabu">
+      <div id="content-manabu"></div>
+    </div>
+    <!-- わたしの歩み -->
+    <div class="sp-sc" id="sp-ayumi">
+      <div id="content-ayumi"></div>
+    </div>
+  </div>
+
+  <div id="sp-bnav">
+    <div class="bn on" id="bn-home" onclick="spGoTo('home')"><span class="bico">🏠</span>いま</div>
+    <div class="bn" id="bn-ansin" onclick="spGoTo('ansin')"><span class="bico">🤝</span>話す</div>
+    <div class="bn" id="bn-tsunagaru" onclick="spGoTo('tsunagaru')"><span class="bico">🍀</span>つながる</div>
+    <div class="bn" id="bn-manabu" onclick="spGoTo('manabu')"><span class="bico">📖</span>学ぶ</div>
+    <div class="bn" onclick="openM('openchat')"><span class="bico">🕊️</span>チャット</div>
+  </div>
+</div>
+
+<!-- =============================================
+     PCシェル（768px以上）
+     ============================================= -->
+<div id="pc-shell">
+  <!-- サイドナビ -->
+  <div id="pc-side">
+    <div class="pc-logo-wrap">
+      <img class="pc-logo-img"
+        src="https://assets.softr-files.com/applications/876a45c9-9cb9-4e95-ab93-c1e5b9bcf07f/assets/afb7b164-df2e-4ad9-b85a-53cc241b9285.jpeg"
+        alt="ロゴ" onerror="this.style.display='none'">
+      <div class="pc-logo-name">てぃあんだぁクラブ</div>
+      <div class="pc-logo-sub">家庭教育サポート · 沖縄</div>
+    </div>
+    <div class="pc-nav-item on" onclick="pcScrollTo('pc-home')"><span class="pico">🏠</span>いま</div>
+    <div class="pc-nav-item" onclick="pcScrollTo('pc-ansin')"><span class="pico">🤝</span>まず、話す</div>
+    <div class="pc-nav-item" onclick="pcScrollTo('pc-tsunagaru')"><span class="pico">🍀</span>つながる</div>
+    <div class="pc-nav-item" onclick="pcScrollTo('pc-manabu')"><span class="pico">📖</span>学ぶ</div>
+    <div class="pc-nav-item" onclick="openM('openchat')"><span class="pico">💬</span>オープンチャット</div>
+    <div class="pc-nav-item" onclick="openM('about')"><span class="pico">🐾</span>このサイトについて</div>
+    <div class="pc-side-contact">
+      <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank">✉️ お問い合わせ</a>
+      <a class="sub" href="https://x.gd/Eu5zx" target="_blank">✏️ 勉強会お申し込み</a>
+      <a class="sub" href="https://teaunderclub.substack.com" target="_blank">📬 メルマガ登録</a>
+      <div class="pc-tel">お急ぎの方は<a href="tel:07056924173">📞 070-5692-4173</a></div>
+    </div>
+  </div>
+
+  <!-- メインエリア -->
+  <div id="pc-main">
+    <div id="pc-topbar">
+      <span class="pt-title">てぃあんだぁクラブ</span>
+      <span class="pt-sub">子どもの「好き」と「得意」を見つけ、お母さんが安心を充電する家庭教育サポート</span>
+      <div class="pt-about" onclick="openM('about')">🐾</div>
+    </div>
+
+    <div class="pc-sc" id="pc-home">
+      <div class="pc-sc-label"><span class="lico">🏠</span><h2>いま</h2></div>
+      <div id="pc-content-home"></div>
+    </div>
+    <div class="pc-sc" id="pc-ansin">
+      <div class="pc-sc-label"><span class="lico">🤝</span><h2>まず、話す</h2></div>
+      <div id="pc-content-ansin"></div>
+    </div>
+    <div class="pc-sc" id="pc-tsunagaru">
+      <div class="pc-sc-label"><span class="lico">🍀</span><h2>つながる</h2></div>
+      <div id="pc-content-tsunagaru"></div>
+    </div>
+    <div class="pc-sc" id="pc-manabu">
+      <div class="pc-sc-label"><span class="lico">📖</span><h2>学ぶ</h2></div>
+      <div id="pc-content-manabu"></div>
+    </div>
+    <!-- わたしの歩み：一時保留
+    <div class="pc-sc" id="pc-ayumi">
+      <div class="pc-sc-label"><span class="lico">🌌</span><h2>わたしの歩み</h2></div>
+      <div id="pc-content-ayumi"></div>
+    </div>
+    -->
+    <div class="pc-footer">© 2013-2025 てぃあんだぁクラブ</div>
+  </div>
+</div>
+
+<!-- モーダル（共通） -->
+<div id="mo" onclick="closeM(event)">
+  <div id="md">
+    <div class="md-handle"></div>
+    <div id="mc"></div>
+    <button class="md-close" onclick="closeM()">閉じる</button>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+/* =============================================
+   コンテンツHTML定義
+   ============================================= */
+const CONTENTS = {
+  home: `
+    <div class="hero">
+      <div class="hero-img-wrap">
+        <img class="hero-img"
+          src="https://assets.softr-files.com/applications/876a45c9-9cb9-4e95-ab93-c1e5b9bcf07f/assets/afb7b164-df2e-4ad9-b85a-53cc241b9285.jpeg"
+          alt="てぃあんだぁクラブ" onerror="this.style.display='none'">
+      </div>
+      <div class="hero-overlay">
+        <h2>ひとりで<br>抱えなくて<br><em>大丈夫です。</em></h2>
+        <p>子どもの「好き」と「得意」を見つけ、<br>お母さんが安心を充電する場所です。</p>
+      </div>
+    </div>
+    <div class="intro-box" style="margin:0;">
+      <p>てぃあんだぁクラブは、子どもを変える場所ではありません。<br>まずは<strong>お母さんが安心感を充電する</strong>。そこから、お子さんとの関わり方を一緒に考えていきましょう。</p>
+    </div>
+    <div class="sec" style="padding-top:0;">
+      <div class="sec-lbl">📅 次回の集まり</div>
+      <div class="ev-card" onclick="navigate('tsunagaru')">
+        <div class="ev-badge">NEXT · 水曜</div>
+        <h3>✏️ ワンコイン勉強会</h3>
+        <div class="ev-meta">
+          <span>📍 豊見城市</span><span>🕙 10:00〜12:00</span><span>💴 500円</span>
+        </div>
+        <button class="ev-btn">予約・詳細 →</button>
+      </div>
+    </div>
+    <div class="sec" style="padding-top:0;">
+      <div class="sec-lbl">🗂 サービス一覧</div>
+      <div class="svc-grid">
+        <div class="svc-card" onclick="openM('wankokai')"><span class="svc-icon">✏️</span><div class="svc-title">ワンコイン<br>勉強会</div><div class="svc-sub">週2回 · 500円</div></div>
+        <div class="svc-card" onclick="openM('kobetsu')"><span class="svc-icon">🏠</span><div class="svc-title">個別授業</div><div class="svc-sub">MI診断つき · 90分</div></div>
+        <div class="svc-card" onclick="openM('anger')"><span class="svc-icon">🌼</span><div class="svc-title">アンガー<br>マネジメント</div><div class="svc-sub">子ども・保護者</div></div>
+        <div class="svc-card" onclick="openM('ikukai')"><span class="svc-icon">📚</span><div class="svc-title">子育て<br>勉強会</div><div class="svc-sub">不定期開催</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">🔗 つながる</div>
+      <div class="card" onclick="navigate('ansin')">
+        <div class="card-row"><div class="ci g">🤲</div><div class="card-info"><div class="card-title">まず、話す</div><div class="card-sub">気持ちを確認する・相談前メモを書く</div></div><div class="card-arr">›</div></div>
+      </div>
+      <!-- 記録の棚：一時保留
+      <div class="card" onclick="openM('universe')">
+        <div class="card-row"><div class="ci s">🌌</div><div class="card-info"><div class="card-title">記録の棚（universe）</div><div class="card-sub">教材・実践・メディア掲載のアーカイブ</div></div><div class="card-arr">›</div></div>
+      </div>
+      -->
+      <div class="card" onclick="openM('openchat')" style="border-left:4px solid #06C755;">
+        <div class="card-row"><div class="ci" style="background:rgba(6,199,85,.15);font-size:22px;">🕊️</div><div class="card-info"><div class="card-title">オープンチャットに参加する</div><div class="card-sub">新月・満月ごろにワンコ通信をお届け</div></div><div class="card-arr">›</div></div>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">📲 まずはここから</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:2px;">
+        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:var(--orange);color:#fff;border-radius:14px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:var(--sh);transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:26px;">📞</span>電話する
+          <span style="font-size:10px;font-weight:400;opacity:.85;">070-5692-4173</span>
+        </a>
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:var(--acc);color:#fff;border-radius:14px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:var(--sh);transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:26px;">✉️</span>フォームで相談
+          <span style="font-size:10px;font-weight:400;opacity:.85;">お問い合わせ</span>
+        </a>
+        <div onclick="openM('openchat')" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#06C755;color:#fff;border-radius:14px;padding:16px 8px;cursor:pointer;font-weight:700;font-size:13px;box-shadow:var(--sh);transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:26px;">💬</span>オープンチャット
+          <span style="font-size:10px;font-weight:400;opacity:.85;">新月・満月ごろ更新</span>
+        </div>
+        <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:var(--acc-dd);color:#fff;border-radius:14px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:var(--sh);transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:26px;">📬</span>メルマガ登録
+          <span style="font-size:10px;font-weight:400;opacity:.85;">ワンコ通信</span>
+        </a>
+        <a href="https://x.gd/Eu5zx" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:var(--info);color:var(--acc-dd);border:2px solid var(--acc);border-radius:14px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;box-shadow:var(--sh);transition:opacity .15s;grid-column:span 2;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:26px;">✏️</span>勉強会に申し込む
+          <span style="font-size:10px;font-weight:400;opacity:.7;">ワンコイン勉強会・子育て勉強会</span>
+        </a>
+      </div>
+      <p style="font-size:10px;color:var(--txt-m);text-align:center;padding:8px 0 0;">盆・正月・休日も対応しています ☕️（担当：佐渡山）</p>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">🌐 関連サイト</div>
+      <div class="rel-sites">
+        <!-- universe：一時保留
+        <a class="rel-a" href="https://universe.tea-under.club" target="_blank"><div class="rel-ico">🌌</div><div class="rel-info"><div class="rel-title">てぃあんだぁクラブ universe</div><div class="rel-sub">教材・実践・作品のアーカイブ</div></div><div class="rel-arr">›</div></a>
+        -->
+        <a class="rel-a" href="https://alpaca-school.okinawa" target="_blank"><div class="rel-ico">🦙</div><div class="rel-info"><div class="rel-title">アルパカすく〜る</div><div class="rel-sub">外の世界を、無理なく試す場所</div></div><div class="rel-arr">›</div></a>
+        <a class="rel-a" href="https://yumetsumugi.ainoie1962.com/" target="_blank"><div class="rel-ico">🌷</div><div class="rel-info"><div class="rel-title">わたしの夢つむぎ</div><div class="rel-sub">内側を整えて気持ちをほどく</div></div><div class="rel-arr">›</div></a>
+        <a class="rel-a" href="https://teaunderclub.substack.com" target="_blank"><div class="rel-ico">📬</div><div class="rel-info"><div class="rel-title">メルマガ「ワンコ通信」</div><div class="rel-sub">日々の気づきと活動のたより</div></div><div class="rel-arr">›</div></a>
+      </div>
+    </div>
+    <p style="text-align:center;font-size:10px;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
+  `,
+
+  ansin: `
+    <div class="ansin-hero">
+      <h2>まず、話してみませんか。</h2>
+      <p>うまく話せなくても、書き出すだけでも。<br>ひとりで抱えなくて大丈夫です。</p>
+    </div>
+
+    <!-- 無料電話相談 メインCTA -->
+    <div style="margin:16px 16px 0;">
+      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);color:#fff;border-radius:16px;padding:18px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(255,159,67,0.28);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        <span style="font-size:32px;flex-shrink:0;">📞</span>
+        <div>
+          <div style="font-size:15px;font-weight:700;margin-bottom:2px;">無料電話相談</div>
+          <div style="font-size:12px;opacity:.88;">070-5692-4173（佐渡山）</div>
+          <div style="font-size:10px;opacity:.72;margin-top:2px;">盆・正月・休日も対応しています ☕️</div>
+        </div>
+      </a>
+    </div>
+
+    <!-- 書き出しメモ -->
+    <div class="memo-wrap">
+      <div class="memo-ttl">📝 気になっていることを書き出してみる（任意）</div>
+      <div class="memo-note">
+        面と向かうと言い忘れることってありますよね。<br>
+        電話の前でも、気持ちを整理したいときでも。<br>
+        <em>このメモはあなただけが見られます。送信されません。</em>
+      </div>
+      <textarea id="memo" placeholder="例）中2の息子が2学期からほぼ不登校。ゲームとYouTubeの毎日で会話も減っています。どう関わればいいか分からなくて…&#10;&#10;うまく書けなくても大丈夫です。"></textarea>
+      <div style="margin-top:10px;display:flex;gap:8px;">
+        <a href="tel:07056924173" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:12px;font-weight:700;">📞 電話する</a>
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:12px;font-weight:700;">✉️ フォームで送る</a>
+      </div>
+    </div>
+
+    <!-- 相談の流れ -->
+    <div class="sec">
+      <div class="sec-lbl">📋 相談の流れ</div>
+      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);">
+        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">電話 or フォームでご連絡</div>
+            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">「学校に行けない」「勉強についていけない」「どう接したらいいか分からない」—どんな小さなことでも話してみてください。うまく言えなくても大丈夫です。</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">無料電話相談 or 個別面談</div>
+            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">お子さんの状況・ご家庭の様子をていねいにお聞きします。不登校・ADHD・発達特性・きょうだい間の悩みなど、複合的なことでも遠慮なくどうぞ。場所は自宅・カフェなど、話しやすい場所で。</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+          <div>
+            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">モヤモヤを整理して、次の一歩へ</div>
+            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">「モヤっとしていたことがすっきりした」「やるべきことが分かった」—そんな時間をご一緒します。ワンコイン勉強会・個別授業・MIKATAレポートなど、必要に応じてご提案します。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MIKATAレポート -->
+    <div class="sec">
+      <div class="sec-lbl">💡 子どものMIKATAレポート</div>
+      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--acc-d);">
+        <p style="font-size:12px;color:var(--txt);line-height:1.85;margin-bottom:10px;">相談後、ご希望の方には<strong>お子さんの学習・成長パターンを可視化したPDFレポート</strong>をお届けします。「俺できんし」「やる気ない」という言葉の裏にあるものを、多重知能（MI）の視点から整理します。</p>
+        <div style="background:var(--info);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--txt-m);line-height:1.9;">
+          📄 基本レポート：1,500円<br>
+          🧩 多重知能チェック付き：＋500円<br>
+          🔄 定期フォロープラン（夏休み・年度初めなど節目ごと）：初回後にご相談
+        </div>
+      </div>
+    </div>
+
+    <div style="margin:12px 16px 0;">
+      <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--info);border:1.5px solid var(--acc);color:var(--acc-dd);border-radius:12px;padding:12px;text-decoration:none;font-size:12px;font-weight:700;">
+        📬 メルマガ「ワンコ通信」を読む
+      </a>
+    </div>
+
+    <div class="sec">
+      <div class="sec-lbl">❓ よくある質問</div>
+      <div class="faq-wrap">
+        <div class="faq-item">
+          <span class="faq-q">Q. 相談だけでも大丈夫ですか？</span>
+          <p class="faq-a">A. はい。まずは無料の電話相談からどうぞ。その後のご利用は一切強制しません。</p>
+        </div>
+        <div class="faq-item">
+          <span class="faq-q">Q. 不登校とADHDなど、複数の悩みがあっても大丈夫ですか？</span>
+          <p class="faq-a">A. もちろんです。きょうだいそれぞれの状況や、ご家庭全体の状況を含めてお聞きします。まずはご連絡ください。</p>
+        </div>
+        <div class="faq-item">
+          <span class="faq-q">Q. 自宅以外で話したいのですが。</span>
+          <p class="faq-a">A. 話しやすい場所（カフェなど）での面談にも対応しています。お気軽にご相談ください。</p>
+        </div>
+        <div class="faq-item">
+          <span class="faq-q">Q. 勉強したい時だけお願いできますか？</span>
+          <p class="faq-a">A. はい。当日でも空きがあれば可能です。まずは一度ご相談ください。</p>
+        </div>
+      </div>
+    </div>
+  `,
+
+  tsunagaru: `
+    <div class="ev-list-hdr">
+      <h2>つながる</h2>
+      <p>参加できる日に、参加できる場所で。<br>事前予約不要の回もあります。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">✏️ ワンコイン勉強会</div>
+      <div class="ev-item">
+        <div class="ev-item-top"><div class="ev-item-title">ワンコイン勉強会（豊見城）</div><div class="ev-tag r">毎週水曜</div></div>
+        <div class="hl-box">📅 水曜 10-12時　📍 豊見城市</div>
+        <div class="ev-price">500円 / 回（少人数・個別対応）</div>
+        <button class="apbtn" onclick="openM('apply-toyomi')">予約・お問い合わせ</button>
+      </div>
+      <div class="ev-item">
+        <div class="ev-item-top"><div class="ev-item-title">ワンコイン勉強会（うるま）</div><div class="ev-tag r">毎週金曜</div></div>
+        <div class="hl-box">📅 金曜 10-12時　📍 うるま市</div>
+        <div class="ev-price">500円 / 回（少人数・個別対応）</div>
+        <button class="apbtn" onclick="openM('apply-uruma')">予約・お問い合わせ</button>
+      </div>
+      <div class="sec-lbl" style="margin-top:6px;">🌱 その他のプログラム</div>
+      <div class="ev-item">
+        <div class="ev-item-top"><div class="ev-item-title">🏠 個別授業（MI診断つき）</div><div class="ev-tag b">要相談</div></div>
+        <div class="hl-box">🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><span style="font-size:11px;color:var(--txt-m)">※ 1回90分 / 自宅または通いで実施</span></div>
+        <div class="ev-price">まずは無料相談から</div>
+        <button class="apbtn y" onclick="openM('kobetsu')">相談する</button>
+      </div>
+      <div class="ev-item">
+        <div class="ev-item-top"><div class="ev-item-title">🌼 アンガーマネジメント</div><div class="ev-tag g">随時受付</div></div>
+        <div class="ev-price">詳細はお問い合わせください</div>
+        <button class="apbtn y" onclick="openM('anger')">詳細・お問い合わせ</button>
+      </div>
+      <div class="ev-item">
+        <div class="ev-item-top"><div class="ev-item-title">📚 子育て勉強会</div><div class="ev-tag g">不定期</div></div>
+        <div class="ev-price">メルマガで先行案内</div>
+        <div style="display:flex;gap:8px;">
+          <button class="apbtn" style="flex:1" onclick="openM('merumaga')">メルマガ登録</button>
+          <a class="apbtn o" style="flex:1;text-align:center;text-decoration:none;display:flex;align-items:center;justify-content:center;" href="https://x.gd/Eu5zx" target="_blank">申し込む</a>
+        </div>
+      </div>
+      <a class="ogp-card" href="https://furima.ryukyu-tane.com/" target="_blank" id="ogp-furima">
+        <div class="ogp-img-placeholder">🎨</div>
+        <div class="ogp-body">
+          <span class="ogp-tag">沖縄文芸フリマ · 琉球のタネ主催</span>
+          <div class="ogp-title">人の想いや創造力が静かにきらめく文化の場</div>
+          <div class="ogp-desc">文学・イラスト・漫画・ハンドメイドなど。子どもから大人まで誰もが主役になれる場所。</div>
+        </div>
+      </a>
+      <div class="enen-card">
+        <div class="enen-ttl">🪷 ご縁カードをお持ちの方へ</div>
+        <p>必要な人にそっと渡せる案内カード。<br>初回の勉強会を安心価格でご参加いただけます。</p>
+        <button class="enen-btn" onclick="openM('enen')">コードを入力する</button>
+      </div>
+    </div>
+  `,
+
+  manabu: `
+    <div class="manabu-hdr">
+      <h2>学ぶ</h2>
+      <p>ゆっくり読んでください。読むだけでいいです。</p>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">📝 ワンコ通信</div>
+      <div class="art-card" onclick="openM('wanko')">
+        <div class="art-row"><div class="art-thumb">🌾</div><div class="art-info"><span class="art-tag">最新号 · 芒種</span><div class="art-title">子どもの「やらない」の裏にあるもの</div><div class="art-date">2026年6月2日</div></div></div>
+      </div>
+      <div class="art-card" onclick="openM('wanko2')">
+        <div class="art-row"><div class="art-thumb">🌸</div><div class="art-info"><span class="art-tag">バックナンバー</span><div class="art-title">ジョハリの窓 ── 見えていない自分との出会い方</div><div class="art-date">2026年3月5日</div></div></div>
+      </div>
+      <a class="sub-btn" href="https://teaunderclub.substack.com" target="_blank">
+        <span>📬 ワンコ通信をすべて読む（Substack）</span><span class="arr">›</span>
+      </a>
+      <div class="sec-lbl">📗 テーマ別</div>
+      <div class="card" onclick="openM('anger')">
+        <div class="card-row"><div class="ci y">🌼</div><div class="card-info"><div class="card-title">アンガーマネジメント</div><div class="card-sub">感情の整理・受け止め方・伝え方</div></div><div class="card-arr">›</div></div>
+      </div>
+      <div class="card" onclick="openM('mi')">
+        <div class="card-row"><div class="ci g">🧩</div><div class="card-info"><div class="card-title">多重知能（MI）とは</div><div class="card-sub">得意・苦手を8つの視点で見る</div></div><div class="card-arr">›</div></div>
+      </div>
+
+      <div class="sec-lbl" style="margin-top:8px;">📣 開催報告</div>
+
+      <!-- OGPカード：クリックでリンク先へ、画像は動的取得 -->
+      <style>
+        .ogp-card { background:var(--white); border-radius:0; margin-bottom:0; border-bottom:1px solid var(--border); overflow:hidden; cursor:pointer; transition:background .1s; text-decoration:none; display:block; }
+        .ogp-card:hover { background:#fafafa; }
+        .ogp-img { width:100%; height:160px; object-fit:cover; display:block; background:var(--info); }
+        .ogp-img-placeholder { width:100%; height:160px; background:linear-gradient(135deg,var(--acc),var(--acc-d)); display:flex; align-items:center; justify-content:center; font-size:40px; }
+        .ogp-body { padding:12px 14px; }
+        .ogp-tag { font-size:10px; font-weight:700; color:var(--acc-d); letter-spacing:.06em; margin-bottom:4px; display:block; }
+        .ogp-title { font-size:13px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:3px; }
+        .ogp-desc { font-size:11px; color:var(--txt-m); line-height:1.5; }
+      </style>
+
+      <a class="ogp-card" href="https://news.ryukyu-tane.com/251130-nichiyougakkou-furugenchu/" target="_blank" id="ogp-1">
+        <div class="ogp-img-placeholder">🎧</div>
+        <div class="ogp-body">
+          <span class="ogp-tag">2025年11月30日 · 開催報告</span>
+          <div class="ogp-title">古堅中学校「日曜学校 心のセミナー」開催報告</div>
+          <div class="ogp-desc">🎧 音声対応コンテンツ</div>
+        </div>
+      </a>
+
+      <a class="ogp-card" href="https://news.ryukyu-tane.com/251018oogimi-festa/" target="_blank" id="ogp-2">
+        <div class="ogp-img-placeholder">🌟</div>
+        <div class="ogp-body">
+          <span class="ogp-tag">2025年10月18日 · 開催報告</span>
+          <div class="ogp-title">大宜味村「みんなの個性 光る未来フェスタ」開催報告</div>
+          <div class="ogp-desc">大宜味村</div>
+        </div>
+      </a>
+
+      <a class="ogp-card" href="https://news.ryukyu-tane.com/250705-morinoko/" target="_blank" id="ogp-3">
+        <div class="ogp-img-placeholder">🌳</div>
+        <div class="ogp-body">
+          <span class="ogp-tag">2025年7月5日 · 開催報告</span>
+          <div class="ogp-title">森の子児童センター「子育て応援ミニセミナー」開催報告</div>
+          <div class="ogp-desc">豊見城市</div>
+        </div>
+      </a>
+      <div class="card" onclick="openM('history')">
+        <div class="card-row"><div class="ci o">☕️</div><div class="card-info"><div class="card-title">てぃあんだぁクラブのはじまり</div><div class="card-sub">2013年 那覇市仲井真〜現在まで</div></div><div class="card-arr">›</div></div>
+      </div>
+      <!-- 記録の棚：一時保留
+      <div class="card" onclick="openM('universe')">
+        <div class="card-row"><div class="ci s">🌌</div><div class="card-info"><div class="card-title">記録の棚（universe）</div><div class="card-sub">教材・メディア掲載・勉強会まとめ</div></div><div class="card-arr">›</div></div>
+      </div>
+      -->
+    </div>
+  `,
+
+  ayumi: `
+    <div class="ayumi-hdr">
+      <h2>わたしの歩み</h2>
+      <p>ここに残る記録は、あなただけが見られます。<br>孤立から抜けた日々のプロセスです。</p>
+    </div>
+    <div class="sec" style="margin-top:14px;">
+      <div class="priv-note"><p>🔒 この画面の内容は外部に共有されません。<br>本人だけが見られる記録です。</p></div>
+    </div>
+    <div class="sec" id="ayumi-log-sec" style="display:none">
+      <div class="sec-lbl">📅 最近の記録</div>
+      <div id="ayumi-log-list"></div>
+    </div>
+    <div class="sec" id="ayumi-empty-sec">
+      <div class="ayumi-empty">
+        <div class="big">🌿</div>
+        <p>まだ記録がありません。<br>まず、話すで気持ちを選ぶと<br>ここに残っていきます。<br><br>来るだけでいいです。</p>
+      </div>
+    </div>
+    <div class="sec">
+      <div class="sec-lbl">🌱 次の一歩</div>
+      <div class="card" onclick="navigate('tsunagaru')">
+        <div class="card-row"><div class="ci g">✏️</div><div class="card-info"><div class="card-title">勉強会に参加してみる</div><div class="card-sub">500円・少人数・当日参加もOK</div></div><div class="card-arr">›</div></div>
+      </div>
+      <!-- universeの記録棚：一時保留
+      <div class="card" onclick="openM('universe')">
+        <div class="card-row"><div class="ci s">🌌</div><div class="card-info"><div class="card-title">universeの記録棚を見る</div><div class="card-sub">あとからゆっくり読み返す</div></div><div class="card-arr">›</div></div>
+      </div>
+      -->
+    </div>
+  `
+};
+
+/* =============================================
+   コンテンツを各プレースホルダに注入
+   ============================================= */
+const TABS = ['home','ansin','tsunagaru','manabu'];
+TABS.forEach(t => {
+  const spEl = document.getElementById('content-'+t);
+  const pcEl = document.getElementById('pc-content-'+t);
+  if(spEl) spEl.innerHTML = CONTENTS[t];
+  if(pcEl) pcEl.innerHTML = CONTENTS[t];
+});
+renderAyumi();
+
+/* =============================================
+   スマホ ナビ
+   ============================================= */
+function spGoTo(n) {
+  TABS.forEach(t => {
+    document.getElementById('sp-'+t).classList.toggle('on', t===n);
+    document.getElementById('bn-'+t).classList.toggle('on', t===n);
+  });
+  document.getElementById('sp-scroll').scrollTop = 0;
+}
+
+/* =============================================
+   PC スクロールナビ
+   ============================================= */
+function pcScrollTo(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+  document.querySelectorAll('.pc-nav-item').forEach(x => x.classList.remove('on'));
+  // クリックした要素をon
+  event.currentTarget.classList.add('on');
+}
+
+// スクロール位置でサイドナビをハイライト
+const pcMain = document.getElementById('pc-main');
+if(pcMain) {
+  pcMain.addEventListener('scroll', () => {
+    const scs = ['pc-home','pc-ansin','pc-tsunagaru','pc-manabu','pc-ayumi'];
+    let active = scs[0];
+    scs.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top <= 80) active = id;
+    });
+    const navItems = document.querySelectorAll('.pc-nav-item');
+    navItems.forEach((item,i) => item.classList.toggle('on', i === scs.indexOf(active)));
+  });
+}
+
+/* =============================================
+   共通ナビ（コンテンツ内のonclick用）
+   ============================================= */
+function navigate(tab) {
+  if(window.innerWidth >= 768) {
+    pcScrollTo2('pc-'+tab);
+  } else {
+    spGoTo(tab);
+  }
+}
+function pcScrollTo2(id) {
+  const el = document.getElementById(id);
+  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* =============================================
+   スタンプ・安心ログ
+   ============================================= */
+let sel = null;
+function selStamp(b) {
+  document.querySelectorAll('.sbtn').forEach(x => x.classList.remove('sel'));
+  b.classList.add('sel');
+  sel = b.textContent.trim();
+  document.querySelectorAll('#stamp-ok').forEach(el => el.style.display='block');
+}
+function stampDone() {
+  if(!sel) return;
+  const log = JSON.parse(localStorage.getItem('tia_log')||'[]');
+  log.unshift({text:sel, date:new Date().toLocaleDateString('ja-JP')});
+  localStorage.setItem('tia_log', JSON.stringify(log.slice(0,30)));
+  showToast('記録しました 🌿');
+  document.querySelectorAll('.sbtn').forEach(x => x.classList.remove('sel'));
+  document.querySelectorAll('#stamp-ok').forEach(el => el.style.display='none');
+  sel = null;
+  renderAyumi();
+}
+function renderAyumi() {
+  const log = JSON.parse(localStorage.getItem('tia_log')||'[]');
+  ['ayumi-log-sec','ayumi-empty-sec','ayumi-log-list'].forEach(id => {
+    // 複数ある可能性があるので全部更新
+  });
+  document.querySelectorAll('#ayumi-log-sec').forEach(el => el.style.display = log.length ? 'block':'none');
+  document.querySelectorAll('#ayumi-empty-sec').forEach(el => el.style.display = log.length ? 'none':'block');
+  const html = log.map(l => `<div class="log-item"><div class="log-ico">${[...l.text][0]}</div><div class="log-text"><strong>${l.text.replace(/^./,'').trim()}</strong><span>${l.date}</span></div></div>`).join('');
+  document.querySelectorAll('#ayumi-log-list').forEach(el => el.innerHTML = html);
+}
+
+/* =============================================
+   モーダル
+   ============================================= */
+const MS = {
+  about:{title:'てぃあんだぁクラブとは',sub:'家庭教育サポート | 2013年〜',body:'「てぃあんだぁ」は沖縄の言葉で、手のぬくもり・心のこもった手当てを意味します。<br><br>子どもを変える場所ではありません。まずはお母さんが安心感を充電する。そこから、お子さんとの関わり方を一緒に考えていきましょう。<br><br>担当：佐渡山（さどやま）<br>📞 <a href="tel:07056924173">070-5692-4173</a><br>盆・正月・休日も対応しています☕️'},
+  wankokai:{title:'✏️ ワンコイン勉強会',sub:'週2回 · 500円 / 回',body:'学校に通えていない小・中学生、中学卒業後に高校受験を目指す子のための学びの場です。「久しぶりに人と学ぶ」ための、無理のない入口です。<br><br>📅 水曜 10-12時：豊見城市<br>📅 金曜 10-12時：うるま市<br><br>・1回 500円（少人数・個別対応）<br>・勉強 ＋ 相談の時間<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込み →</a>'},
+  kobetsu:{title:'🏠 個別授業',sub:'MI診断つき · 1回90分',body:'多重知能（MI）チェックで得意・苦手を可視化。本人のペースで学習をサポートします。<br><br>🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><br>※ 1回90分 / 自宅または通いで実施<br><br>まずは無料の電話相談からどうぞ。<br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
+  anger:{title:'🌼 アンガーマネジメント',sub:'子ども・保護者向け',body:'感情のコントロールに悩むお子さんと、その対応に迷う保護者のための心理教育プログラムです。<br><br><strong>子ども：</strong>落ち着く方法、感情の整理・伝え方を練習する<br><br><strong>保護者：</strong>子どもの感情を受け止める「聴き方」「伝え方」、家庭での共感的コミュニケーション<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
+  ikukai:{title:'📚 子育て勉強会',sub:'不定期開催',body:'親が学び、つながり、安心を充電する場です。<br><br>開催日程はメルマガ「ワンコ通信」で先行案内しています。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 メルマガに登録する →</a><br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込みフォーム →</a>'},
+  mi:{title:'多重知能（MI）とは',sub:'個別授業で活用しています',body:'ハワード・ガードナーが提唱した「8つの知能」の理論。<br><br>言語・論理・音楽・身体・空間・自然・対人・内省の8領域から、お子さんの得意・苦手を可視化します。<br><br>「勉強が苦手」ではなく、「この子の得意な学び方はこれだ」という視点に変えるためのツールです。'},
+  history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:12px;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:10px;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:10px;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:10px;color:var(--txt-m);">2016年9月19日</span></a></div>'},
+  wanko:{title:'子どもの「やらない」の裏にあるもの',sub:'ワンコ通信 · 2026年6月2日 · 芒種',body:'芒種の頃、稲の穂がそっと頭を出し始めます。<br><br>「なんで勉強しないの？」そう感じる瞬間、子どもの「やらない」の裏には何があるのでしょうか。<br><br>やる気がない、のではなく、やり方がわからないのかもしれません。怠けているのではなく、エネルギーが底をついているだけかもしれません。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 ワンコ通信の全文はSubstackで →</a>'},
+  wanko2:{title:'ジョハリの窓 ── 見えていない自分',sub:'ワンコ通信バックナンバー',body:'「ジョハリの窓」は、人と人との関わりを通じて自分を知るための心理モデルです。<br><br>・開放の窓：自分も他人も知っている自分<br>・盲目の窓：他人は知っているが、自分では気づいていない自分<br>・秘密の窓：自分は知っているが、他人には見せていない自分<br>・未知の窓：誰にも知られていない、まだ出会っていない自分<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackでバックナンバーを読む →</a>'},
+  universe:{title:'記録の棚（universe）',sub:'あとからゆっくり読み返す',body:'てぃあんだぁクラブのこれまでの活動記録・教材・メディア掲載をアーカイブしています。<br><br>「購入する」ではなく、「いつか読み返す棚」として置いてあります。<br><br>🌌 <a href="https://universe.tea-under.club" target="_blank">universe.tea-under.club</a>'},
+  'apply-toyomi':{title:'ワンコイン勉強会（豊見城）',sub:'毎週水曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
+  'apply-uruma':{title:'ワンコイン勉強会（うるま）',sub:'毎週金曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
+  merumaga:{title:'メルマガ「ワンコ通信」',sub:'子育て勉強会の先行案内もお届け',body:'てぃあんだぁクラブの日々の気づきと活動のたよりです。<br>勉強会の先行案内もこちらからお届けします。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackで登録する →</a>'},
+  openchat:{title:'🕊️ てぃあんだぁクラブ オープンチャット',sub:'新月・満月ごろにワンコ通信をお届け',body:'<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,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" alt="QRコード" style="width:180px;height:180px;border-radius:12px;border:3px solid rgb(185,208,139);"><p style="font-size:11px;color:var(--txt-m);margin-top:8px;">カメラで読み取るか、下のボタンからどうぞ</p></div><a href="https://line.me/ti/g2/6lyFFfcxR_VsZahIfVdPtYXBY18b5YRT6AxG9Q?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" style="display:block;background:#06C755;color:#fff;text-align:center;border-radius:12px;padding:12px;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:16px;">🟢 LINEオープンチャットに参加する</a><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.9;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">🕊️ ワンコNEWS、届けています</p><p style="font-size:12px;color:var(--txt);">新月・満月ごろに「ワンコ通信」を配信。二十四節気にあわせた子育てのヒントや、地域のイベント情報、不登校・学習支援に役立つリンクなどをシェアしています。</p></div><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:12px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:8px;">💬 こんな投稿が集まっています</p>・子育てや家庭教育に役立つヒント<br>・地域のイベント・講座案内<br>・防災・奨学金・制度のお知らせ<br>・保護者同士の気づきや共感<br>・アンガーマネジメント、発達支援の情報<br><br><span style="font-size:11px;color:var(--txt-m);">「お？便利そう？何かの役に立ちそう？」と思ったことを気軽にシェアしてください。</span></div><div style="background:var(--hi);border-radius:12px;padding:14px;margin-bottom:12px;font-size:12px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">📣 参加のルール（ゆるく・あたたかく）</p>投稿の際は「どんな子に役立ちそう？」など、子育て・教育の視点で一言添えていただけると嬉しいです🌱<br><br><span style="color:#c0392b;font-weight:700;">🚫 控えてほしい投稿：</span>宣伝目的のみの投稿・マルチ商法・政治・宗教活動・個人を傷つける表現</div><p style="font-size:12px;color:var(--txt);text-align:center;line-height:1.9;">みんなで楽しい子育て時間を増やしていきましょうฅˆ•ﻌ•ˆฅ♬*゜</p>'},
+  enen:{title:'🪷 ご縁カード',sub:'必要な人にそっと渡せる案内カード',body:'ご縁カードをお持ちの方は、初回の勉強会を安心価格でご参加いただけます。<br><br>カードに記載のコードをお知らせください。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br><br><a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank">📋 フォームから入力 →</a>'},
+};
+
+function openM(k) {
+  const m = MS[k]; if(!m) return;
+  document.getElementById('mc').innerHTML = `<div class="md-title">${m.title}</div><div class="md-sub">${m.sub}</div><div class="md-body">${m.body}</div>`;
+  document.getElementById('mo').classList.add('open');
+}
+function closeM(e) {
+  if(!e || e.target===document.getElementById('mo') || !e.target)
+    document.getElementById('mo').classList.remove('open');
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+</script>
+</body>
+</html>
