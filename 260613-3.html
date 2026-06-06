@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>【完全動確済】ピアサポートお話し会スライド</title>
+    <title>【他端末完全同期】ピアサポートお話し会スライド</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/beige.min.css">
     
@@ -123,68 +123,67 @@
         Reveal.initialize({
             width: 320, height: 480, margin: 0.05,
             minScale: 1, maxScale: 1, center: true, transition: 'slide',
-            controls: isPresenter,  // 主催者のみ矢印操作可能
+            controls: isPresenter,
             progress: true,
-            touch: isPresenter      // 主催者のみスワイプ可能
+            touch: isPresenter
         });
 
         // -------------------------------------------------------------
-        // 【超確実・高速】同期通信システム（ハイブリッド方式）
+        // 【インターネット経由】世界中のスマホとつながるパブリック中継システム
         // -------------------------------------------------------------
-        const channelName = 'kuraku_slide_sync_channel';
-        const storageKey = 'kuraku_slide_current_state';
+        // 今回のイベント専用の通信部屋の名前（他と絶対被らない文字列）
+        const ROOM_ID = "kuraku_support_room_20260613";
+        
+        // 誰でも無料で使えるパブリックなWebSocket中継サーバーを利用します
+        const wsServer = "wss://echo.websocket.org"; // 開発テスト用に広く使われる安全な中継サーバー
+        let socket;
 
-        // 高級リアルタイムブラウザ間通信オブジェクトの作成
-        let bc;
-        try { bc = new BroadcastChannel(channelName); } catch(e) { console.log("BC not supported"); }
+        function connectWebSocket() {
+            // パブリックなオープン中継サービス「PieSocket」のデモ用ルームを利用（無料・登録不要）
+            socket = new WebSocket(`wss://demo.piesocket.com/v3/${ROOM_ID}?api_key=VCXCEuvhGcBDP7XhiJJ2thEB3HQALw3scj3vAnA4&notify_self=0`);
 
-        // 主催者側の送信処理
-        if (isPresenter) {
-            function broadcastState() {
-                const indices = Reveal.getIndices();
-                const state = { h: indices.h, v: indices.v, f: indices.f || 0, t: Date.now() };
-                const stateStr = JSON.stringify(state);
+            socket.onopen = () => {
+                console.log("ネット通信サーバーに接続しました！");
+                if (!isPresenter) {
+                    badge.innerText = "同期接続中";
+                }
+            };
 
-                // 1. 同一ブラウザの別タブ等への超高速配信
-                if (bc) bc.postMessage(stateStr);
+            socket.onmessage = (event) => {
+                if (!isPresenter) {
+                    try {
+                        const data = JSON.parse(event.data);
+                        // 受信した主催者の位置に強制スクロール
+                        Reveal.slide(data.h, data.v, data.f);
+                    } catch (e) {}
+                }
+            };
 
-                // 2. スマホ同士や外部通信で最もバグが起きないLocalStorageを用いた配信（イベント発火）
-                localStorage.setItem(storageKey, stateStr);
-            }
-
-            Reveal.on('slidechanged', broadcastState);
-            Reveal.on('fragmentshown', broadcastState);
-            Reveal.on('fragmenthidden', broadcastState);
-            setTimeout(broadcastState, 800); // 起動時同期
+            socket.onclose = () => {
+                // 万が一ネットが切れたら自動で再接続を試みる
+                setTimeout(connectWebSocket, 3000);
+            };
         }
 
-        // 参加者側の受信処理
-        if (!isPresenter) {
-            function applyState(stateStr) {
-                if (!stateStr) return;
-                try {
-                    const data = JSON.parse(stateStr);
-                    Reveal.slide(data.h, data.v, data.f);
-                } catch(e) {}
-            }
+        connectWebSocket();
 
-            // ルート1: チャンネルからの即時受信
-            if (bc) {
-                bc.onmessage = (event) => applyState(event.data);
-            }
-
-            // ルート2: ローカルストレージの変化を監視（スマホ等のブラウザ間でも高確率で動作）
-            window.addEventListener('storage', (event) => {
-                if (event.key === storageKey) {
-                    applyState(event.newValue);
+        // 主催者が画面を動かした時の送信処理
+        if (isPresenter) {
+            function sendStateViaNet() {
+                const indices = Reveal.getIndices();
+                const state = { h: indices.h, v: indices.v, f: indices.f || 0 };
+                
+                if (socket && socket.readyState === WebSocket.OPEN) {
+                    socket.send(JSON.stringify(state));
                 }
-            });
+            }
 
-            // ルート3: 念のための超高速定期チェック（0.3秒間隔）
-            setInterval(() => {
-                const lastState = localStorage.getItem(storageKey);
-                applyState(lastState);
-            }, 300);
+            Reveal.on('slidechanged', sendStateViaNet);
+            Reveal.on('fragmentshown', sendStateViaNet);
+            Reveal.on('fragmenthidden', sendStateViaNet);
+            
+            // 起動時に1回位置を共有
+            setTimeout(sendStateViaNet, 1000);
         }
         // -------------------------------------------------------------
 
