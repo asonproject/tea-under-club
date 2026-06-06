@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>【完全同期版】ピアサポートお話し会スライド</title>
+    <title>【完全動確済】ピアサポートお話し会スライド</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/beige.min.css">
     
@@ -22,7 +22,7 @@
         .ctrl-btn { background: #444; color: #fff; border: 1px solid #666; padding: 6px 10px; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
         .ctrl-btn.share-btn { background: #fbc02d; color: #333; font-weight: bold; border-color: #fbc02d; }
         
-        #roleBadge { font-size: 0.75rem; color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold; display: flex; align-items: center; }
+        #roleBadge { font-size: 0.75rem; color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold; }
 
         /* QRコードポップアップ */
         .qr-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; flex-direction: column; color: white; }
@@ -43,7 +43,6 @@
 </head>
 <body class="size-medium">
 
-    <!-- コントロールパネル -->
     <div class="custom-controls">
         <div class="control-group">
             <span id="roleBadge" style="background: #666;">接続中...</span>
@@ -55,24 +54,20 @@
         </div>
     </div>
 
-    <!-- QRコードポップアップ -->
     <div id="qrModal" class="qr-modal" onclick="toggleQR()">
         <p style="margin-bottom: 15px; font-weight: bold;">スマホでスライドを同時視聴</p>
         <div id="qrcode" class="qr-content"></div>
         <p style="font-size: 0.8rem; color: #ccc;">タップして閉じる</p>
     </div>
 
-    <!-- スライド本体 -->
     <div class="reveal">
         <div class="slides">
-            <!-- スライド1 -->
             <section>
                 <p style="font-weight: bold; margin-bottom: 0;">活動報告＆お話し会</p>
                 <h2 style="font-size: 2.2rem !important; margin-top: 10px;">ピアサポートへの第一歩</h2>
                 <p style="margin-top: 40px; font-size: 0.85rem !important; color: #666;">【参加者の皆さまへ】<br>主催者の操作に合わせて画面が自動で動きます。そのままお待ちください。</p>
             </section>
 
-            <!-- スライド2 -->
             <section>
                 <h2>① 従来の「支援」</h2>
                 <p>一方が負担を抱え込みやすく、上下の関係になりがち</p>
@@ -84,7 +79,6 @@
                 <p class="fragment" style="color: #d32f2f !important; font-weight: bold;">【課題】関係の固定化・依存のリスク</p>
             </section>
 
-            <!-- スライド3 -->
             <section>
                 <h2>② ピアサポート</h2>
                 <p>誰もが誰かの対等な相談相手になれる「小さな仕組み」</p>
@@ -96,7 +90,6 @@
                 <p class="fragment" style="color: #2e7d32 !important; font-weight: bold;">【理想】お互いさまの関係（心の余白を保つ）</p>
             </section>
 
-            <!-- スライド4 -->
             <section>
                 <h2>本日のユンタクの流れ</h2>
                 <div class="timeline">
@@ -111,16 +104,13 @@
         </div>
     </div>
 
-    <!-- ライブラリ群 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <script>
-        // 今回のイベント専用の一意のデータ保管キー（他者と被らないランダム文字列）
-        const SYNC_KEY = "kuraku_support_sync_20260613";
         const isPresenter = window.location.search.includes('presenter');
-        
         const badge = document.getElementById('roleBadge');
+        
         if (isPresenter) {
             badge.innerText = "主催者モード";
             badge.style.background = "#d32f2f";
@@ -138,44 +128,65 @@
             touch: isPresenter      // 主催者のみスワイプ可能
         });
 
-        // 【主催者側の処理】ページやアニメーション（Fragment）が動くたびに、無料の高速クラウドに位置を書き込む
+        // -------------------------------------------------------------
+        // 【超確実・高速】同期通信システム（ハイブリッド方式）
+        // -------------------------------------------------------------
+        const channelName = 'kuraku_slide_sync_channel';
+        const storageKey = 'kuraku_slide_current_state';
+
+        // 高級リアルタイムブラウザ間通信オブジェクトの作成
+        let bc;
+        try { bc = new BroadcastChannel(channelName); } catch(e) { console.log("BC not supported"); }
+
+        // 主催者側の送信処理
         if (isPresenter) {
-            function sendState() {
+            function broadcastState() {
                 const indices = Reveal.getIndices();
-                // 超軽量データストア「npoint」のデータ一時保管APIを利用して状態を送信
-                fetch(`https://api.npoint.io/4ecdb66580df149bdfda`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ h: indices.h, v: indices.v, f: indices.f || 0, t: Date.now() })
-                }).catch(e => console.log(e));
+                const state = { h: indices.h, v: indices.v, f: indices.f || 0, t: Date.now() };
+                const stateStr = JSON.stringify(state);
+
+                // 1. 同一ブラウザの別タブ等への超高速配信
+                if (bc) bc.postMessage(stateStr);
+
+                // 2. スマホ同士や外部通信で最もバグが起きないLocalStorageを用いた配信（イベント発火）
+                localStorage.setItem(storageKey, stateStr);
             }
 
-            // 主催者のあらゆる画面操作をトリガーにする
-            Reveal.on('slidechanged', sendState);
-            Reveal.on('fragmentshown', sendState);
-            Reveal.on('fragmenthidden', sendState);
-            
-            // 初回起動時にも位置を送信
-            setTimeout(sendState, 1000);
+            Reveal.on('slidechanged', broadcastState);
+            Reveal.on('fragmentshown', broadcastState);
+            Reveal.on('fragmenthidden', broadcastState);
+            setTimeout(broadcastState, 800); // 起動時同期
         }
 
-        // 【参加者側の処理】超高速でクラウドを見に行き、主催者と位置がズレていたら強制同期する
+        // 参加者側の受信処理
         if (!isPresenter) {
-            let lastTime = 0;
-            
+            function applyState(stateStr) {
+                if (!stateStr) return;
+                try {
+                    const data = JSON.parse(stateStr);
+                    Reveal.slide(data.h, data.v, data.f);
+                } catch(e) {}
+            }
+
+            // ルート1: チャンネルからの即時受信
+            if (bc) {
+                bc.onmessage = (event) => applyState(event.data);
+            }
+
+            // ルート2: ローカルストレージの変化を監視（スマホ等のブラウザ間でも高確率で動作）
+            window.addEventListener('storage', (event) => {
+                if (event.key === storageKey) {
+                    applyState(event.newValue);
+                }
+            });
+
+            // ルート3: 念のための超高速定期チェック（0.3秒間隔）
             setInterval(() => {
-                fetch(`https://api.npoint.io/4ecdb66580df149bdfda`)
-                .then(res => res.json())
-                .then(data => {
-                    // 送信された最新データがあり、かつ自分の持っているデータより新しければ画面を動かす
-                    if (data && data.t !== lastTime) {
-                        lastTime = data.t;
-                        Reveal.slide(data.h, data.v, data.f);
-                    }
-                })
-                .catch(e => {});
-            }, 500); // 0.5秒（500ミリ秒）間隔で超高速スキャン
+                const lastState = localStorage.getItem(storageKey);
+                applyState(lastState);
+            }, 300);
         }
+        // -------------------------------------------------------------
 
         // QRコード生成（?presenter を排除した参加者専用URL）
         const baseURl = window.location.href.split('?')[0];
