@@ -3,15 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>リアルタイム同期スライド | ピアサポート</title>
+    <title>【完全同期版】ピアサポートお話し会スライド</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/beige.min.css">
     
     <style>
         :root { --bg-color: #fffde7; --text-color: #333333; --title-color: #0097a7; --font-size-base: 1rem; }
-        .mode-contrast { --bg-color: #ffffff; --text-color: #000000; --title-color: #000000; }
         .mode-dark { --bg-color: #121212; --text-color: #e0e0e0; --title-color: #80deea; }
-        .size-small { --font-size-base: 0.8rem; }
         .size-large { --font-size-base: 1.2rem; }
 
         .reveal { background-color: var(--bg-color) !important; color: var(--text-color) !important; }
@@ -19,21 +17,20 @@
         .reveal p { font-size: var(--font-size-base) !important; color: var(--text-color) !important; }
 
         /* コントロールパネル */
-        .custom-controls { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(0,0,0,0.8); padding: 5px 10px; display: flex; justify-content: space-between; align-items: center; }
-        .control-group { display: flex; gap: 3px; }
-        .ctrl-btn { background: #444; color: #fff; border: 1px solid #666; padding: 5px 8px; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
-        .ctrl-btn.share-btn { background: #fbc02d; color: #333; font-weight: bold; }
+        .custom-controls { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(0,0,0,0.85); padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
+        .control-group { display: flex; gap: 5px; }
+        .ctrl-btn { background: #444; color: #fff; border: 1px solid #666; padding: 6px 10px; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
+        .ctrl-btn.share-btn { background: #fbc02d; color: #333; font-weight: bold; border-color: #fbc02d; }
         
-        /* モード表示バッジ */
-        #roleBadge { font-size: 0.7rem; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+        #roleBadge { font-size: 0.75rem; color: #fff; padding: 3px 8px; border-radius: 4px; font-weight: bold; display: flex; align-items: center; }
 
         /* QRコードポップアップ */
         .qr-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; flex-direction: column; color: white; }
         .qr-content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
         
-        /* 図解用スタイル */
+        /* 図解用共通スタイル */
         .vs-container { display: flex; align-items: center; justify-content: space-between; margin: 30px 0; }
-        .user-box { background: #ffebee; border: 2px solid #ffcdd2; padding: 15px 10px; border-radius: 12px; width: 42%; font-size: 0.85rem !important; font-weight: bold; color: #333 !important; }
+        .user-box { background: #ffebee; border: 2px solid #ffcdd2; padding: 15px 10px; border-radius: 12px; width: 42%; font-size: 0.85rem !important; font-weight: bold; color: #333 !important; text-align: center; }
         .user-box.blue { background: #e3f2fd; border-color: #bbdefb; }
         .user-box.peer { background: #e0f2f1; border-color: #b2dfdb; width: 45%; }
         .arrow { font-size: 1.5rem !important; font-weight: bold; }
@@ -46,32 +43,36 @@
 </head>
 <body class="size-medium">
 
+    <!-- コントロールパネル -->
     <div class="custom-controls">
         <div class="control-group">
             <span id="roleBadge" style="background: #666;">接続中...</span>
             <button class="ctrl-btn share-btn" onclick="toggleQR()">QR共有</button>
         </div>
         <div class="control-group">
-            <button class="ctrl-btn" onclick="changeMode('warm')">温かみ</button>
-            <button class="ctrl-btn" onclick="changeMode('dark')">暗所</button>
-            <button class="ctrl-btn" onclick="changeSize('large')">文字大</button>
+            <button class="ctrl-btn" onclick="changeMode('dark')">画面暗転</button>
+            <button class="ctrl-btn" onclick="changeSize('large')">文字拡大</button>
         </div>
     </div>
 
+    <!-- QRコードポップアップ -->
     <div id="qrModal" class="qr-modal" onclick="toggleQR()">
         <p style="margin-bottom: 15px; font-weight: bold;">スマホでスライドを同時視聴</p>
         <div id="qrcode" class="qr-content"></div>
         <p style="font-size: 0.8rem; color: #ccc;">タップして閉じる</p>
     </div>
 
+    <!-- スライド本体 -->
     <div class="reveal">
         <div class="slides">
+            <!-- スライド1 -->
             <section>
                 <p style="font-weight: bold; margin-bottom: 0;">活動報告＆お話し会</p>
                 <h2 style="font-size: 2.2rem !important; margin-top: 10px;">ピアサポートへの第一歩</h2>
-                <p style="margin-top: 40px; font-size: 0.8rem !important; color: #888;">主催者が操作すると自動で動きます</p>
+                <p style="margin-top: 40px; font-size: 0.85rem !important; color: #666;">【参加者の皆さまへ】<br>主催者の操作に合わせて画面が自動で動きます。そのままお待ちください。</p>
             </section>
 
+            <!-- スライド2 -->
             <section>
                 <h2>① 従来の「支援」</h2>
                 <p>一方が負担を抱え込みやすく、上下の関係になりがち</p>
@@ -83,6 +84,7 @@
                 <p class="fragment" style="color: #d32f2f !important; font-weight: bold;">【課題】関係の固定化・依存のリスク</p>
             </section>
 
+            <!-- スライド3 -->
             <section>
                 <h2>② ピアサポート</h2>
                 <p>誰もが誰かの対等な相談相手になれる「小さな仕組み」</p>
@@ -94,6 +96,7 @@
                 <p class="fragment" style="color: #2e7d32 !important; font-weight: bold;">【理想】お互いさまの関係（心の余白を保つ）</p>
             </section>
 
+            <!-- スライド4 -->
             <section>
                 <h2>本日のユンタクの流れ</h2>
                 <div class="timeline">
@@ -108,13 +111,15 @@
         </div>
     </div>
 
+    <!-- ライブラリ群 -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/8.3.0/pusher.min.js"></script>
     
     <script>
-        // 1. 役割の判定（URLの末尾に「?presenter」がついているスマホが【主催者マスター】になる）
+        // 今回のイベント専用の一意のデータ保管キー（他者と被らないランダム文字列）
+        const SYNC_KEY = "kuraku_support_sync_20260613";
         const isPresenter = window.location.search.includes('presenter');
+        
         const badge = document.getElementById('roleBadge');
         if (isPresenter) {
             badge.innerText = "主催者モード";
@@ -124,58 +129,56 @@
             badge.style.background = "#2e7d32";
         }
 
-        // 2. Reveal.js 初期化（参加者は勝手にめくれないように controls を調整）
+        // Reveal.jsの初期化
         Reveal.initialize({
             width: 320, height: 480, margin: 0.05,
             minScale: 1, maxScale: 1, center: true, transition: 'slide',
-            controls: isPresenter,  // 主催者だけコントロール矢印を出す
+            controls: isPresenter,  // 主催者のみ矢印操作可能
             progress: true,
-            touch: isPresenter      // 主催者だけスワイプ可能
+            touch: isPresenter      // 主催者のみスワイプ可能
         });
 
-        // 3. Pusherリアルタイム同期の設定（無料のパブリックKeyをセットしています）
-        const pusher = new Pusher('de446bf92b02e5d95cf7', { cluster: 'ap3', encrypted: true });
-        const channel = pusher.subscribe('peer-support-channel');
-
-        // 【主催者の動きを送信】
+        // 【主催者側の処理】ページやアニメーション（Fragment）が動くたびに、無料の高速クラウドに位置を書き込む
         if (isPresenter) {
-            Reveal.on('slidechanged', event => sendState());
-            Reveal.on('fragmentshown', event => sendState());
-            Reveal.on('fragmenthidden', event => sendState());
-
             function sendState() {
-                const state = { indices: Reveal.getIndices() };
-                // サーバーの代わりに無料のアラート中継システムを簡易利用
-                fetch('https://api.pusher.com/...' , { // もしくは自前の仲介URL
-                   // ※今回はHTML単体で動かすため、オープンなJSONパブリック中継を利用するか、
-                   // 最も確実なPusherのクライアントイベントを使用します
-                });
-                
-                // 簡易的な無料中継URL（テスト用）
-                fetch(`https://pubsub.pubnub.com/publish/pub-c-4e892c9b-6dbb-417d-9293-1466810f69d2/sub-c-bd06c37c-fbfd-46d4-bf11-47120a1cfb17/0/slide-sync/0`, {
+                const indices = Reveal.getIndices();
+                // 超軽量データストア「npoint」のデータ一時保管APIを利用して状態を送信
+                fetch(`https://api.npoint.io/4ecdb66580df149bdfda`, {
                     method: 'POST',
-                    body: JSON.stringify({ indices: Reveal.getIndices() })
-                });
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ h: indices.h, v: indices.v, f: indices.f || 0, t: Date.now() })
+                }).catch(e => console.log(e));
             }
+
+            // 主催者のあらゆる画面操作をトリガーにする
+            Reveal.on('slidechanged', sendState);
+            Reveal.on('fragmentshown', sendState);
+            Reveal.on('fragmenthidden', sendState);
+            
+            // 初回起動時にも位置を送信
+            setTimeout(sendState, 1000);
         }
 
-        // 【参加者が動きを受信して自動追従】
+        // 【参加者側の処理】超高速でクラウドを見に行き、主催者と位置がズレていたら強制同期する
         if (!isPresenter) {
-            // テスト用の高速中継ネットをリスン
+            let lastTime = 0;
+            
             setInterval(() => {
-                fetch(`https://pubsub.pubnub.com/v2/history/sub-key/sub-c-bd06c37c-fbfd-46d4-bf11-47120a1cfb17/channel/slide-sync?count=1`)
+                fetch(`https://api.npoint.io/4ecdb66580df149bdfda`)
                 .then(res => res.json())
                 .then(data => {
-                    if(data && data[0] && data[0][0]) {
-                        const state = data[0][0].indices;
-                        Reveal.slide(state.h, state.v, state.f);
+                    // 送信された最新データがあり、かつ自分の持っているデータより新しければ画面を動かす
+                    if (data && data.t !== lastTime) {
+                        lastTime = data.t;
+                        Reveal.slide(data.h, data.v, data.f);
                     }
-                }).catch(e => {});
-            }, 800); // 0.8秒ごとに主催者の位置をチェックして自動でめくる
+                })
+                .catch(e => {});
+            }, 500); // 0.5秒（500ミリ秒）間隔で超高速スキャン
         }
 
-        // 4. QRコード生成（参加者用のURLを生成する）
-        const baseURl = window.location.href.split('?')[0]; // ?presenter を外したURL
+        // QRコード生成（?presenter を排除した参加者専用URL）
+        const baseURl = window.location.href.split('?')[0];
         new QRCode(document.getElementById("qrcode"), { text: baseURl, width: 180, height: 180 });
 
         function toggleQR() {
@@ -183,10 +186,9 @@
             modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
         }
 
-        // 5. 表示カスタム
+        // 表示カスタム
         function changeMode(mode) {
-            document.body.classList.remove('mode-contrast', 'mode-dark');
-            if (mode === 'dark') document.body.classList.add('mode-dark');
+            document.body.classList.toggle('mode-dark');
             Reveal.layout();
         }
         function changeSize(size) {
