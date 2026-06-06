@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活動報告＆お話し会 | ピアサポート視覚資料</title>
+    <style>
+        :root {
+            --primary-color: #0097a7;
+            --secondary-color: #fbc02d;
+            --bg-color: #fffde7;
+            --text-color: #333333;
+            --card-bg: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: #555;
+        }
+
+        /* 切り替えタブのスタイル（iPhone12で押しきりやすいサイズ） */
+        .tab-container {
+            display: flex;
+            background-color: #e0e0e0;
+            border-radius: 25px;
+            padding: 5px;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 25px;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .tab-btn {
+            flex: 1;
+            border: none;
+            background: none;
+            padding: 12px 10px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .tab-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            box-shadow: 0 2px 8px rgba(0,151,167,0.3);
+        }
+
+        /* コンテンツ表示エリア */
+        .view-content {
+            width: 100%;
+            max-width: 450px;
+            display: none;
+            animation: fadeIn 0.4s ease-in-out forwards;
+        }
+
+        .view-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* カード・図解の共通スタイル */
+        .card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            border-left: 5px solid var(--primary-color);
+        }
+
+        h2 {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ポンチ絵（構造・関係のビジュアル表現）のスタイル */
+        .ponchi-box {
+            background: #f9f9f9;
+            border: 2px dashed #ccc;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .vs-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            margin: 15px 0;
+        }
+
+        .user-box {
+            background: #ffebee;
+            border: 1px solid #ffcdd2;
+            padding: 10px;
+            border-radius: 8px;
+            width: 40%;
+            font-size: 0.85rem;
+        }
+
+        .user-box.peer {
+            background: #e0f2f1;
+            border: 1px solid #b2dfdb;
+            width: 45%;
+        }
+
+        .arrow {
+            font-size: 1.2rem;
+            color: #777;
+        }
+
+        /* インフォグラフィック（ステップ・数値の可視化）のスタイル */
+        .step-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .step-timeline::before {
+            content: '';
+            position: absolute;
+            left: 9px;
+            top: 5px;
+            bottom: 5px;
+            width: 3px;
+            background: #b2dfdb;
+        }
+
+        .step-item {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .step-item::before {
+            content: '';
+            position: absolute;
+            left: -26px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary-color);
+        }
+
+        .step-badge {
+            display: inline-block;
+            background: var(--secondary-color);
+            color: #333;
+            font-size: 0.75rem;
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-bottom: 5px;
+        }
+
+        .step-title {
+            font-weight: bold;
+            font-size: 1rem;
+            margin-bottom: 3px;
+        }
+
+        .step-desc {
+            font-size: 0.85rem;
+            color: #666;
+        }
+
+        /* フッター */
+        footer {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #888;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>活動報告＆お話し会</h1>
+        <p class="subtitle">〜みんなでユンタク ピアサポートへの第一歩〜</p>
+    </header>
+
+    <!-- タブ切り替えスイッチ -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchView('ponchi')">ポンチ絵（関係図）</button>
+        <button class="tab-btn" onclick="switchView('info')">インフォ（流れ）</button>
+    </div>
+
+    <!-- 1. ポンチ絵ビュー -->
+    <div id="view-ponchi" class="view-content active">
+        
+        <div class="card">
+            <h2><span>①</span> 従来の「支援」のカタチ</h2>
+            <p style="font-size: 0.9rem; color: #555;">一方が負担を抱え込みやすく、上下の関係になりがち</p>
+            <div class="ponchi-box">
+                <div class="vs-container">
+                    <div class="user-box" style="background:#e3f2fd; border-color:#bbdefb;">
+                        <strong>支援する側</strong><br><small>プロ・教える人</small>
+                    </div>
+                    <div class="arrow">➔</div>
+                    <div class="user-box">
+                        <strong>される側</strong><br><small>困った人・教わる人</small>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: #d32f2f; font-weight: bold;">➔ 固定化された関係・依存のリスク</div>
+            </div>
+        </div>
+
+        <div class="card" style="border-left-color: var(--secondary-color);">
+            <h2><span>②</span> 目指す「ピアサポート」</h2>
+            <p style="font-size: 0.9rem; color: #555;">誰もが誰かの対等な相談相手になれる「小さな仕組み」</p>
+            <div class="ponchi-box" style="border-color: var(--secondary-color);">
+                <div class="vs-container">
+                    <div class="user-box peer">
+                        <strong>仲間（ピア）</strong><br><small>同じ悩み・地域の人</small>
+                    </div>
+                    <div class="arrow">⟷</div>
+                    <div class="user-box peer">
+                        <strong>仲間（ピア）</strong><br><small>「わかるよ」の共感</small>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: #2e7d32; font-weight: bold;">➔ 対等でお互いさまの関係（心の余白を保つ）</div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 2. インフォグラフィックビュー -->
+    <div id="view-info" class="view-content">
+        
+        <div class="card">
+            <h2>本日のユンタクの流れ</h2>
+            <p style="font-size: 0.85rem; color: #666; margin-bottom: 20px;">概念から実践、そして全員での対話へ繋ぐ3ステップ</p>
+            
+            <div class="step-timeline">
+                
+                <div class="step-item">
+                    <span class="step-badge">STEP 1</span>
+                    <div class="step-title">ピアサポートの概念解説</div>
+                    <div class="step-desc">進行：佐渡山より、上下関係ではない「お互いさま」の支え合いの基本について整理します。</div>
+                </div>
+
+                <div class="step-item">
+                    <span class="step-badge">STEP 2</span>
+                    <div class="step-title">くらくサポートのビジョン</div>
+                    <div class="step-desc">代表：赤嶺さんより、地域に「小さな仕組み」と居場所を作るための団体の想いを共有します。</div>
+                </div>
+
+                <div class="step-item" style="margin-bottom: 10px;">
+                    <span class="step-badge" style="background:#80deea;">STEP 3</span>
+                    <div class="step-title">現場のリアルな活動報告</div>
+                    <div class="step-desc">ゲスト：新里みつきさん（Kafull）より、銘苅小学校での保護者支援の生きた事例を報告します。</div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="card" style="border-left-color: #80deea; text-align: center; padding: 15px;">
+            <div style="font-size: 0.9rem; font-weight: bold; color: var(--primary-color);">
+                後半：みんなでユンタクタイム（40分）
+            </div>
+            <p style="font-size: 0.8rem; color: #555; top: 5px; position: relative;">
+                美味しいお茶を片手に、感じたことをざっくばらんに語り合いましょう。
+            </p>
+        </div>
+
+    </div>
+
+    <footer>
+        <p>主催：くらくサポート<br>日時：2026.6.13(Sat) 14:30〜</p>
+    </footer>
+
+    <script>
+        function switchView(viewType) {
+            // タブボタンの切り替え
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // コンテンツの切り替え
+            const contents = document.querySelectorAll('.view-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            if(viewType === 'ponchi') {
+                buttons[0].classList.add('active');
+                document.getElementById('view-ponchi').classList.add('active');
+            } else {
+                buttons[1].classList.add('active');
+                document.getElementById('view-info').classList.add('active');
+            }
+        }
+    </script>
+</body>
+</html>
