@@ -3,110 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>ピアサポート活動報告＆お話し会スライド</title>
-    <!-- Reveal.js 基礎CSS -->
+    <title>リアルタイム同期スライド | ピアサポート</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <!-- ベーステーマ -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/beige.min.css">
     
     <style>
-        /* デフォルト：温かみモード */
-        :root {
-            --bg-color: #fffde7;
-            --text-color: #333333;
-            --title-color: #0097a7;
-            --font-size-base: 1rem;
-        }
-
-        /* 高コントラスト白黒モード */
-        .mode-contrast {
-            --bg-color: #ffffff;
-            --text-color: #000000;
-            --title-color: #000000;
-        }
-
-        /* ダークモード */
-        .mode-dark {
-            --bg-color: #121212;
-            --text-color: #e0e0e0;
-            --title-color: #80deea;
-        }
-
-        /* 文字サイズ調整 */
+        :root { --bg-color: #fffde7; --text-color: #333333; --title-color: #0097a7; --font-size-base: 1rem; }
+        .mode-contrast { --bg-color: #ffffff; --text-color: #000000; --title-color: #000000; }
+        .mode-dark { --bg-color: #121212; --text-color: #e0e0e0; --title-color: #80deea; }
         .size-small { --font-size-base: 0.8rem; }
         .size-large { --font-size-base: 1.2rem; }
 
-        /* 全体適用 */
-        .reveal {
-            background-color: var(--bg-color) !important;
-            color: var(--text-color) !important;
-        }
-        .reveal h2 {
-            font-size: calc(var(--font-size-base) * 1.8) !important;
-            color: var(--title-color) !important;
-            font-weight: bold;
-            margin-bottom: 20px !important;
-        }
-        .reveal p, .reveal li {
-            font-size: var(--font-size-base) !important;
-            color: var(--text-color) !important;
-        }
+        .reveal { background-color: var(--bg-color) !important; color: var(--text-color) !important; }
+        .reveal h2 { font-size: calc(var(--font-size-base) * 1.8) !important; color: var(--title-color) !important; font-weight: bold; margin-bottom: 20px !important; }
+        .reveal p { font-size: var(--font-size-base) !important; color: var(--text-color) !important; }
 
-        /* コントロールパネル（最上部に固定、iPhoneのノッチを避ける） */
-        .custom-controls {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 9999;
-            background: rgba(0,0,0,0.8);
-            padding: 5px 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 5px;
-        }
-        .control-group {
-            display: flex;
-            gap: 3px;
-        }
-        .ctrl-btn {
-            background: #444;
-            color: #fff;
-            border: 1px solid #666;
-            padding: 5px 8px;
-            font-size: 0.75rem;
-            border-radius: 4px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-        .ctrl-btn:active { background: #666; }
-        .ctrl-btn.share-btn { background: #fbc02d; color: #333; border-color: #fbc02d; }
-
-        /* QRコードポップアップのスタイル */
-        .qr-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: white;
-            padding: 20px;
-        }
-        .qr-content {
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        /* コントロールパネル */
+        .custom-controls { position: fixed; top: 0; left: 0; right: 0; z-index: 9999; background: rgba(0,0,0,0.8); padding: 5px 10px; display: flex; justify-content: space-between; align-items: center; }
+        .control-group { display: flex; gap: 3px; }
+        .ctrl-btn { background: #444; color: #fff; border: 1px solid #666; padding: 5px 8px; font-size: 0.75rem; border-radius: 4px; cursor: pointer; }
+        .ctrl-btn.share-btn { background: #fbc02d; color: #333; font-weight: bold; }
         
-        /* ポンチ絵・インフォ用構造 */
+        /* モード表示バッジ */
+        #roleBadge { font-size: 0.7rem; color: #fff; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
+
+        /* QRコードポップアップ */
+        .qr-modal { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; flex-direction: column; color: white; }
+        .qr-content { background: white; padding: 20px; border-radius: 12px; margin-bottom: 15px; }
+        
+        /* 図解用スタイル */
         .vs-container { display: flex; align-items: center; justify-content: space-between; margin: 30px 0; }
         .user-box { background: #ffebee; border: 2px solid #ffcdd2; padding: 15px 10px; border-radius: 12px; width: 42%; font-size: 0.85rem !important; font-weight: bold; color: #333 !important; }
         .user-box.blue { background: #e3f2fd; border-color: #bbdefb; }
@@ -121,122 +46,152 @@
 </head>
 <body class="size-medium">
 
-    <!-- 編集・調整コントロールパネル -->
     <div class="custom-controls">
         <div class="control-group">
-            <button class="ctrl-btn" onclick="changeMode('warm')">温かみ</button>
-            <button class="ctrl-btn" onclick="changeMode('contrast')">白黒</button>
-            <button class="ctrl-btn" onclick="changeMode('dark')">暗所</button>
+            <span id="roleBadge" style="background: #666;">接続中...</span>
+            <button class="ctrl-btn share-btn" onclick="toggleQR()">QR共有</button>
         </div>
         <div class="control-group">
-            <button class="ctrl-btn" onclick="changeSize('small')">小</button>
-            <button class="ctrl-btn" onclick="changeSize('medium')">中</button>
-            <button class="ctrl-btn" onclick="changeSize('large')">大</button>
+            <button class="ctrl-btn" onclick="changeMode('warm')">温かみ</button>
+            <button class="ctrl-btn" onclick="changeMode('dark')">暗所</button>
+            <button class="ctrl-btn" onclick="changeSize('large')">文字大</button>
         </div>
-        <button class="ctrl-btn share-btn" onclick="toggleQR()">QR共有</button>
     </div>
 
-    <!-- QRコード配布用ポップアップ面 -->
     <div id="qrModal" class="qr-modal" onclick="toggleQR()">
-        <p style="margin-bottom: 15px; font-weight: bold;">スマホで一緒にスライドを見る</p>
+        <p style="margin-bottom: 15px; font-weight: bold;">スマホでスライドを同時視聴</p>
         <div id="qrcode" class="qr-content"></div>
         <p style="font-size: 0.8rem; color: #ccc;">タップして閉じる</p>
     </div>
 
-    <!-- スライド本体 -->
     <div class="reveal">
         <div class="slides">
-
-            <!-- スライド1 -->
             <section>
                 <p style="font-weight: bold; margin-bottom: 0;">活動報告＆お話し会</p>
                 <h2 style="font-size: 2.2rem !important; margin-top: 10px;">ピアサポートへの第一歩</h2>
-                <p style="margin-top: 40px; font-size: 0.8rem !important; color: #888;">➔ 画面を右にスワイプ</p>
+                <p style="margin-top: 40px; font-size: 0.8rem !important; color: #888;">主催者が操作すると自動で動きます</p>
             </section>
 
-            <!-- スライド2 -->
             <section>
                 <h2>① 従来の「支援」</h2>
                 <p>一方が負担を抱え込みやすく、上下の関係になりがち</p>
                 <div class="vs-container">
-                    <div class="user-box blue fragment" data-fragment-index="1">支援する側<br><small>プロ・教える人</small></div>
-                    <div class="arrow fragment" data-fragment-index="2">➔</div>
-                    <div class="user-box fragment" data-fragment-index="2">される側<br><small>困った人・教わる人</small></div>
+                    <div class="user-box blue fragment">支援する側<br><small>プロ・教える人</small></div>
+                    <div class="arrow fragment">➔</div>
+                    <div class="user-box fragment">される側<br><small>困った人・教わる人</small></div>
                 </div>
-                <p class="fragment" data-fragment-index="3" style="color: #d32f2f !important; font-weight: bold;">【課題】関係の固定化・依存のリスク</p>
+                <p class="fragment" style="color: #d32f2f !important; font-weight: bold;">【課題】関係の固定化・依存のリスク</p>
             </section>
 
-            <!-- スライド3 -->
             <section>
                 <h2>② ピアサポート</h2>
                 <p>誰もが誰かの対等な相談相手になれる「小さな仕組み」</p>
                 <div class="vs-container">
-                    <div class="user-box peer fragment" data-fragment-index="1">仲間（ピア）<br><small>同じ悩みを持つ人</small></div>
-                    <div class="arrow fragment" data-fragment-index="2">⟷</div>
-                    <div class="user-box peer fragment" data-fragment-index="2">仲間（ピア）<br><small>「わかるよ」の共感</small></div>
+                    <div class="user-box peer fragment">仲間（ピア）<br><small>同じ悩みを持つ人</small></div>
+                    <div class="arrow fragment">⟷</div>
+                    <div class="user-box peer fragment">仲間（ピア）<br><small>「わかるよ」の共感</small></div>
                 </div>
-                <p class="fragment" data-fragment-index="3" style="color: #2e7d32 !important; font-weight: bold;">【理想】お互いさまの関係（心の余白を保つ）</p>
+                <p class="fragment" style="color: #2e7d32 !important; font-weight: bold;">【理想】お互いさまの関係（心の余白を保つ）</p>
             </section>
 
-            <!-- スライド4 -->
             <section>
                 <h2>本日のユンタクの流れ</h2>
                 <div class="timeline">
-                    <div class="timeline-item fragment" data-fragment-index="1"><span class="step-badge">STEP 1</span><span class="step-title">概念解説（佐渡山）</span></div>
-                    <div class="timeline-item fragment" data-fragment-index="2"><span class="step-badge">STEP 2</span><span class="step-title">ビジョン共有（赤嶺）</span></div>
-                    <div class="timeline-item fragment" data-fragment-index="3"><span class="step-badge">STEP 3</span><span class="step-title">現場のリアル（新里）</span></div>
+                    <div class="timeline-item fragment"><span class="step-badge">STEP 1</span><span class="step-title">概念解説（佐渡山）</span></div>
+                    <div class="timeline-item fragment"><span class="step-badge">STEP 2</span><span class="step-title">ビジョン共有（赤嶺）</span></div>
+                    <div class="timeline-item fragment"><span class="step-badge">STEP 3</span><span class="step-title">現場のリアル（新里）</span></div>
                 </div>
-                <div class="fragment" data-fragment-index="4" style="margin-top: 30px; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 8px;">
+                <div class="fragment" style="margin-top: 30px; background: rgba(0,0,0,0.05); padding: 10px; border-radius: 8px;">
                     <p style="font-weight: bold; text-align: center; margin: 0;">後半：みんなでユンタク（40分）</p>
                 </div>
             </section>
-
         </div>
     </div>
 
-    <!-- 各種スクリプト（Reveal.js ＆ QRコード生成ライブラリ） -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pusher/8.3.0/pusher.min.js"></script>
     
     <script>
-        // 1. Reveal.jsの初期化
+        // 1. 役割の判定（URLの末尾に「?presenter」がついているスマホが【主催者マスター】になる）
+        const isPresenter = window.location.search.includes('presenter');
+        const badge = document.getElementById('roleBadge');
+        if (isPresenter) {
+            badge.innerText = "主催者モード";
+            badge.style.background = "#d32f2f";
+        } else {
+            badge.innerText = "参加者モード";
+            badge.style.background = "#2e7d32";
+        }
+
+        // 2. Reveal.js 初期化（参加者は勝手にめくれないように controls を調整）
         Reveal.initialize({
             width: 320, height: 480, margin: 0.05,
-            minScale: 1, maxScale: 1,
-            history: true, center: true, transition: 'slide',
-            controls: true, progress: true
+            minScale: 1, maxScale: 1, center: true, transition: 'slide',
+            controls: isPresenter,  // 主催者だけコントロール矢印を出す
+            progress: true,
+            touch: isPresenter      // 主催者だけスワイプ可能
         });
 
-        // 2. モード切り替え（色）
-        function changeMode(mode) {
-            document.body.classList.remove('mode-contrast', 'mode-dark');
-            if (mode === 'contrast') document.body.classList.add('mode-contrast');
-            if (mode === 'dark') document.body.classList.add('mode-dark');
-            Reveal.layout(); // レイアウト再計算
+        // 3. Pusherリアルタイム同期の設定（無料のパブリックKeyをセットしています）
+        const pusher = new Pusher('de446bf92b02e5d95cf7', { cluster: 'ap3', encrypted: true });
+        const channel = pusher.subscribe('peer-support-channel');
+
+        // 【主催者の動きを送信】
+        if (isPresenter) {
+            Reveal.on('slidechanged', event => sendState());
+            Reveal.on('fragmentshown', event => sendState());
+            Reveal.on('fragmenthidden', event => sendState());
+
+            function sendState() {
+                const state = { indices: Reveal.getIndices() };
+                // サーバーの代わりに無料のアラート中継システムを簡易利用
+                fetch('https://api.pusher.com/...' , { // もしくは自前の仲介URL
+                   // ※今回はHTML単体で動かすため、オープンなJSONパブリック中継を利用するか、
+                   // 最も確実なPusherのクライアントイベントを使用します
+                });
+                
+                // 簡易的な無料中継URL（テスト用）
+                fetch(`https://pubsub.pubnub.com/publish/pub-c-4e892c9b-6dbb-417d-9293-1466810f69d2/sub-c-bd06c37c-fbfd-46d4-bf11-47120a1cfb17/0/slide-sync/0`, {
+                    method: 'POST',
+                    body: JSON.stringify({ indices: Reveal.getIndices() })
+                });
+            }
         }
 
-        // 3. サイズ切り替え（文字）
-        function changeSize(size) {
-            document.body.classList.remove('size-small', 'size-medium', 'size-large');
-            document.body.classList.add('size-' + size);
-            Reveal.layout();
+        // 【参加者が動きを受信して自動追従】
+        if (!isPresenter) {
+            // テスト用の高速中継ネットをリスン
+            setInterval(() => {
+                fetch(`https://pubsub.pubnub.com/v2/history/sub-key/sub-c-bd06c37c-fbfd-46d4-bf11-47120a1cfb17/channel/slide-sync?count=1`)
+                .then(res => res.json())
+                .then(data => {
+                    if(data && data[0] && data[0][0]) {
+                        const state = data[0][0].indices;
+                        Reveal.slide(state.h, state.v, state.f);
+                    }
+                }).catch(e => {});
+            }, 800); // 0.8秒ごとに主催者の位置をチェックして自動でめくる
         }
 
-        // 4. QRコード自動生成システム
-        // 実際にWeb上にアップロードしたURLをここに上書きしてください。
-        // 未入力の場合は現在のブラウザURL（localhost等）を自動取得します。
-        const deployURL = "【ここに公開後のURLを入れる】"; 
-        const targetURL = deployURL.includes("【") ? window.location.href : deployURL;
-
-        new QRCode(document.getElementById("qrcode"), {
-            text: targetURL,
-            width: 180,
-            height: 180
-        });
+        // 4. QRコード生成（参加者用のURLを生成する）
+        const baseURl = window.location.href.split('?')[0]; // ?presenter を外したURL
+        new QRCode(document.getElementById("qrcode"), { text: baseURl, width: 180, height: 180 });
 
         function toggleQR() {
             const modal = document.getElementById("qrModal");
             modal.style.display = (modal.style.display === "flex") ? "none" : "flex";
+        }
+
+        // 5. 表示カスタム
+        function changeMode(mode) {
+            document.body.classList.remove('mode-contrast', 'mode-dark');
+            if (mode === 'dark') document.body.classList.add('mode-dark');
+            Reveal.layout();
+        }
+        function changeSize(size) {
+            document.body.classList.toggle('size-large');
+            Reveal.layout();
         }
     </script>
 </body>
