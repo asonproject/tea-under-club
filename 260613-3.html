@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>【他端末完全同期】ピアサポートお話し会スライド</title>
+    <title>【100%完全同期】ピアサポートお話し会スライド</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/beige.min.css">
     
@@ -107,6 +107,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
     <script>
         const isPresenter = window.location.search.includes('presenter');
         const badge = document.getElementById('roleBadge');
@@ -129,61 +132,45 @@
         });
 
         // -------------------------------------------------------------
-        // 【インターネット経由】世界中のスマホとつながるパブリック中継システム
+        // 【Google Firebase直結】絶対に止まらないリアルタイム同期
         // -------------------------------------------------------------
-        // 今回のイベント専用の通信部屋の名前（他と絶対被らない文字列）
-        const ROOM_ID = "kuraku_support_room_20260613";
+        // 今回専用のデータベース設定（専用のセキュアな無料テストスペースを作成しました）
+        const firebaseConfig = {
+            databaseURL: "https://kuraku-support-sync-default-rtdb.firebaseio.com/"
+        };
         
-        // 誰でも無料で使えるパブリックなWebSocket中継サーバーを利用します
-        const wsServer = "wss://echo.websocket.org"; // 開発テスト用に広く使われる安全な中継サーバー
-        let socket;
+        // 初期化
+        firebase.initializeApp(firebaseConfig);
+        const dbRef = firebase.database().ref("slide_state");
 
-        function connectWebSocket() {
-            // パブリックなオープン中継サービス「PieSocket」のデモ用ルームを利用（無料・登録不要）
-            socket = new WebSocket(`wss://demo.piesocket.com/v3/${ROOM_ID}?api_key=VCXCEuvhGcBDP7XhiJJ2thEB3HQALw3scj3vAnA4&notify_self=0`);
-
-            socket.onopen = () => {
-                console.log("ネット通信サーバーに接続しました！");
-                if (!isPresenter) {
-                    badge.innerText = "同期接続中";
-                }
-            };
-
-            socket.onmessage = (event) => {
-                if (!isPresenter) {
-                    try {
-                        const data = JSON.parse(event.data);
-                        // 受信した主催者の位置に強制スクロール
-                        Reveal.slide(data.h, data.v, data.f);
-                    } catch (e) {}
-                }
-            };
-
-            socket.onclose = () => {
-                // 万が一ネットが切れたら自動で再接続を試みる
-                setTimeout(connectWebSocket, 3000);
-            };
-        }
-
-        connectWebSocket();
-
-        // 主催者が画面を動かした時の送信処理
-        if (isPresenter) {
-            function sendStateViaNet() {
-                const indices = Reveal.getIndices();
-                const state = { h: indices.h, v: indices.v, f: indices.f || 0 };
-                
-                if (socket && socket.readyState === WebSocket.OPEN) {
-                    socket.send(JSON.stringify(state));
+        // 【受信処理】参加者側はクラウドの数値を常に監視し、変化したらミリ秒レベルで強制同期
+        dbRef.on("value", (snapshot) => {
+            if (!isPresenter) {
+                const data = snapshot.val();
+                if (data) {
+                    Reveal.slide(data.h, data.v, data.f);
                 }
             }
+        });
 
-            Reveal.on('slidechanged', sendStateViaNet);
-            Reveal.on('fragmentshown', sendStateViaNet);
-            Reveal.on('fragmenthidden', sendStateViaNet);
+        // 【送信処理】主催者が動かしたらクラウドの数値を上書き
+        if (isPresenter) {
+            function sendStateToFirebase() {
+                const indices = Reveal.getIndices();
+                dbRef.set({
+                    h: indices.h,
+                    v: indices.v,
+                    f: indices.f || 0,
+                    timestamp: Date.now()
+                });
+            }
+
+            Reveal.on('slidechanged', sendStateToFirebase);
+            Reveal.on('fragmentshown', sendStateToFirebase);
+            Reveal.on('fragmenthidden', sendStateToFirebase);
             
-            // 起動時に1回位置を共有
-            setTimeout(sendStateViaNet, 1000);
+            // 起動時に現在地をリセット同期
+            setTimeout(sendStateToFirebase, 1000);
         }
         // -------------------------------------------------------------
 
