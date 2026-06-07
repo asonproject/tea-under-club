@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>てぃあんだぁクラブ｜家庭教育サポート</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-color: #fdfefb;
+            --text-main: #5a524c;
+            --text-muted: #8c8b85;
+            --accent-color: rgb(185, 208, 139);
+            --accent-dark: rgb(145, 168, 99);
+            --highlight-color: #f2e6b6;
+            --info-bg: #f7faf4;
+            --card-bg: #ffffff;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+        }
+
+        body {
+            font-family: 'Zen Maru Gothic', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.7;
+            margin: 0;
+            padding: 0;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+            box-sizing: border-box;
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin: 0 0 1rem;
+            line-height: 1.3;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .header-msg {
+            background-color: #fff;
+            padding: 1.2rem;
+            border-radius: var(--radius);
+            font-size: 0.9rem;
+            border: 1px solid var(--highlight-color);
+            text-align: left;
+        }
+
+        .header-img {
+            margin-top: 1.5rem;
+        }
+
+        .header-img img {
+            width: 120px;
+            height: auto;
+            border-radius: 50%;
+        }
+
+        /* Sections */
+        section {
+            margin-bottom: 3.5rem;
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: var(--highlight-color);
+            border-radius: 2px;
+        }
+
+        /* Box / Card Style */
+        .box {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .intro-box {
+            background-color: var(--info-bg);
+            border: 1px solid var(--accent-color);
+            text-align: center;
+        }
+
+        /* Service Cards */
+        .service-card {
+            background: var(--card-bg);
+            border-radius: var(--radius);
+            box-shadow: var(--card-shadow);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            display: block;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .service-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1rem;
+            color: var(--accent-dark);
+        }
+
+        .highlight-box {
+            background-color: var(--info-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 1rem;
+            border-radius: 12px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-bottom: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--accent-color);
+            color: #fff;
+        }
+
+        .btn-outline {
+            border: 2px solid var(--accent-color);
+            color: var(--accent-dark);
+            background: #fff;
+        }
+
+        .btn-subtext {
+            font-size: 0.75rem;
+            font-weight: normal;
+            margin-top: 4px;
+            opacity: 0.9;
+        }
+
+        /* Contact Section */
+        .contact-box {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .btn-contact {
+            display: block;
+            background-color: #ff9f43;
+            /* 少し目立つ色に */
+            color: #fff;
+            padding: 1.2rem 1rem;
+            border-radius: 50px;
+            font-weight: bold;
+            text-decoration: none;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 159, 67, 0.3);
+            margin-bottom: 2rem;
+        }
+
+        .tel-link {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: bold;
+            color: var(--accent-dark);
+            text-decoration: none;
+            margin: 1rem 0;
+            background: #f0f4e8;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        /* FAQ */
+        .faq-item {
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+
+        .faq-q {
+            font-weight: bold;
+            color: var(--accent-dark);
+            font-size: 0.95rem;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .faq-a {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #f9f9f9;
+            padding: 3rem 1.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .footer-card {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 1.2rem;
+            border-radius: 12px;
+            text-decoration: none;
+            text-align: left;
+        }
+
+        .footer-card-title {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--accent-dark);
+        }
+
+        .footer-card-desc {
+            font-size: 0.8rem;
+            color: #666;
+            margin: 5px 0 0;
+        }
+
+        /* Images */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* History details fix for mobile */
+        summary {
+            padding: 10px 0;
+            font-weight: bold;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+
+        <header>
+            <h1>てぃあんだぁクラブ</h1>
+            <p class="subtitle">
+                子どもの「好き」と「得意」を見つけ、<br>
+                <strong>お母さんが安心を充電する</strong><br>家庭教育サポート
+            </p>
+
+            <div class="header-msg">
+                「学校に行けない」「勉強についていけない」…ひとりで抱えなくて大丈夫です。
+            </div>
+
+            <div class="header-img">
+                <img src="https://assets.softr-files.com/applications/876a45c9-9cb9-4e95-ab93-c1e5b9bcf07f/assets/afb7b164-df2e-4ad9-b85a-53cc241b9285.jpeg"
+                    alt="てぃあんだぁクラブ" />
+            </div>
+        </header>
+
+        <section>
+            <div class="box intro-box">
+                <h2 style="font-size:1.2rem;">てぃあんだぁクラブについて</h2>
+                <p>
+                    てぃあんだぁクラブは、子どもを変える場所ではありません。<br><br>
+                    まずは<strong>お母さんが安心感を充電する</strong>。そこから、お子さんとの関わり方を一緒に考えていきましょう。
+                </p>
+            </div>
+        </section>
+
+        <section>
+            <h2>サービスのご案内</h2>
+
+            <div class="service-card">
+                <span class="service-icon">✏️</span>
+                <div class="service-title">ワンコイン勉強会</div>
+                <p style="font-size:0.9rem;">
+                    学校に通えていない小・中学生、中学卒業後に高校受験を目指す子のための学びの場です。 「久しぶりに人と学ぶ」ための、無理のない入口です。
+                </p>
+
+                <div class="highlight-box">
+                    <strong>📅 開催日</strong><br>
+                    ・水曜 10-12時：豊見城市<br>
+                    ・金曜 10-12時：うるま市
+                </div>
+
+                <ul style="font-size:0.9rem; padding-left: 1.2rem;">
+                    <li>1回 500円（少人数・個別対応）</li>
+                    <li>勉強 ＋ 相談の時間</li>
+                </ul>
+
+                <details>
+                    <summary>始まり（2013年〜）</summary>
+                    <div style="font-size:0.85rem; padding:10px; background:#f9f9f9; border-radius:8px;">
+
+                        〜那覇市 仲井真教室の思い出〜
+
+                        「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」
+
+                        そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。
+
+                        その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。
+                    </div>
+                </details>
+                ※ メディア掲載・インタビュー記事は <a href="https://universe.tea-under.club/">てぃあんだぁクラブ universe</a>にまとめています。
+            </div>
+
+            <div class="service-card">
+                <span class="service-icon">🏠</span>
+                <div class="service-title">個別授業</div>
+                <p style="font-size:0.9rem;">
+                    多重知能（MI）チェックで得意・苦手を可視化。本人のペースで学習をサポートします。
+                </p>
+                <div class="highlight-box">
+                    🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど
+                </div>
+                <p style="font-size:0.8rem; color:#888;">※ 1回90分 / 自宅または通いで実施</p>
+            </div>
+
+            <div class="service-card">
+                <span class="service-icon">🌼</span>
+                <div class="service-title">アンガーマネジメント</div>
+                <p style="font-size:0.9rem;">
+                    感情のコントロールに悩むお子さんと、その対応に迷う保護者のための心理教育プログラムです。
+                </p>
+                <ul style="font-size:0.85rem; padding-left: 1.2rem;">
+                    <li><strong>子ども：</strong>落ち着く方法、感情の整理・伝え方を練習する</li>
+                    <li><strong>保護者：</strong>子どもの感情を受け止める「聴き方」「伝え方」、家庭での共感的コミュニケーション</li>
+                </ul>
+            </div>
+
+            <div class="service-card">
+                <span class="service-icon">📚</span>
+                <div class="service-title">子育て勉強会</div>
+                <p style="font-size:0.9rem;">
+                    親が学び、つながり、安心を充電する場です。
+                </p>
+
+                <a href="https://x.gd/Eu5zx" class="btn btn-primary">
+                    勉強会のお申し込み
+                </a>
+                <a href="https://teaunderclub.substack.com" class="btn btn-outline">
+                    メルマガ配信登録
+                    <span class="btn-subtext">最新情報をメールでお届け</span>
+                </a>
+            </div>
+        </section>
+
+        <section>
+            <h2>お問い合わせ</h2>
+            <div class="box contact-box" style="border: 2px solid var(--accent-color);">
+                <p style="font-size:0.9rem; margin-bottom: 1.5rem;">
+                    学び・進路・気持ちのこと、<br>どんな小さなことでもご相談ください。
+                </p>
+
+                <a href="https://forms.gle/8tFF9vksKx6JJDfZA" class="btn-contact">
+                    ✉️ お問い合わせフォーム
+                </a>
+
+                <div style="margin-top: 2rem; border-top: 1px dashed #ccc; padding-top: 1.5rem;">
+                    <p style="font-size:0.85rem; font-weight: bold;">お急ぎの方は電話でも受付中</p>
+                    <p style="font-size:0.75rem; color:#888;">盆・正月・休日も対応しています☕️</p>
+
+                    <a href="tel:07056924173" class="tel-link">
+                        📞 070-5692-4173
+                    </a>
+                    <p style="font-size:0.8rem;">担当：佐渡山（さどやま）</p>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>よくある質問</h2>
+            <div class="box">
+                <div class="faq-item">
+                    <span class="faq-q">Q. 相談だけでも大丈夫ですか？</span>
+                    <p class="faq-a">A. はい。まずは無料の電話相談からお気軽にご利用ください。</p>
+                </div>
+                <div class="faq-item">
+                    <span class="faq-q">Q. 勉強したい時だけお願いできますか？</span>
+                    <p class="faq-a">A. はい。当日でも空きがあれば可能です。まずは一度ご相談ください。</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p style="font-size:0.8rem; margin-bottom:1.5rem;">てぃあんだぁクラブ 関連サイト</p>
+        <div class="footer-grid">
+            <a href="https://universe.tea-under.club" class="footer-card">
+                <h4 class="footer-card-title">てぃあんだぁクラブ universe</h4>
+                <p class="footer-card-desc">教材・実践・作品のアーカイブ</p>
+            </a>
+            <a href="https://alpaca-school.okinawa" class="footer-card">
+                <h4 class="footer-card-title">アルパカすく〜る</h4>
+                <p class="footer-card-desc">外の世界を、無理なく試す場所</p>
+            </a>
+            <a href="https://yumetsumugi.ainoie1962.com/" class="footer-card">
+                <h4 class="footer-card-title">わたしの夢つむぎ</h4>
+                <p class="footer-card-desc">内側を整えて気持ちをほどく</p>
+            </a>
+            </a>
+            <a href="https://teaunderclub.substack.com/" class="footer-card">
+                <h4 class="footer-card-title">メルマガ「ワンコ通信」</h4>
+                <p class="footer-card-desc">てぃあんだぁクラブの日々の気づきと活動のたより</p>
+            </a>
+        </div>
+        <p style="margin-top:2rem; font-size:0.7rem; color:#999;">© 2013-2025 てぃあんだぁクラブ</p>
+    </footer>
+
+</body>
+
+</html>
