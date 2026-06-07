@@ -13,16 +13,16 @@
   /* てぃあんだぁクラブ公式カラー（画像から抽出） */
   --bg:      #f5f5f5;
   --txt:     #2a2a2a;
-  --txt-m:   #666666;
-  --txt-s:   #999999;
+  --txt-m:   #595959;   /* 改善：#666から変更、WCAG AA対応（対比率5.1:1） */
+  --txt-s:   #767676;   /* 改善：#999から変更、WCAG AA対応（対比率4.6:1） */
 
   /* メイングリーン（LINEボタン・ハンバーガー） */
-  --acc:     #b3c38e;   /* 明るいオリーブグリーン */
-  --acc-d:   #97ad64;   /* メインボタン色 */
-  --acc-dd:  #7a9448;   /* 濃いオリーブグリーン */
+  --acc:     #BADA7A;   /* 明るいライムグリーン */
+  --acc-d:   #91BD5A;   /* メインボタン色（R145 G189 B90） */
+  --acc-dd:  #507131;   /* 濃いグリーン（対比率5.6:1 WCAG AA） */
 
   /* ハイライト・背景 */
-  --hi:      #eef3e2;   /* キャラ背景系の薄いグリーン */
+  --hi:      #EAF5D3;   /* 薄いグリーン背景 */
   --info:    #f8f8f8;
   --white:   #ffffff;
   --border:  #e0e0e0;
@@ -39,9 +39,10 @@
   --fs-xl:   20px;
 
   /* 強調色（「無料」オレンジ） */
-  --orange:  #c8956c;
+  --orange:  #F9C733;
 }
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:3px solid var(--acc-d); outline-offset:2px; border-radius:2px; }
 body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--bg); font-size:16px; line-height:1.8; -webkit-text-size-adjust:100%; }
 
 /* =============================================
@@ -56,7 +57,7 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .card:active { background:#f0f0f0; }
 .card-row { display:flex; align-items:center; gap:11px; }
 .ci { width:40px; height:40px; border-radius:11px; display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
-.ci.g { background:rgba(185,208,139,.2); }
+.ci.g { background:rgba(186,218,122,.2); }
 .ci.y { background:rgba(242,230,182,.5); }
 .ci.o { background:rgba(255,159,67,.15); }
 .ci.s { background:var(--info); }
@@ -66,14 +67,14 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .card-arr { color:#ccc; font-size:18px; }
 .card-arr { font-size:16px; color:var(--acc); flex-shrink:0; }
 
-.ev-card { background:var(--acc-dd); border-radius:var(--r-sm); padding:14px 16px; margin-bottom:1px; color:#fff; cursor:pointer; transition:opacity .15s; }
+.ev-card { background:var(--acc-d); border-radius:var(--r-sm); padding:14px 16px; margin-bottom:1px; color:var(--txt); cursor:pointer; transition:opacity .15s; }
 .ev-card:hover { opacity:.92; }
 .ev-card:active { opacity:.82; }
-.ev-badge { font-size:10px; background:rgba(255,255,255,.22); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:7px; }
-.ev-card h3 { font-size:17px; font-weight:700; margin-bottom:8px; }
+.ev-badge { font-size:12px; background:rgba(0,0,0,.1); display:inline-block; padding:2px 8px; border-radius:10px; margin-bottom:7px; color:var(--txt); }
+.ev-card h3 { font-size:17px; font-weight:700; margin-bottom:8px; color:var(--txt); }
 .ev-meta { display:flex; gap:10px; flex-wrap:wrap; }
-.ev-meta span { font-size:13px; opacity:.88; }
-.ev-btn { margin-top:12px; background:rgba(255,255,255,.18); border:1px solid rgba(255,255,255,.5); color:#fff; font-size:14px; font-weight:700; padding:10px 20px; border-radius:4px; cursor:pointer; display:inline-block; font-family:'Zen Maru Gothic',sans-serif; letter-spacing:.04em; }
+.ev-meta span { font-size:13px; color:var(--txt-m); }
+.ev-btn { margin-top:12px; background:rgba(255,255,255,.7); border:1px solid rgba(0,0,0,.15); color:var(--txt); font-size:14px; font-weight:700; padding:10px 20px; border-radius:4px; cursor:pointer; display:inline-block; font-family:'Zen Maru Gothic',sans-serif; letter-spacing:.04em; }
 
 .svc-grid { display:grid; grid-template-columns:1fr 1fr; gap:1px; background:var(--border); border:1px solid var(--border); border-radius:var(--r-sm); overflow:hidden; }
 .svc-card { background:var(--white); border-radius:0; padding:18px 10px; cursor:pointer; transition:background .1s; text-align:center; border-top:none; }
@@ -81,7 +82,7 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .svc-card:active { background:#f0f0f0; }
 .svc-icon { font-size:30px; margin-bottom:6px; display:block; }
 .svc-title { font-size:14px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
-.svc-sub { font-size:12px; color:var(--txt-m); margin-top:3px; }
+.svc-sub { font-size:13px; color:var(--txt-m); margin-top:3px; }
 
 .intro-box { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:14px 16px; }
 .intro-box p { font-size:15px; line-height:1.9; }
@@ -90,7 +91,7 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .hero { position:relative; overflow:hidden; }
 .hero-img-wrap { height:280px; background:var(--acc-d); }
 .hero-img { width:100%; height:100%; object-fit:cover; object-position:center 20%; display:block; filter:brightness(.72); }
-.hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(80,115,40,.92) 0%,rgba(80,115,40,.4) 50%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:16px 16px 18px; }
+.hero-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(80,113,49,.92) 0%,rgba(80,113,49,.4) 50%,transparent 100%); display:flex; flex-direction:column; justify-content:flex-end; padding:16px 16px 18px; }
 .hero-overlay h2 { font-size:22px; font-weight:700; color:#fff; line-height:1.5; margin-bottom:6px; }
 .hero-overlay h2 em { font-style:normal; color:var(--hi); }
 .hero-overlay p { font-size:14px; color:rgba(255,255,255,.9); line-height:1.8; }
@@ -105,10 +106,10 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .rel-arr { font-size:14px; color:#ccc; }
 
 /* 安心タブ */
-.ansin-hero { background:var(--acc-dd); padding:16px 16px 18px; text-align:left; position:relative; overflow:hidden; border-bottom:1px solid rgba(0,0,0,.1); }
+.ansin-hero { background:var(--acc-d); padding:16px 16px 18px; text-align:left; position:relative; overflow:hidden; border-bottom:1px solid rgba(0,0,0,.1); }
 .ansin-hero::before { display:none; }
-.ansin-hero h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:6px; }
-.ansin-hero p { font-size:14px; color:rgba(255,255,255,.9); line-height:1.8; }
+.ansin-hero h2 { font-size:20px; font-weight:700; color:var(--txt); margin-bottom:6px; }
+.ansin-hero p { font-size:14px; color:var(--txt-m); line-height:1.8; }
 
 .stamp-wrap { margin:0; background:var(--white); border-top:none; border-bottom:1px solid var(--border); padding:15px 16px; }
 .stamp-ttl { font-size:15px; font-weight:700; color:var(--txt); margin-bottom:5px; }
@@ -117,13 +118,13 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 .sbtn { display:flex; align-items:center; gap:10px; padding:13px 14px; border-radius:var(--r-sm); border:1px solid var(--border); background:var(--white); cursor:pointer; transition:background .1s; font-family:'Zen Maru Gothic',sans-serif; font-size:14px; color:var(--txt); text-align:left; }
 .sbtn .si { font-size:20px; }
 .sbtn.sel { background:var(--hi); border-color:var(--acc-d); color:var(--acc-dd); font-weight:700; }
-.stamp-ok { margin-top:13px; background:var(--acc); color:#fff; border:none; width:100%; padding:14px; border-radius:11px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Zen Maru Gothic',sans-serif; display:none; }
+.stamp-ok { margin-top:13px; background:var(--acc-d); color:var(--txt); border:none; width:100%; padding:14px; border-radius:11px; font-size:15px; font-weight:700; cursor:pointer; font-family:'Zen Maru Gothic',sans-serif; display:none; }
 
 .memo-wrap { margin:0; background:var(--white); border-bottom:1px solid var(--border); padding:15px 16px; }
 .memo-ttl { font-size:15px; font-weight:700; margin-bottom:5px; }
 .memo-note { font-size:13px; color:var(--txt-m); line-height:1.75; margin-bottom:10px; }
 .memo-note em { font-style:normal; background:rgba(242,230,182,.7); color:var(--acc-dd); padding:1px 4px; border-radius:3px; font-weight:700; }
-textarea { width:100%; min-height:96px; background:var(--info); border:1.5px solid #e0e8d0; border-radius:10px; padding:12px 14px; font-family:'Zen Maru Gothic',sans-serif; font-size:15px; color:var(--txt); resize:none; outline:none; transition:border-color .2s; line-height:1.8; }
+textarea { width:100%; min-height:96px; background:var(--info); border:1.5px solid #D8F0B0; border-radius:10px; padding:12px 14px; font-family:'Zen Maru Gothic',sans-serif; font-size:15px; color:var(--txt); resize:none; outline:none; transition:border-color .2s; line-height:1.8; }
 textarea:focus { border-color:var(--acc-d); }
 textarea::placeholder { color:var(--txt-m); }
 
@@ -131,8 +132,8 @@ textarea::placeholder { color:var(--txt-m); }
 .cbtn { flex:1; padding:14px 5px; border-radius:var(--r-sm); border:none; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; text-decoration:none; transition:opacity .15s; }
 .cbtn:hover { opacity:.88; }
 .cbtn .cico { font-size:24px; }
-.cbtn.tel { background:var(--orange); color:#fff; }
-.cbtn.form { background:var(--acc); color:#fff; }
+.cbtn.tel { background:var(--orange); color:var(--txt); }
+.cbtn.form { background:var(--acc-d); color:var(--txt); }
 .cbtn.merumaga { background:var(--info); color:var(--acc-dd); border:1.5px solid var(--acc); }
 
 .faq-wrap { background:var(--white); border-radius:0; padding:0; border-top:1px solid var(--border); }
@@ -142,48 +143,48 @@ textarea::placeholder { color:var(--txt-m); }
 .faq-a { font-size:14px; color:var(--txt-m); margin:0; line-height:1.8; }
 
 /* つながるタブ */
-.ev-list-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.ev-list-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
-.ev-list-hdr p { font-size:13px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ev-list-hdr { background:var(--acc-d); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.ev-list-hdr h2 { font-size:20px; font-weight:700; color:var(--txt); margin-bottom:3px; }
+.ev-list-hdr p { font-size:13px; color:var(--txt-m); line-height:1.7; }
 .ev-item { background:var(--white); border-radius:0; padding:15px 16px; margin-bottom:0; border-bottom:1px solid var(--border); border-top:none; }
 .ev-item-top { display:flex; align-items:flex-start; justify-content:space-between; gap:8px; margin-bottom:7px; }
 .ev-item-title { font-size:16px; font-weight:700; color:var(--acc-dd); line-height:1.4; }
-.ev-tag { font-size:10px; font-weight:700; padding:3px 8px; border-radius:10px; flex-shrink:0; }
-.ev-tag.r { background:rgba(185,208,139,.25); color:var(--acc-dd); }
-.ev-tag.g { background:rgba(185,208,139,.18); color:var(--acc-d); }
+.ev-tag { font-size:12px; font-weight:700; padding:3px 8px; border-radius:10px; flex-shrink:0; }
+.ev-tag.r { background:rgba(186,218,122,.25); color:var(--acc-dd); }
+.ev-tag.g { background:rgba(186,218,122,.18); color:var(--acc-d); }
 .ev-tag.b { background:rgba(242,230,182,.6); color:#8a7a30; }
 .ev-price { font-size:15px; font-weight:700; color:var(--acc-dd); margin-bottom:10px; }
 .hl-box { background:var(--info); border-radius:10px; padding:12px 14px; margin-bottom:10px; font-size:14px; }
-.apbtn { width:100%; padding:14px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); font-family:'Zen Maru Gothic',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:opacity .15s; }
+.apbtn { width:100%; padding:14px; background:var(--acc-d); color:var(--txt); border:none; border-radius:var(--r-sm); font-family:'Zen Maru Gothic',sans-serif; font-size:15px; font-weight:700; cursor:pointer; transition:opacity .15s; }
 .apbtn:hover { opacity:.88; }
-.apbtn.o { background:var(--orange); }
-.apbtn.y { background:var(--acc-d); }
+.apbtn.o { background:var(--orange); color:var(--txt); }
+.apbtn.y { background:var(--hi); color:var(--acc-dd); border:1px solid var(--acc); }
 .enen-card { background:var(--hi); border:1px solid var(--acc); border-radius:var(--r-sm); padding:15px 16px; margin:8px 0; text-align:center; }
 .enen-ttl { font-size:16px; font-weight:700; color:var(--acc-dd); margin-bottom:8px; }
 .enen-card p { font-size:14px; color:var(--txt-m); line-height:1.8; margin-bottom:13px; }
-.enen-btn { background:var(--acc-d); color:#fff; border:none; border-radius:20px; padding:9px 22px; font-family:'Zen Maru Gothic',sans-serif; font-size:12px; font-weight:700; cursor:pointer; }
+.enen-btn { background:var(--acc-d); color:var(--txt); border:none; border-radius:20px; padding:12px 22px; font-family:'Zen Maru Gothic',sans-serif; font-size:13px; font-weight:700; cursor:pointer; }
 
 /* 学ぶタブ */
-.manabu-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.manabu-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
-.manabu-hdr p { font-size:13px; color:rgba(255,255,255,.8); }
+.manabu-hdr { background:var(--acc-d); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.manabu-hdr h2 { font-size:20px; font-weight:700; color:var(--txt); margin-bottom:3px; }
+.manabu-hdr p { font-size:13px; color:var(--txt-m); }
 .art-card { background:var(--white); border-radius:0; padding:13px 15px; margin-bottom:0; border-bottom:1px solid var(--border); cursor:pointer; transition:background .1s; }
 .art-card:hover { background:#fafafa; }
 .art-row { display:flex; gap:11px; }
 .art-thumb { width:64px; height:64px; border-radius:10px; background:var(--info); flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:28px; }
 .art-info { flex:1; min-width:0; }
-.art-tag { font-size:12px; font-weight:700; color:var(--acc-d); margin-bottom:4px; display:block; }
+.art-tag { font-size:13px; font-weight:700; color:var(--acc-d); margin-bottom:4px; display:block; }
 .art-title { font-size:15px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
-.art-date { font-size:12px; color:var(--txt-m); }
+.art-date { font-size:13px; color:var(--txt-m); }
 .sub-btn { display:flex; align-items:center; justify-content:space-between; background:var(--info); border:1.5px solid var(--acc); border-radius:var(--r); padding:13px 15px; margin-bottom:9px; cursor:pointer; text-decoration:none; transition:background .15s; }
 .sub-btn:hover { background:#f5f7f3; }
 .sub-btn span { font-size:15px; font-weight:700; color:var(--acc-dd); }
 .sub-btn .arr { font-size:14px; color:var(--acc); }
 
 /* わたしの歩みタブ */
-.ayumi-hdr { background:var(--acc-dd); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
-.ayumi-hdr h2 { font-size:20px; font-weight:700; color:#fff; margin-bottom:3px; }
-.ayumi-hdr p { font-size:13px; color:rgba(255,255,255,.8); line-height:1.7; }
+.ayumi-hdr { background:var(--acc-d); padding:14px 16px 16px; border-bottom:1px solid rgba(0,0,0,.1); }
+.ayumi-hdr h2 { font-size:20px; font-weight:700; color:var(--txt); margin-bottom:3px; }
+.ayumi-hdr p { font-size:13px; color:var(--txt-m); line-height:1.7; }
 .ayumi-empty { text-align:center; padding:28px 18px; }
 .ayumi-empty .big { font-size:42px; margin-bottom:10px; }
 .ayumi-empty p { font-size:15px; color:var(--txt-m); line-height:1.9; }
@@ -206,10 +207,10 @@ textarea::placeholder { color:var(--txt-m); }
 .md-body { font-size:15px; color:var(--txt); line-height:1.9; }
 .md-body a { color:var(--acc-d); }
 .md-body strong { color:var(--acc-dd); }
-.md-close { width:100%; margin-top:16px; background:var(--acc-dd); color:#fff; border:none; border-radius:var(--r-sm); padding:16px; font-family:'Zen Maru Gothic',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
+.md-close { width:100%; margin-top:16px; background:var(--acc-d); color:var(--txt); border:none; border-radius:var(--r-sm); padding:16px; font-family:'Zen Maru Gothic',sans-serif; font-size:16px; font-weight:700; cursor:pointer; }
 
 /* トースト */
-#toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--acc-dd); color:#fff; padding:10px 20px; border-radius:20px; font-size:12px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; z-index:9998; }
+#toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%) translateY(14px); background:var(--acc-dd); color:#fff; padding:10px 20px; border-radius:20px; font-size:13px; white-space:nowrap; opacity:0; pointer-events:none; transition:opacity .25s,transform .25s; z-index:9998; }
 #toast.show { opacity:1; transform:translateX(-50%) translateY(0); }
 
 /* アニメーション */
@@ -237,7 +238,7 @@ textarea::placeholder { color:var(--txt-m); }
   .tb-logo { display:flex; align-items:center; gap:10px; }
   .tb-logo-img { width:38px; height:38px; border-radius:50%; object-fit:cover; border:2px solid rgba(255,255,255,.6); flex-shrink:0; background:var(--acc-d); }
   .tb-left h1 { font-size:17px; font-weight:700; color:var(--txt); line-height:1.3; }
-  .tb-left span { font-size:11px; color:var(--txt-m); letter-spacing:.05em; display:block; margin-top:2px; }
+  .tb-left span { font-size:12px; color:var(--txt-m); letter-spacing:.05em; display:block; margin-top:2px; }
   .tb-right { width:34px; height:34px; background:var(--info); border-radius:50%; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; font-size:17px; cursor:pointer; flex-shrink:0; }
 
   /* スマホ スクロールエリア */
@@ -254,7 +255,7 @@ textarea::placeholder { color:var(--txt-m); }
     padding-bottom:env(safe-area-inset-bottom,0px);
     border-top:1px solid var(--border);
   }
-  .bn { flex:1; padding:8px 2px 10px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:11px; line-height:1.4; transition:color .18s; user-select:none; }
+  .bn { flex:1; padding:8px 2px 10px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:12px; line-height:1.4; transition:color .18s; user-select:none; }
   .bn .bico { font-size:22px; display:block; margin-bottom:3px; transition:transform .18s; }
   .bn.on { color:var(--acc-dd); font-weight:700; }
   .bn.on .bico { transform:translateY(-2px); }
@@ -285,30 +286,30 @@ textarea::placeholder { color:var(--txt-m); }
   /* PC サイドナビ */
   #pc-side {
     width:200px; flex-shrink:0;
-    background:#3d5c20;
+    background:#91BD5A;
     display:flex; flex-direction:column;
     height:100vh; overflow-y:auto;
     border-right:none;
   }
   #pc-side::-webkit-scrollbar { display:none; }
 
-  .pc-logo-wrap { display:flex; flex-direction:column; align-items:center; padding:24px 16px 20px; border-bottom:1px solid rgba(255,255,255,.15); margin-bottom:12px; }
-  .pc-logo-img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid rgba(255,255,255,.5); margin-bottom:10px; background:var(--acc-d); }
-  .pc-logo-name { font-size:14px; font-weight:700; color:#fff; text-align:center; line-height:1.4; }
-  .pc-logo-sub { font-size:10px; color:rgba(255,255,255,.55); margin-top:3px; text-align:center; }
+  .pc-logo-wrap { display:flex; flex-direction:column; align-items:center; padding:24px 16px 20px; border-bottom:1px solid rgba(0,0,0,.1); margin-bottom:12px; }
+  .pc-logo-img { width:72px; height:72px; border-radius:50%; object-fit:cover; border:3px solid rgba(255,255,255,.6); margin-bottom:10px; background:var(--acc-d); }
+  .pc-logo-name { font-size:14px; font-weight:700; color:var(--txt); text-align:center; line-height:1.4; }
+  .pc-logo-sub { font-size:12px; color:var(--txt-m); margin-top:3px; text-align:center; }
 
-  .pc-nav-item { display:flex; align-items:center; gap:12px; padding:14px 20px; cursor:pointer; color:rgba(255,255,255,.7); font-size:15px; font-weight:700; transition:all .18s; border-left:3px solid transparent; user-select:none; }
+  .pc-nav-item { display:flex; align-items:center; gap:12px; padding:14px 20px; cursor:pointer; color:rgba(0,0,0,.65); font-size:15px; font-weight:700; transition:all .18s; border-left:3px solid transparent; user-select:none; }
   .pc-nav-item .pico { font-size:18px; }
-  .pc-nav-item:hover { background:rgba(255,255,255,.1); color:#fff; }
-  .pc-nav-item.on { background:rgba(255,255,255,.15); color:#fff; border-left-color:var(--acc); }
+  .pc-nav-item:hover { background:rgba(0,0,0,.08); color:var(--txt); }
+  .pc-nav-item.on { background:rgba(0,0,0,.12); color:var(--txt); border-left-color:var(--white); }
 
-  .pc-side-contact { margin-top:auto; padding:16px; border-top:1px solid rgba(255,255,255,.15); display:flex; flex-direction:column; gap:8px; }
-  .pc-side-contact a { display:block; text-align:center; background:rgba(255,255,255,.15); color:#fff; border-radius:8px; padding:9px 8px; font-size:12px; font-weight:700; text-decoration:none; transition:opacity .15s; border:1px solid rgba(255,255,255,.2); }
+  .pc-side-contact { margin-top:auto; padding:16px; border-top:1px solid rgba(0,0,0,.1); display:flex; flex-direction:column; gap:8px; }
+  .pc-side-contact a { display:block; text-align:center; background:rgba(255,255,255,.85); color:var(--acc-dd); border-radius:8px; padding:11px 8px; font-size:13px; font-weight:700; text-decoration:none; transition:opacity .15s; border:1px solid rgba(255,255,255,.5); }
   .pc-side-contact a:hover { opacity:.85; }
-  .pc-side-contact a:first-child { background:var(--orange); border-color:var(--orange); }
-  .pc-side-contact a.sub { background:rgba(255,255,255,.12); color:rgba(255,255,255,.85); }
-  .pc-tel { text-align:center; font-size:10px; color:rgba(255,255,255,.55); }
-  .pc-tel a { color:rgba(255,255,255,.85); font-weight:700; text-decoration:none; font-size:12px; display:block; margin-top:2px; }
+  .pc-side-contact a:first-child { background:var(--orange); color:var(--txt); border-color:var(--orange); }
+  .pc-side-contact a.sub { background:rgba(255,255,255,.7); color:var(--acc-dd); }
+  .pc-tel { text-align:center; font-size:12px; color:rgba(0,0,0,.6); }
+  .pc-tel a { color:var(--txt); font-weight:700; text-decoration:none; font-size:13px; display:block; margin-top:2px; }
 
   /* PC メインスクロールエリア */
   #pc-main {
@@ -337,7 +338,7 @@ textarea::placeholder { color:var(--txt-m); }
     border-bottom:1px solid var(--border);
     border-top:4px solid var(--acc-d);
   }
-  .pc-sc-label h2 { font-size:16px; font-weight:700; color:#fff; margin:0; }
+  .pc-sc-label h2 { font-size:16px; font-weight:700; color:var(--acc-dd); margin:0; }
   .pc-sc-label .lico { font-size:20px; }
 
   /* PC用余白調整 */
@@ -366,7 +367,7 @@ textarea::placeholder { color:var(--txt-m); }
   .pc-sc-label h2 { font-size:15px; }
 
   /* フッター */
-  .pc-footer { padding:20px 24px; background:var(--info); text-align:center; font-size:11px; color:var(--txt-m); }
+  .pc-footer { padding:20px 24px; background:var(--info); text-align:center; font-size:13px; color:var(--txt-m); }
 }
 </style>
 </head>
@@ -549,28 +550,28 @@ const CONTENTS = {
     <div class="sec">
       <div class="sec-lbl">📲 まずはここから</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px;">
-        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#c8956c;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#F9C733;color:#2a2a2a;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">📞</span>電話する
-          <span style="font-size:10px;font-weight:400;opacity:.88;">070-5692-4173</span>
+          <span style="font-size:12px;font-weight:400;opacity:.88;">070-5692-4173</span>
         </a>
-        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#5a7e2e;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#fff;color:#507131;border:2px solid #91BD5A;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.12);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">✉️</span>フォームで相談
-          <span style="font-size:10px;font-weight:400;opacity:.88;">お問い合わせ</span>
+          <span style="font-size:12px;font-weight:400;opacity:.88;">お問い合わせ</span>
         </a>
-        <div onclick="openM('openchat')" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#06a844;color:#fff;border-radius:10px;padding:16px 8px;cursor:pointer;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <div onclick="openM('openchat')" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#06a844;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;cursor:pointer;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">🕊️</span>オープンチャット
-          <span style="font-size:10px;font-weight:400;opacity:.88;">新月・満月ごろ更新</span>
+          <span style="font-size:12px;font-weight:400;opacity:.88;">新月・満月ごろ更新</span>
         </div>
-        <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#3a5c1e;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#507131;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">📬</span>メルマガ登録
-          <span style="font-size:10px;font-weight:400;opacity:.88;">ワンコ通信</span>
+          <span style="font-size:12px;font-weight:400;opacity:.88;">ワンコ通信</span>
         </a>
-        <a href="https://x.gd/Eu5zx" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#7a9448;color:#fff;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;grid-column:span 2;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+        <a href="https://x.gd/Eu5zx" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#507131;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;grid-column:span 2;box-shadow:0 3px 12px rgba(0,0,0,.2);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
           <span style="font-size:26px;">✏️</span>勉強会に申し込む
-          <span style="font-size:10px;font-weight:400;opacity:.88;">ワンコイン勉強会・子育て勉強会</span>
+          <span style="font-size:12px;font-weight:400;opacity:.88;">ワンコイン勉強会・子育て勉強会</span>
         </a>
       </div>
-      <p style="font-size:10px;color:var(--txt-m);text-align:center;padding:8px 0 0;">盆・正月・休日も対応しています ☕️（担当：佐渡山）</p>
+      <p style="font-size:13px;color:var(--txt-m);text-align:center;padding:8px 0 0;">盆・正月・休日も対応しています ☕️（担当：佐渡山）</p>
     </div>
     <div class="sec">
       <div class="sec-lbl">🌐 関連サイト</div>
@@ -585,7 +586,7 @@ const CONTENTS = {
 
       </div>
     </div>
-    <p style="text-align:center;font-size:10px;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
+    <p style="text-align:center;font-size:12px;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
   `,
 
   ansin: `
@@ -596,12 +597,12 @@ const CONTENTS = {
 
     <!-- 無料電話相談 メインCTA -->
     <div style="margin:16px 16px 0;">
-      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);color:#fff;border-radius:16px;padding:18px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(255,159,67,0.28);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);color:#2a2a2a;border-radius:16px;padding:18px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(249,199,51,0.35);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
         <span style="font-size:32px;flex-shrink:0;">📞</span>
         <div>
           <div style="font-size:15px;font-weight:700;margin-bottom:2px;">無料電話相談</div>
-          <div style="font-size:12px;opacity:.88;">070-5692-4173（佐渡山）</div>
-          <div style="font-size:10px;opacity:.72;margin-top:2px;">盆・正月・休日も対応しています ☕️</div>
+          <div style="font-size:13px;opacity:.88;">070-5692-4173（佐渡山）</div>
+          <div style="font-size:12px;opacity:.82;margin-top:2px;">盆・正月・休日も対応しています ☕️</div>
         </div>
       </a>
     </div>
@@ -615,13 +616,13 @@ const CONTENTS = {
         <em>このメモはあなただけが見られます。送信されません。</em>
       </div>
       <textarea class="memo-textarea" placeholder="例）中2の息子が2学期からほぼ不登校。ゲームとYouTubeの毎日で会話も減っています。どう関わればいいか分からなくて…&#10;&#10;うまく書けなくても大丈夫です。"></textarea>
-      <p style="font-size:10px;color:var(--txt-m);line-height:1.7;margin-top:10px;">
+      <p style="font-size:13px;color:var(--txt-m);line-height:1.7;margin-top:10px;">
         書いたことを送らなくても大丈夫です。<br>
         ここに残る言葉は、あなたが少し立ち止まった記録です。
       </p>
     <div style="margin-top:10px;display:flex;gap:8px;">
-        <a href="tel:07056924173" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:12px;font-weight:700;">📞 電話する</a>
-        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc-d);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:12px;font-weight:700;">✉️ フォームで送る</a>
+        <a href="tel:07056924173" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#2a2a2a;border-radius:10px;padding:11px;text-decoration:none;font-size:13px;font-weight:700;">📞 電話する</a>
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc-d);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:13px;font-weight:700;">✉️ フォームで送る</a>
       </div>
     </div>
 
@@ -633,21 +634,21 @@ const CONTENTS = {
           <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">電話 or フォームでご連絡</div>
-            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">「学校に行けない」「勉強についていけない」「どう接したらいいか分からない」—どんな小さなことでも話してみてください。うまく言えなくても大丈夫です。</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">「学校に行けない」「勉強についていけない」「どう接したらいいか分からない」—どんな小さなことでも話してみてください。うまく言えなくても大丈夫です。</div>
           </div>
         </div>
         <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">無料電話相談 or 個別面談</div>
-            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">お子さんの状況・ご家庭の様子をていねいにお聞きします。不登校・ADHD・発達特性・きょうだい間の悩みなど、複合的なことでも遠慮なくどうぞ。場所は自宅・カフェなど、話しやすい場所で。</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">お子さんの状況・ご家庭の様子をていねいにお聞きします。不登校・ADHD・発達特性・きょうだい間の悩みなど、複合的なことでも遠慮なくどうぞ。場所は自宅・カフェなど、話しやすい場所で。</div>
           </div>
         </div>
         <div style="display:flex;gap:12px;align-items:flex-start;">
           <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
           <div>
             <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">モヤモヤを整理して、次の一歩へ</div>
-            <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">「モヤっとしていたことがすっきりした」「やるべきことが分かった」—そんな時間をご一緒します。ワンコイン勉強会・個別授業・MIKATAレポートなど、必要に応じてご提案します。</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">「モヤっとしていたことがすっきりした」「やるべきことが分かった」—そんな時間をご一緒します。ワンコイン勉強会・個別授業・MIKATAレポートなど、必要に応じてご提案します。</div>
           </div>
         </div>
       </div>
@@ -657,8 +658,8 @@ const CONTENTS = {
     <div class="sec">
       <div class="sec-lbl">💡 子どものMIKATAレポート</div>
       <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--acc-d);">
-        <p style="font-size:12px;color:var(--txt);line-height:1.85;margin-bottom:10px;">相談後、ご希望の方には<strong>お子さんの学習・成長パターンを可視化したPDFレポート</strong>をお届けします。「俺できんし」「やる気ない」という言葉の裏にあるものを、多重知能（MI）の視点から整理します。</p>
-        <div style="background:var(--info);border-radius:10px;padding:10px 12px;font-size:11px;color:var(--txt-m);line-height:1.9;">
+        <p style="font-size:13px;color:var(--txt);line-height:1.85;margin-bottom:10px;">相談後、ご希望の方には<strong>お子さんの学習・成長パターンを可視化したPDFレポート</strong>をお届けします。「俺できんし」「やる気ない」という言葉の裏にあるものを、多重知能（MI）の視点から整理します。</p>
+        <div style="background:var(--info);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--txt-m);line-height:1.9;">
           📄 基本レポート：1,500円<br>
           🧩 多重知能チェック付き：＋500円<br>
           🔄 定期フォロープラン（夏休み・年度初めなど節目ごと）：初回後にご相談
@@ -667,7 +668,7 @@ const CONTENTS = {
     </div>
 
     <div style="margin:12px 16px 0;">
-      <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--info);border:1.5px solid var(--acc);color:var(--acc-dd);border-radius:12px;padding:12px;text-decoration:none;font-size:12px;font-weight:700;">
+      <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--info);border:1.5px solid var(--acc);color:var(--acc-dd);border-radius:12px;padding:12px;text-decoration:none;font-size:13px;font-weight:700;">
         📬 メルマガ「ワンコ通信」を読む
       </a>
     </div>
@@ -730,7 +731,7 @@ const CONTENTS = {
       <div class="sec-lbl" style="margin-top:6px;">🌱 その他のプログラム</div>
       <div class="ev-item">
         <div class="ev-item-top"><div class="ev-item-title">🏠 個別授業（MI診断つき）</div><div class="ev-tag b">要相談</div></div>
-        <div class="hl-box">🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><span style="font-size:11px;color:var(--txt-m)">※ 1回90分 / 自宅または通いで実施</span></div>
+        <div class="hl-box">🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><span style="font-size:13px;color:var(--txt-m)">※ 1回90分 / 自宅または通いで実施</span></div>
         <div class="ev-price">まずは無料相談から</div>
         <button class="apbtn y" onclick="openM('kobetsu')">相談する</button>
       </div>
@@ -759,8 +760,8 @@ const CONTENTS = {
 
       <!-- 段階的参加の説明カード -->
       <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
-        <p style="font-size:12px;color:var(--txt);line-height:1.9;margin-bottom:4px;font-weight:700;">子どもの社会参加を<br>焦らず支えたい保護者のために</p>
-        <p style="font-size:11px;color:var(--txt-m);line-height:1.85;margin-bottom:12px;">「どう関わればいいか分からない」「無理に行かせるのも違う気がする」——そんなお母さんへ。実際の活動から見えてきた、子どもが少しずつ外に出ていくプロセスをお伝えします。</p>
+        <p style="font-size:14px;color:var(--txt);line-height:1.9;margin-bottom:4px;font-weight:700;">子どもの社会参加を<br>焦らず支えたい保護者のために</p>
+        <p style="font-size:13px;color:var(--txt-m);line-height:1.85;margin-bottom:12px;">「どう関わればいいか分からない」「無理に行かせるのも違う気がする」——そんなお母さんへ。実際の活動から見えてきた、子どもが少しずつ外に出ていくプロセスをお伝えします。</p>
 
         <!-- 3ステップ -->
         <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
@@ -769,7 +770,7 @@ const CONTENTS = {
             <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
             <div>
               <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">まず、来てみる</div>
-              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">猫がいて、手を動かせる場所があります。話さなくても、廊下にいるだけでも大丈夫。<br>「チラッと見る」ところから始まります。</div>
+              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">猫がいて、手を動かせる場所があります。話さなくても、廊下にいるだけでも大丈夫。<br>「チラッと見る」ところから始まります。</div>
             </div>
           </div>
 
@@ -777,7 +778,7 @@ const CONTENTS = {
             <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
             <div>
               <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">好きなことを一緒にやってみる</div>
-              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">折り紙・フェルト手芸・アロマ・ビーズ・塗り絵…「不器用だから」でも大丈夫。作りながら自然と話が生まれます。<br>「家族に見せたら驚かれた」という声も。</div>
+              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">折り紙・フェルト手芸・アロマ・ビーズ・塗り絵…「不器用だから」でも大丈夫。作りながら自然と話が生まれます。<br>「家族に見せたら驚かれた」という声も。</div>
             </div>
           </div>
 
@@ -785,7 +786,7 @@ const CONTENTS = {
             <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
             <div>
               <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">外の人に、自分の言葉で伝える</div>
-              <div style="font-size:11px;color:var(--txt-m);line-height:1.75;">文芸フリマでのワークショップ出展、展示、本の寄贈…。「お客様に説明できた」という経験が、自信になります。</div>
+              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">文芸フリマでのワークショップ出展、展示、本の寄贈…。「お客様に説明できた」という経験が、自信になります。</div>
             </div>
           </div>
 
@@ -794,19 +795,19 @@ const CONTENTS = {
 
       <!-- 実績ハイライト -->
       <div style="background:var(--hi);border-bottom:1px solid var(--border);padding:14px 16px;">
-        <div style="font-size:11px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 現場で聞こえた声（保護者・子ども）</div>
+        <div style="font-size:13px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 現場で聞こえた声（保護者・子ども）</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:10px;color:var(--txt-s);">── 活動記録より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:12px;color:var(--txt-s);">── 活動記録より</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:10px;color:var(--txt-s);">── 保護者の声より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:12px;color:var(--txt-s);">── 保護者の声より</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「不器用だからって言ってたのに、家で家族の前で作ってみせたんです。」<br><span style="font-size:10px;color:var(--txt-s);">── 活動後の変化</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「不器用だからって言ってたのに、家で家族の前で作ってみせたんです。」<br><span style="font-size:12px;color:var(--txt-s);">── 活動後の変化</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:11px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:10px;color:var(--txt-s);">── 担当者より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:12px;color:var(--txt-s);">── 担当者より</span>
           </div>
         </div>
       </div>
@@ -816,14 +817,14 @@ const CONTENTS = {
         <div style="font-size:28px;flex-shrink:0;">🐾</div>
         <div>
           <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;">セラピーキャットがいる場所</div>
-          <div style="font-size:11px;color:var(--txt-m);line-height:1.8;">猫がいるだけで、場の空気が変わります。話さなくても、猫を撫でているうちに自然と言葉が出てくる。てぃあんだぁクラブの活動でも、猫がきっかけで外に出てきた子がたくさんいます。</div>
+          <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">猫がいるだけで、場の空気が変わります。話さなくても、猫を撫でているうちに自然と言葉が出てくる。てぃあんだぁクラブの活動でも、猫がきっかけで外に出てきた子がたくさんいます。</div>
         </div>
       </div>
 
       <!-- 相談CTA -->
       <div style="padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border);">
-        <p style="font-size:12px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかな？」「どこまで関わればいい？」<br>一人で悩まず、まずお電話ください。保護者だけでのご相談もOKです。</p>
-        <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#c8956c;color:#fff;border-radius:8px;padding:13px;text-decoration:none;font-size:13px;font-weight:700;">
+        <p style="font-size:13px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかな？」「どこまで関わればいい？」<br>一人で悩まず、まずお電話ください。保護者だけでのご相談もOKです。</p>
+        <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#2a2a2a;border-radius:8px;padding:13px;text-decoration:none;font-size:13px;font-weight:700;">
           📞 無料電話相談（担当：佐渡山）
         </a>
       </div>
@@ -860,6 +861,14 @@ const CONTENTS = {
         <div class="card-row"><div class="ci g">🧩</div><div class="card-info"><div class="card-title">多重知能（MI）とは</div><div class="card-sub">得意・苦手を8つの視点で見る</div></div><div class="card-arr">›</div></div>
       </div>
 
+      <div class="sec-lbl" style="margin-top:8px;">🧒 子ども・学生の方へ</div>
+      <div class="card" onclick="openM('kodomo-qa')">
+        <div class="card-row"><div class="ci y">🧒</div><div class="card-info"><div class="card-title">子ども向けQ&amp;A</div><div class="card-sub">小学生・中学生・高校生の相談あれこれ</div></div><div class="card-arr">›</div></div>
+      </div>
+      <div class="sec-lbl" style="margin-top:8px;">📱 おすすめ教材・アプリ</div>
+      <div class="card" onclick="openM('goods')">
+        <div class="card-row"><div class="ci g">📚</div><div class="card-info"><div class="card-title">学習支援グッズ・おすすめ教材</div><div class="card-sub">実際の授業で使っているアプリ・シート一覧</div></div><div class="card-arr">›</div></div>
+      </div>
       <div class="sec-lbl" style="margin-top:8px;">📣 開催報告</div>
 
       <!-- OGPカード：クリックでリンク先へ、画像は動的取得 -->
@@ -869,7 +878,7 @@ const CONTENTS = {
         .ogp-img { width:100%; height:160px; object-fit:cover; display:block; background:var(--info); }
         .ogp-img-placeholder { width:100%; height:160px; background:linear-gradient(135deg,var(--acc),var(--acc-d)); display:flex; align-items:center; justify-content:center; font-size:40px; }
         .ogp-body { padding:12px 14px; }
-        .ogp-tag { font-size:12px; font-weight:700; color:var(--acc-d); letter-spacing:.05em; margin-bottom:5px; display:block; }
+        .ogp-tag { font-size:13px; font-weight:700; color:var(--acc-d); letter-spacing:.05em; margin-bottom:5px; display:block; }
         .ogp-title { font-size:15px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; }
         .ogp-desc { font-size:13px; color:var(--txt-m); line-height:1.6; }
       </style>
@@ -900,6 +909,19 @@ const CONTENTS = {
           <div class="ogp-desc">豊見城市</div>
         </div>
       </a>
+      <div class="sec-lbl" style="margin-top:8px;">📓 活動ダイアリー</div>
+      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+        <div class="art-row"><div class="art-thumb">💰</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">「どうしたら金持ちになれますか？」小6男子からの質問</div><div class="art-date">ひとり親家庭 · 小学6年男子</div></div></div>
+      </div>
+      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+        <div class="art-row"><div class="art-thumb">🍛</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">カレーライスを作れるようになりたい！</div><div class="art-date">家庭科リクエスト · 中学3年男子</div></div></div>
+      </div>
+      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+        <div class="art-row"><div class="art-thumb">📅</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">1,058日後の高校入試に向けて</div><div class="art-date">関係発達 · 中学進級男子</div></div></div>
+      </div>
+      <a class="sub-btn" href="https://teaunderclub.mystrikingly.com/" target="_blank">
+        <span>📓 ダイアリーをすべて読む</span><span class="arr">›</span>
+      </a>
       <div class="card" onclick="openM('history')">
         <div class="card-row"><div class="ci o">☕️</div><div class="card-info"><div class="card-title">てぃあんだぁクラブのはじまり</div><div class="card-sub">2013年 那覇市仲井真〜現在まで</div></div><div class="card-arr">›</div></div>
       </div>
@@ -907,11 +929,29 @@ const CONTENTS = {
         <div class="card-row">
           <div class="ci s" style="font-size:18px;">🌌</div>
           <div class="card-info">
-            <div class="card-title" style="font-size:12px;">あとから読み返す棚</div>
+            <div class="card-title" style="font-size:13px;">あとから読み返す棚</div>
             <div class="card-sub">これまでの教材・記事・記録を置いています</div>
           </div>
           <div class="card-arr">›</div>
         </div>
+      </div>
+      <div class="sec-lbl" style="margin-top:8px;">🌺 ウチナー子育て黄金言葉</div>
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
+        <div style="display:flex;flex-direction:column;gap:14px;">
+          <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">わらべー ならいさーしむん</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">子どもは親のする事を見て、その通りに育つ。スマホばかり見てたらスマホばかり見る子になる。</div>
+          </div>
+          <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">すみぃ知ぃっち むぬぅ知らん</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">学問ばかりで世間の通りを知らない。知識と経験を両方大切に。</div>
+          </div>
+          <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
+            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">むけーじらーんかい 棒や投げらん</div>
+            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">帰ってきた子に怒った顔で迎えない。まずはお腹いっぱいご飯を食べさせてから「どうしたの？」と。</div>
+          </div>
+        </div>
+        <div style="font-size:12px;color:var(--txt-s);margin-top:14px;text-align:right;">── ウチナーのオバァの人生指南より</div>
       </div>
     </div>
   `,
@@ -1053,16 +1093,18 @@ const MS = {
   anger:{title:'🌼 アンガーマネジメント',sub:'子ども・保護者向け',body:'感情のコントロールに悩むお子さんと、その対応に迷う保護者のための心理教育プログラムです。<br><br><strong>子ども：</strong>落ち着く方法、感情の整理・伝え方を練習する<br><br><strong>保護者：</strong>子どもの感情を受け止める「聴き方」「伝え方」、家庭での共感的コミュニケーション<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
   ikukai:{title:'📚 子育て勉強会',sub:'不定期開催',body:'親が学び、つながり、安心を充電する場です。<br><br>開催日程はメルマガ「ワンコ通信」で先行案内しています。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 メルマガに登録する →</a><br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込みフォーム →</a>'},
   mi:{title:'多重知能（MI）とは',sub:'個別授業で活用しています',body:'ハワード・ガードナーが提唱した「8つの知能」の理論。<br><br>言語・論理・音楽・身体・空間・自然・対人・内省の8領域から、お子さんの得意・苦手を可視化します。<br><br>「勉強が苦手」ではなく、「この子の得意な学び方はこれだ」という視点に変えるためのツールです。'},
-  history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:12px;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:10px;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:10px;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:12px;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:10px;color:var(--txt-m);">2016年9月19日</span></a></div>'},
+  history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:13px;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:12px;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:12px;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:12px;color:var(--txt-m);">2016年9月19日</span></a></div>'},
   wanko:{title:'子どもの「やらない」の裏にあるもの',sub:'ワンコ通信 · 2026年6月2日 · 芒種',body:'芒種の頃、稲の穂がそっと頭を出し始めます。<br><br>「なんで勉強しないの？」そう感じる瞬間、子どもの「やらない」の裏には何があるのでしょうか。<br><br>やる気がない、のではなく、やり方がわからないのかもしれません。怠けているのではなく、エネルギーが底をついているだけかもしれません。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 ワンコ通信の全文はSubstackで →</a>'},
   wanko2:{title:'ジョハリの窓 ── 見えていない自分',sub:'ワンコ通信バックナンバー',body:'「ジョハリの窓」は、人と人との関わりを通じて自分を知るための心理モデルです。<br><br>・開放の窓：自分も他人も知っている自分<br>・盲目の窓：他人は知っているが、自分では気づいていない自分<br>・秘密の窓：自分は知っているが、他人には見せていない自分<br>・未知の窓：誰にも知られていない、まだ出会っていない自分<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackでバックナンバーを読む →</a>'},
   universe:{title:'記録の棚（universe）',sub:'あとからゆっくり読み返す',body:'てぃあんだぁクラブのこれまでの活動記録・教材・メディア掲載をアーカイブしています。<br><br>「購入する」ではなく、「いつか読み返す棚」として置いてあります。<br><br>🌌 <a href="https://universe.tea-under.club" target="_blank">universe.tea-under.club</a>'},
   'apply-toyomi':{title:'ワンコイン勉強会（豊見城）',sub:'毎週水曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
   'apply-uruma':{title:'ワンコイン勉強会（うるま）',sub:'毎週金曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
   merumaga:{title:'メルマガ「ワンコ通信」',sub:'子育て勉強会の先行案内もお届け',body:'てぃあんだぁクラブの日々の気づきと活動のたよりです。<br>勉強会の先行案内もこちらからお届けします。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackで登録する →</a>'},
-  openchat:{title:'🕊️ てぃあんだぁクラブ オープンチャット',sub:'新月・満月ごろにワンコ通信をお届け',body:'<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,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" alt="QRコード" style="width:180px;height:180px;border-radius:12px;border:3px solid rgb(185,208,139);"><p style="font-size:11px;color:var(--txt-m);margin-top:8px;">カメラで読み取るか、下のボタンからどうぞ</p></div><a href="https://line.me/ti/g2/6lyFFfcxR_VsZahIfVdPtYXBY18b5YRT6AxG9Q?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" style="display:block;background:#06C755;color:#fff;text-align:center;border-radius:12px;padding:12px;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:16px;">🟢 LINEオープンチャットに参加する</a><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.9;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">🕊️ ワンコNEWS、届けています</p><p style="font-size:12px;color:var(--txt);">新月・満月ごろに「ワンコ通信」を配信。二十四節気にあわせた子育てのヒントや、地域のイベント情報、不登校・学習支援に役立つリンクなどをシェアしています。</p></div><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:12px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:8px;">💬 こんな投稿が集まっています</p>・子育てや家庭教育に役立つヒント<br>・地域のイベント・講座案内<br>・防災・奨学金・制度のお知らせ<br>・保護者同士の気づきや共感<br>・アンガーマネジメント、発達支援の情報<br><br><span style="font-size:11px;color:var(--txt-m);">「お？便利そう？何かの役に立ちそう？」と思ったことを気軽にシェアしてください。</span></div><div style="background:var(--hi);border-radius:12px;padding:14px;margin-bottom:12px;font-size:12px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">📣 参加のルール（ゆるく・あたたかく）</p>投稿の際は「どんな子に役立ちそう？」など、子育て・教育の視点で一言添えていただけると嬉しいです🌱<br><br><span style="color:#c0392b;font-weight:700;">🚫 控えてほしい投稿：</span>宣伝目的のみの投稿・マルチ商法・政治・宗教活動・個人を傷つける表現</div><p style="font-size:12px;color:var(--txt);text-align:center;line-height:1.9;">みんなで楽しい子育て時間を増やしていきましょうฅˆ•ﻌ•ˆฅ♬*゜</p>'},
-  'ayumi-guide':{title:'🌿 わたしの歩みについて',sub:'気持ちの記録は、本人だけが見られます',body:'てぃあんだぁクラブでは、「できたこと」だけでなく、<strong>「立ち止まったこと」も記録していい</strong>と考えています。<br><br>このメモ欄に書いた言葉は、あなただけが見られます。誰かに送る必要はありません。<br><br>相談した日、勉強会に参加した日、今日は読むだけにした日。そういう小さなことが積み重なって、孤立から少しずつ抜けていくプロセスになります。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:10px;font-size:12px;color:var(--acc-dd);line-height:1.8;">🔒 記録は外部に共有されません。<br>本人だけが見られる、あなただけの歩みです。</div>'},
+  openchat:{title:'🕊️ てぃあんだぁクラブ オープンチャット',sub:'新月・満月ごろにワンコ通信をお届け',body:'<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,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" alt="QRコード" style="width:180px;height:180px;border-radius:12px;border:3px solid rgb(186,218,122);"><p style="font-size:13px;color:var(--txt-m);margin-top:8px;">カメラで読み取るか、下のボタンからどうぞ</p></div><a href="https://line.me/ti/g2/6lyFFfcxR_VsZahIfVdPtYXBY18b5YRT6AxG9Q?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" style="display:block;background:#06C755;color:#fff;text-align:center;border-radius:12px;padding:12px;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:16px;">🟢 LINEオープンチャットに参加する</a><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.9;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">🕊️ ワンコNEWS、届けています</p><p style="font-size:13px;color:var(--txt);">新月・満月ごろに「ワンコ通信」を配信。二十四節気にあわせた子育てのヒントや、地域のイベント情報、不登校・学習支援に役立つリンクなどをシェアしています。</p></div><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:8px;">💬 こんな投稿が集まっています</p>・子育てや家庭教育に役立つヒント<br>・地域のイベント・講座案内<br>・防災・奨学金・制度のお知らせ<br>・保護者同士の気づきや共感<br>・アンガーマネジメント、発達支援の情報<br><br><span style="font-size:13px;color:var(--txt-m);">「お？便利そう？何かの役に立ちそう？」と思ったことを気軽にシェアしてください。</span></div><div style="background:var(--hi);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">📣 参加のルール（ゆるく・あたたかく）</p>投稿の際は「どんな子に役立ちそう？」など、子育て・教育の視点で一言添えていただけると嬉しいです🌱<br><br><span style="color:#c0392b;font-weight:700;">🚫 控えてほしい投稿：</span>宣伝目的のみの投稿・マルチ商法・政治・宗教活動・個人を傷つける表現</div><p style="font-size:13px;color:var(--txt);text-align:center;line-height:1.9;">みんなで楽しい子育て時間を増やしていきましょうฅˆ•ﻌ•ˆฅ♬*゜</p>'},
+  'ayumi-guide':{title:'🌿 わたしの歩みについて',sub:'気持ちの記録は、本人だけが見られます',body:'てぃあんだぁクラブでは、「できたこと」だけでなく、<strong>「立ち止まったこと」も記録していい</strong>と考えています。<br><br>このメモ欄に書いた言葉は、あなただけが見られます。誰かに送る必要はありません。<br><br>相談した日、勉強会に参加した日、今日は読むだけにした日。そういう小さなことが積み重なって、孤立から少しずつ抜けていくプロセスになります。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:10px;font-size:13px;color:var(--acc-dd);line-height:1.8;">🔒 記録は外部に共有されません。<br>本人だけが見られる、あなただけの歩みです。</div>'},
   enen:{title:'🪷 ご縁カード',sub:'必要な人にそっと渡せる案内カード',body:'ご縁カードをお持ちの方は、初回の勉強会を安心価格でご参加いただけます。<br><br>カードに記載のコードをお知らせください。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br><br><a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank">📋 フォームから入力 →</a>'},
+  'kodomo-qa':{title:'子ども・学生の方へ',sub:'小学生・中学生・高校生 それぞれの相談',body:'<strong style="color:var(--acc-dd);">小学生</strong><br><br><strong>時計の問題が難しいです。</strong><br>視覚支援で難易度を変えて練習できるwebアプリがありますよ。<a href="https://kenlab.web.app/trainingclock" target="_blank">こちら →</a><br><br><strong>なんで恐竜って言うんですか？</strong><br>恐竜→Dinosaurs→「deinos（恐ろしい）」+「sauros（トカゲ・爬虫類）」らしいです。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">中学生</strong><br><br><strong>高校進学か就職か迷っています。</strong><br>「チャンスロス」という考え方で一緒に考えてみましょう。まずは電話相談を。<br><br><strong>勉強の仕方がわかりません。</strong><br>自分がどういう方法が向いているか、まずは方法を一緒に考えてみましょう！<br><br><strong>相談する人がいなくて、、、</strong><br>インターネットや電話を使う方法もあります。一緒に考えてみましょう！<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">高校生</strong><br><br><strong>進路の決め方がわかりません。</strong><br>自分が苦手なこと・やりたくないことを考えて、自分を活かせる進路を一緒に考えましょう。<br><br><strong>苦手な人との付き合い方は？</strong><br>あります。そのためにはたくさん勉強して苦手な人がいない環境に行けるようになることです。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:13px;color:var(--acc-dd);line-height:1.8;">📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>電話相談は無料・通話料もかかりません。</div>'},
+  goods:{title:'📱 おすすめ教材・アプリ',sub:'実際の授業で活用しているツール',body:'<strong style="color:var(--acc-dd);">アプリ</strong><br><br>🧠 <strong>脳トレゲーム（ワーキングメモリー）</strong> — iPhone<br>授業開始時のウォームアップや、ぼーっとしている生徒の着火剤として活用。なぜか大人気。<br><br>🧬 <strong>人体模型パズル（内臓）</strong> — iPhone / Android<br>中学「人体の内臓」をタイムアタック形式で覚えられます。<br><br>⚛️ <strong>原子核アプリ</strong> — iPhone / Android<br>「電子がぐるぐる回っているイメージ」を説明するときに便利。中学イオンの授業で活用。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">Web</strong><br><br>📚 <strong>カーリル</strong> — <a href="https://calil.jp" target="_blank">calil.jp</a><br>地域の図書館の本を横断検索。相互貸借制度を使えば沖縄中から本を借り出せます。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">ダウンロードシート</strong><br><br>📋 <strong>学習環境確認シート</strong><br>お子さんひとりひとりの「学習環境」を見える化するシート。<br><br>🌈 <strong>虹の架け橋シート</strong><br>お子さんの「困りごと」を整理・見える化するシート。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:13px;color:var(--acc-dd);line-height:1.8;">リンク・詳細は📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）までお気軽に。</div>'},
 };
 
 function openM(k) {
