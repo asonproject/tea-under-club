@@ -11,7 +11,7 @@
 <style>
 :root {
   /* てぃあんだぁクラブ公式カラー（画像から抽出） */
-  --bg:      #F5EFE6;   /* ベージュ系ベース */
+  --bg:      #ffffff;
   --txt:     #2a2a2a;
   --txt-m:   #595959;   /* 改善：#666から変更、WCAG AA対応（対比率5.1:1） */
   --txt-s:   #767676;   /* 改善：#999から変更、WCAG AA対応（対比率4.6:1） */
@@ -23,9 +23,9 @@
 
   /* ハイライト・背景 */
   --hi:      #EAF5D3;   /* 薄いグリーン背景 */
-  --info:    #EDE6DA;   /* ベージュ系サブ背景 */
-  --white:   #ffffff;
-  --border:  #D8CFBF;   /* ベージュ系ボーダー */
+  --info:    #f5f5f5;
+  --white:   #fafafa;
+  --border:  #e0e0e0;
   --sh:      none;
   --sh-sm:   0 1px 3px rgba(0,0,0,0.08);
   --r:       8px;
@@ -269,7 +269,7 @@ textarea::placeholder { color:var(--txt-m); }
    左220px固定サイドナビ + 右スクロールエリア
    ============================================= */
 @media (min-width: 768px) {
-  html, body { height:100%; overflow:hidden; background:#E8DFD2; }
+  html, body { height:100%; overflow:hidden; background:#ebebeb; }
 
   /* スマホ要素を隠す */
   #sp-shell { display:none; }
@@ -373,12 +373,13 @@ textarea::placeholder { color:var(--txt-m); }
 /* =============================================
    UD設定：テーマ
    ============================================= */
-body.theme-white { --bg:#ffffff; --info:#f5f5f5; --white:#fafafa; --border:#e0e0e0; }
+body.theme-beige { --bg:#F5EFE6; --info:#EDE6DA; --white:#faf6f0; --border:#D8CFBF; }
 body.theme-dark {
   --bg:#1c1c1e; --txt:#efefef; --txt-m:#a0a0a0; --txt-s:#707070;
   --white:#2c2c2e; --info:#252527; --border:#3a3a3c; --hi:#1a2d0a;
 }
 body.theme-dark #pc-side { background:#2a4418; }
+@media (min-width:768px) { body.theme-beige { background:#E8DFD2; } }
 body.theme-dark .ansin-hero,
 body.theme-dark .ev-list-hdr,
 body.theme-dark .manabu-hdr,
@@ -1269,9 +1270,9 @@ function openSettings() {
   }
 
   const themeColors = {
-    base: `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#F5EFE6;border:1.5px solid #C8BBA8;vertical-align:middle;"></span>`,
-    white:`<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#ffffff;border:1.5px solid #ccc;vertical-align:middle;"></span>`,
-    dark: `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#1c1c1e;border:1.5px solid #555;vertical-align:middle;"></span>`
+    base:  `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#ffffff;border:1.5px solid #ccc;vertical-align:middle;"></span>`,
+    beige: `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#F5EFE6;border:1.5px solid #C8BBA8;vertical-align:middle;"></span>`,
+    dark:  `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#1c1c1e;border:1.5px solid #555;vertical-align:middle;"></span>`
   };
   function themeBtn(val, label) {
     const on = s.theme === val;
@@ -1292,8 +1293,8 @@ function openSettings() {
     <div style="margin-bottom:8px;">
       <div style="font-size:.8125em;font-weight:700;color:var(--txt-m);margin-bottom:8px;">背景色</div>
       <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
-        ${themeBtn('base','通常')}
-        ${themeBtn('white','白')}
+        ${themeBtn('base','白')}
+        ${themeBtn('beige','ベージュ')}
         ${themeBtn('dark','ダーク')}
       </div>
     </div>
@@ -1311,7 +1312,7 @@ function setSetting(type, val) {
 }
 
 function applyUD(s) {
-  document.body.classList.remove('theme-white','theme-dark','font-lg','font-xl');
+  document.body.classList.remove('theme-beige','theme-dark','font-lg','font-xl');
   if(s.theme !== 'base') document.body.classList.add('theme-'+s.theme);
   if(s.font !== 'base') document.body.classList.add('font-'+s.font);
 }
