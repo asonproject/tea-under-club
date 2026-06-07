@@ -15,15 +15,15 @@
 .big{font-size:1.35em}.small{font-size:.65em}
 .card{background:#f8fafc;border:4px solid #bfdbfe;border-radius:24px;padding:24px}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}
 .grid4{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .icon{font-size:3em}
 .arrow{font-size:2em;color:var(--blue);font-weight:bold}
 .good{border-color:#86efac;background:#f0fdf4}
 .bad{border-color:#fca5a5;background:#fef2f2}
-.center{display:flex;justify-content:center;align-items:center}
-.flow{display:flex;justify-content:center;align-items:center;gap:12px}
+.warn{border-color:#fde68a;background:#fffbeb}
+.flow{display:flex;justify-content:center;align-items:center;gap:12px;flex-wrap:wrap}
 .pill{border-radius:999px;padding:14px 22px;background:#dbeafe;font-weight:bold}
-.human{font-size:4em}
 </style>
 </head>
 
@@ -42,7 +42,7 @@
   <div class="grid4">
     <div class="card">左上<br><b>社会の窓</b><br>みんなが知っていること</div>
     <div class="card">右上<br><b>他者理解の窓</b><br>話を聞いて思ったこと</div>
-    <div class="card">左下<br><b>本当の自分の窓</b><br>実は本音では…</div>
+    <div class="card">左下<br><b>自己理解の窓</b><br>自分の中で考えたこと</div>
     <div class="card">右下<br><b>明日からの行動</b><br>やってみたいこと</div>
   </div>
 </section>
@@ -95,6 +95,13 @@
 </section>
 
 <section>
+  <h2>問い②</h2>
+  <div class="card">
+    <p class="big">同じように灰をまいたのに、<br>なぜ結果が違ったのでしょう？</p>
+  </div>
+</section>
+
+<section>
   <h2>同じ行動でも…</h2>
   <div class="flow">
     <div class="pill">行動</div>
@@ -113,7 +120,9 @@
   <h2>ワーク② 右上</h2>
   <div class="card">
     <p class="big">話を聞いて思ったことを書こう</p>
-    <p>相手の行動の奥に、どんな思いがあるだろう？</p>
+    <p>良いおじいさんは、どんな気持ちだった？</p>
+    <p>悪いおじいさんは、どんな気持ちだった？</p>
+    <p>サイバー犯罪をする人は、どんな思いや考えだった？</p>
   </div>
 </section>
 
@@ -145,29 +154,62 @@
 <section>
   <h2>ワーク③ 左下</h2>
   <div class="card">
-    <p class="big">実は本音ではこう思っている</p>
-    <p>不安／認めてほしい／分かってほしい／寂しい／優しくしたいけどできない</p>
+    <p class="big">身体と思いの関係を知った上で、もう一度考えよう</p>
+    <p>おじいさんたちやサイバー犯罪について、今どう思う？</p>
+    <p>自分はどんな時に人を大切にできて、どんな時に間違いやすい？</p>
   </div>
 </section>
 
 <section>
-  <h2>良い感情を育てる</h2>
-  <div class="grid2">
+  <h2>脳の中の3つの働き</h2>
+  <div class="grid3">
     <div class="card good">
-      <div class="icon">☀️🚶</div>
+      <div class="icon">☀️</div>
       <h3>セロトニン</h3>
       <p>安心・落ち着き</p>
     </div>
     <div class="card good">
-      <div class="icon">🤝😊</div>
+      <div class="icon">🤝</div>
       <h3>オキシトシン</h3>
       <p>信頼・つながり</p>
+    </div>
+    <div class="card warn">
+      <div class="icon">🎮</div>
+      <h3>ドーパミン</h3>
+      <p>やる気・快感・達成感</p>
     </div>
   </div>
 </section>
 
 <section>
-  <h2>学校の学びは人権につながる</h2>
+  <h2>ドーパミンは悪者ではない</h2>
+  <div class="card warn">
+    <p class="big">でも、</p>
+    <p>もっと欲しい</p>
+    <p>もっと見たい</p>
+    <p>もっと認められたい</p>
+    <p>に偏ると、判断を間違えることがあります。</p>
+  </div>
+</section>
+
+<section>
+  <h2>よい感情を育てるには</h2>
+  <div class="grid2">
+    <div class="card good">
+      <div class="icon">☀️🚶</div>
+      <h3>セロトニン</h3>
+      <p>朝日・睡眠・運動・生活リズム</p>
+    </div>
+    <div class="card good">
+      <div class="icon">🤝😊</div>
+      <h3>オキシトシン</h3>
+      <p>信頼・親切・感謝・安心できる関係</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <h2>学校の学びは自分を守る</h2>
   <div class="grid4">
     <div class="card">📖<br><b>国語</b><br>相手の気持ちを読む</div>
     <div class="card">🌏<br><b>社会</b><br>共に生きるルール</div>
@@ -177,10 +219,22 @@
 </section>
 
 <section>
-  <h2>ワーク④ 右下</h2>
+  <h2>学びは人権につながる</h2>
+  <div class="flow">
+    <div class="pill">学ぶ</div>
+    <div class="arrow">→</div>
+    <div class="pill">自分を守る</div>
+    <div class="arrow">→</div>
+    <div class="pill">相手を守る</div>
+    <div class="arrow">→</div>
+    <div class="pill">共に生きる</div>
+  </div>
+</section>
+
+<section>
+  <h2>場面展開</h2>
   <div class="card">
-    <p class="big">明日からやってみたいこと</p>
-    <p>聴く／ご機嫌／May I help you?</p>
+    <p class="big">ここからは、今日からできる<br>小さな平和活動を考えます。</p>
   </div>
 </section>
 
@@ -200,15 +254,44 @@
 <section>
   <h2>平和活動は教室から</h2>
   <div class="grid3">
-  </div>
-  <div class="grid2">
     <div class="card good"><div class="icon">👂</div><b>聴く</b></div>
     <div class="card good"><div class="icon">😊</div><b>ご機嫌</b></div>
+    <div class="card good"><div class="icon">🤲</div><b>May I help you?</b><br>何か手伝える？</div>
   </div>
-  <br>
-  <div class="card good">
-    <div class="icon">🤲</div>
-    <b>May I help you?</b><br>何か手伝える？
+</section>
+
+<section>
+  <h2>ワーク④ 右下</h2>
+  <div class="card">
+    <p class="big">明日からやってみたいこと</p>
+    <p>自分も相手も尊重するために、何を一つやってみますか？</p>
+  </div>
+</section>
+
+<section>
+  <h2>おすすめの本</h2>
+  <div class="card">
+    <p>📘『君たちはどう生きるか』吉野源三郎</p>
+    <p>📘『モモ』ミヒャエル・エンデ</p>
+    <p>📘『ぼくはイエローでホワイトで、ちょっとブルー』ブレイディみかこ</p>
+  </div>
+</section>
+
+<section>
+  <h2>おすすめの音楽</h2>
+  <div class="card">
+    <p>🎵「上を向いて歩こう」坂本九</p>
+    <p>🎵「アンパンマンのマーチ」</p>
+    <p>🎵「群青」YOASOBI</p>
+  </div>
+</section>
+
+<section>
+  <h2>おすすめサイト</h2>
+  <div class="card">
+    <p>🌐 法務省「人権啓発活動」</p>
+    <p>🌐 総務省「インターネットトラブル事例集」</p>
+    <p>🌐 NHK for School「道徳・情報モラル」</p>
   </div>
 </section>
 
