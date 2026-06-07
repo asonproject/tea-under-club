@@ -11,7 +11,7 @@
 <style>
 :root {
   /* てぃあんだぁクラブ公式カラー（画像から抽出） */
-  --bg:      #f5f5f5;
+  --bg:      #F5EFE6;   /* ベージュ系ベース */
   --txt:     #2a2a2a;
   --txt-m:   #595959;   /* 改善：#666から変更、WCAG AA対応（対比率5.1:1） */
   --txt-s:   #767676;   /* 改善：#999から変更、WCAG AA対応（対比率4.6:1） */
@@ -23,9 +23,9 @@
 
   /* ハイライト・背景 */
   --hi:      #EAF5D3;   /* 薄いグリーン背景 */
-  --info:    #f8f8f8;
+  --info:    #EDE6DA;   /* ベージュ系サブ背景 */
   --white:   #ffffff;
-  --border:  #e0e0e0;
+  --border:  #D8CFBF;   /* ベージュ系ボーダー */
   --sh:      none;
   --sh-sm:   0 1px 3px rgba(0,0,0,0.08);
   --r:       8px;
@@ -269,7 +269,7 @@ textarea::placeholder { color:var(--txt-m); }
    左220px固定サイドナビ + 右スクロールエリア
    ============================================= */
 @media (min-width: 768px) {
-  html, body { height:100%; overflow:hidden; background:#ebebeb; }
+  html, body { height:100%; overflow:hidden; background:#E8DFD2; }
 
   /* スマホ要素を隠す */
   #sp-shell { display:none; }
@@ -369,6 +369,101 @@ textarea::placeholder { color:var(--txt-m); }
   /* フッター */
   .pc-footer { padding:20px 24px; background:var(--info); text-align:center; font-size:13px; color:var(--txt-m); }
 }
+
+/* =============================================
+   UD設定：テーマ
+   ============================================= */
+body.theme-white { --bg:#ffffff; --info:#f5f5f5; --white:#fafafa; --border:#e0e0e0; }
+body.theme-dark {
+  --bg:#1c1c1e; --txt:#efefef; --txt-m:#a0a0a0; --txt-s:#707070;
+  --white:#2c2c2e; --info:#252527; --border:#3a3a3c; --hi:#1a2d0a;
+}
+body.theme-dark #pc-side { background:#2a4418; }
+body.theme-dark .ansin-hero,
+body.theme-dark .ev-list-hdr,
+body.theme-dark .manabu-hdr,
+body.theme-dark .ayumi-hdr { background:var(--white); border-bottom:1px solid var(--border); }
+body.theme-dark .hero-overlay { background:linear-gradient(to top,rgba(10,18,5,.96) 0%,rgba(10,18,5,.5) 50%,transparent 100%); }
+body.theme-dark textarea { background:var(--info); border-color:var(--border); color:var(--txt); }
+body.theme-dark #toast { background:var(--txt); color:var(--bg); }
+
+/* =============================================
+   UD設定：文字サイズ（em で自動スケール）
+   ============================================= */
+body.font-lg { font-size:18px; }
+body.font-xl { font-size:21px; }
+
+body.font-lg .bn, body.font-xl .bn,
+body.font-lg .ev-badge, body.font-xl .ev-badge,
+body.font-lg .ev-tag, body.font-xl .ev-tag,
+body.font-lg .log-text span, body.font-xl .log-text span,
+body.font-lg .pc-logo-sub, body.font-xl .pc-logo-sub,
+body.font-lg .pc-tel, body.font-xl .pc-tel { font-size:.75em; }
+
+body.font-lg .sec-lbl, body.font-xl .sec-lbl,
+body.font-lg .card-sub, body.font-xl .card-sub,
+body.font-lg .ev-meta span, body.font-xl .ev-meta span,
+body.font-lg .svc-sub, body.font-xl .svc-sub,
+body.font-lg .rel-sub, body.font-xl .rel-sub,
+body.font-lg .ansin-hero p, body.font-xl .ansin-hero p,
+body.font-lg .stamp-sub, body.font-xl .stamp-sub,
+body.font-lg .memo-note, body.font-xl .memo-note,
+body.font-lg .cbtn, body.font-xl .cbtn,
+body.font-lg .ev-list-hdr p, body.font-xl .ev-list-hdr p,
+body.font-lg .manabu-hdr p, body.font-xl .manabu-hdr p,
+body.font-lg .art-tag, body.font-xl .art-tag,
+body.font-lg .art-date, body.font-xl .art-date,
+body.font-lg .ayumi-hdr p, body.font-xl .ayumi-hdr p,
+body.font-lg .priv-note p, body.font-xl .priv-note p,
+body.font-lg .pt-sub, body.font-xl .pt-sub,
+body.font-lg .pc-side-contact a, body.font-xl .pc-side-contact a,
+body.font-lg #toast, body.font-xl #toast { font-size:.8125em; }
+
+body.font-lg .ev-btn, body.font-xl .ev-btn,
+body.font-lg .hero-overlay p, body.font-xl .hero-overlay p,
+body.font-lg .sbtn, body.font-xl .sbtn,
+body.font-lg .faq-a, body.font-xl .faq-a,
+body.font-lg .hl-box, body.font-xl .hl-box,
+body.font-lg .enen-card p, body.font-xl .enen-card p,
+body.font-lg .log-text strong, body.font-xl .log-text strong,
+body.font-lg .md-sub, body.font-xl .md-sub,
+body.font-lg .svc-title, body.font-xl .svc-title,
+body.font-lg .pc-logo-name, body.font-xl .pc-logo-name { font-size:.875em; }
+
+body.font-lg .card-title, body.font-xl .card-title,
+body.font-lg .intro-box p, body.font-xl .intro-box p,
+body.font-lg .rel-title, body.font-xl .rel-title,
+body.font-lg .stamp-ttl, body.font-xl .stamp-ttl,
+body.font-lg .memo-ttl, body.font-xl .memo-ttl,
+body.font-lg textarea, body.font-xl textarea,
+body.font-lg .ev-price, body.font-xl .ev-price,
+body.font-lg .apbtn, body.font-xl .apbtn,
+body.font-lg .faq-q, body.font-xl .faq-q,
+body.font-lg .art-title, body.font-xl .art-title,
+body.font-lg .ayumi-empty p, body.font-xl .ayumi-empty p,
+body.font-lg .md-body, body.font-xl .md-body,
+body.font-lg .sub-btn span, body.font-xl .sub-btn span,
+body.font-lg .pc-nav-item, body.font-xl .pc-nav-item { font-size:.9375em; }
+
+body.font-lg .ev-card h3, body.font-xl .ev-card h3 { font-size:1.0625em; }
+
+body.font-lg .ansin-hero h2, body.font-xl .ansin-hero h2,
+body.font-lg .ev-list-hdr h2, body.font-xl .ev-list-hdr h2,
+body.font-lg .manabu-hdr h2, body.font-xl .manabu-hdr h2,
+body.font-lg .ayumi-hdr h2, body.font-xl .ayumi-hdr h2,
+body.font-lg .md-title, body.font-xl .md-title { font-size:1.25em; }
+
+body.font-lg .hero-overlay h2, body.font-xl .hero-overlay h2 { font-size:1.375em; }
+@media (min-width:768px) {
+  body.font-lg .hero-overlay h2, body.font-xl .hero-overlay h2 { font-size:1.75em; }
+}
+
+/* UD設定ボタン */
+.ud-opt { display:flex; flex-direction:column; align-items:center; gap:5px; padding:13px 8px; border-radius:8px; font-family:'Zen Maru Gothic',sans-serif; cursor:pointer; font-weight:700; width:100%; transition:all .15s; border:2px solid; }
+.ud-opt.on { background:var(--acc-d); border-color:var(--acc-d); color:var(--txt); }
+.ud-opt.off { background:var(--info); border-color:var(--border); color:var(--txt-m); }
+.ud-opt .ud-sample { font-size:1.4em; line-height:1.2; }
+.ud-opt .ud-lbl { font-size:12px; }
 </style>
 </head>
 <body>
@@ -387,7 +482,10 @@ textarea::placeholder { color:var(--txt-m); }
         <span>家庭教育サポート · 沖縄</span>
       </div>
     </div>
-    <div class="tb-right" onclick="openM('about')">🐾</div>
+    <div style="display:flex;gap:6px;align-items:center;">
+      <div class="tb-right" onclick="openSettings()" style="font-size:13px;font-weight:700;letter-spacing:-.5px;">あA</div>
+      <div class="tb-right" onclick="openM('about')">🐾</div>
+    </div>
   </div>
 
   <div id="sp-scroll">
@@ -414,10 +512,10 @@ textarea::placeholder { color:var(--txt-m); }
   </div>
 
   <div id="sp-bnav">
-    <div class="bn on" id="bn-home" onclick="spGoTo('home')"><span class="bico">🏠</span>いま</div>
-    <div class="bn" id="bn-ansin" onclick="spGoTo('ansin')"><span class="bico">🤝</span>話す</div>
-    <div class="bn" id="bn-tsunagaru" onclick="spGoTo('tsunagaru')"><span class="bico">🍀</span>つながる</div>
-    <div class="bn" id="bn-manabu" onclick="spGoTo('manabu')"><span class="bico">📖</span>学ぶ</div>
+    <div class="bn on" id="bn-home" onclick="spGoTo('home')"><span class="bico">🏠</span>ホーム</div>
+    <div class="bn" id="bn-ansin" onclick="spGoTo('ansin')"><span class="bico">🤝</span>相談する</div>
+    <div class="bn" id="bn-tsunagaru" onclick="spGoTo('tsunagaru')"><span class="bico">🍀</span>参加する</div>
+    <div class="bn" id="bn-manabu" onclick="spGoTo('manabu')"><span class="bico">📖</span>読む</div>
     <div class="bn" onclick="openM('openchat')"><span class="bico">🕊️</span>チャット</div>
   </div>
 </div>
@@ -435,10 +533,10 @@ textarea::placeholder { color:var(--txt-m); }
       <div class="pc-logo-name">てぃあんだぁクラブ</div>
       <div class="pc-logo-sub">家庭教育サポート · 沖縄</div>
     </div>
-    <div class="pc-nav-item on" onclick="pcScrollTo(event,'pc-home')"><span class="pico">🏠</span>いま</div>
-    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-ansin')"><span class="pico">🤝</span>まず、話す</div>
-    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-tsunagaru')"><span class="pico">🍀</span>つながる</div>
-    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-manabu')"><span class="pico">📖</span>学ぶ</div>
+    <div class="pc-nav-item on" onclick="pcScrollTo(event,'pc-home')"><span class="pico">🏠</span>ホーム</div>
+    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-ansin')"><span class="pico">🤝</span>相談する</div>
+    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-tsunagaru')"><span class="pico">🍀</span>参加する</div>
+    <div class="pc-nav-item" onclick="pcScrollTo(event,'pc-manabu')"><span class="pico">📖</span>読む</div>
     <div class="pc-nav-item" onclick="openM('openchat')"><span class="pico">💬</span>オープンチャット</div>
     <div class="pc-nav-item" onclick="openM('about')"><span class="pico">🐾</span>このサイトについて</div>
     <div class="pc-side-contact">
@@ -454,23 +552,26 @@ textarea::placeholder { color:var(--txt-m); }
     <div id="pc-topbar">
       <span class="pt-title">てぃあんだぁクラブ</span>
       <span class="pt-sub">子どもの「好き」と「得意」を見つけ、お母さんが安心を充電する家庭教育サポート</span>
-      <div class="pt-about" onclick="openM('about')">🐾</div>
+      <div style="display:flex;gap:6px;align-items:center;">
+        <div class="pt-about" onclick="openSettings()" style="font-size:11px;font-weight:700;letter-spacing:-.5px;">あA</div>
+        <div class="pt-about" onclick="openM('about')">🐾</div>
+      </div>
     </div>
 
     <div class="pc-sc" id="pc-home">
-      <div class="pc-sc-label"><span class="lico">🏠</span><h2>いま</h2></div>
+      <div class="pc-sc-label"><span class="lico">🏠</span><h2>ホーム</h2></div>
       <div id="pc-content-home"></div>
     </div>
     <div class="pc-sc" id="pc-ansin">
-      <div class="pc-sc-label"><span class="lico">🤝</span><h2>まず、話す</h2></div>
+      <div class="pc-sc-label"><span class="lico">🤝</span><h2>相談する</h2></div>
       <div id="pc-content-ansin"></div>
     </div>
     <div class="pc-sc" id="pc-tsunagaru">
-      <div class="pc-sc-label"><span class="lico">🍀</span><h2>つながる</h2></div>
+      <div class="pc-sc-label"><span class="lico">🍀</span><h2>参加する</h2></div>
       <div id="pc-content-tsunagaru"></div>
     </div>
     <div class="pc-sc" id="pc-manabu">
-      <div class="pc-sc-label"><span class="lico">📖</span><h2>学ぶ</h2></div>
+      <div class="pc-sc-label"><span class="lico">📖</span><h2>読む</h2></div>
       <div id="pc-content-manabu"></div>
     </div>
     <!-- わたしの歩み：一時保留
@@ -513,6 +614,42 @@ const CONTENTS = {
     <div class="intro-box" style="margin:0;">
       <p>てぃあんだぁクラブは、子どもを変える場所ではありません。<br>まずは<strong>お母さんが安心感を充電する</strong>。そこから、お子さんとの関わり方を一緒に考えていきましょう。</p>
     </div>
+
+    <!-- 提案①：3択エントリーブロック -->
+    <div style="background:var(--white);border-bottom:3px solid var(--border);padding:16px;">
+      <div style="font-size:.8125em;font-weight:700;color:var(--txt-m);text-align:center;margin-bottom:12px;letter-spacing:.04em;">あなたは今、どちらですか？</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        <div onclick="spGoTo('ansin');pcScrollTo(event,'pc-ansin')" style="background:var(--orange);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <div style="font-size:1.5em;margin-bottom:6px;">🤝</div>
+          <div style="font-size:.75em;font-weight:700;color:var(--txt);line-height:1.4;">今すぐ<br>相談したい</div>
+        </div>
+        <div onclick="spGoTo('tsunagaru');pcScrollTo(event,'pc-tsunagaru')" style="background:var(--hi);border:1.5px solid var(--acc);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <div style="font-size:1.5em;margin-bottom:6px;">🍀</div>
+          <div style="font-size:.75em;font-weight:700;color:var(--acc-dd);line-height:1.4;">イベントを<br>見てみたい</div>
+        </div>
+        <div onclick="spGoTo('manabu');pcScrollTo(event,'pc-manabu')" style="background:var(--info);border:1.5px solid var(--border);border-radius:10px;padding:14px 8px;text-align:center;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <div style="font-size:1.5em;margin-bottom:6px;">📖</div>
+          <div style="font-size:.75em;font-weight:700;color:var(--txt-m);line-height:1.4;">まず<br>読みたい</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提案④：保護者の声をHOMEに -->
+    <div style="background:var(--hi);border-bottom:1px solid var(--border);padding:14px 16px;">
+      <div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 参加した方の声</div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:.9375em;color:var(--txt-s);">── 活動記録より</span>
+        </div>
+        <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:.9375em;color:var(--txt-s);">── 保護者の声より</span>
+        </div>
+        <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:.9375em;color:var(--txt-s);">── 担当者より</span>
+        </div>
+      </div>
+    </div>
+
     <div class="sec" style="padding-top:0;">
       <div class="sec-lbl">📅 次回の集まり</div>
       <div class="ev-card" onclick="navigate('tsunagaru')">
@@ -544,34 +681,29 @@ const CONTENTS = {
       </div>
       -->
       <div class="card" onclick="openM('openchat')" style="border-left:4px solid #06C755;">
-        <div class="card-row"><div class="ci" style="background:rgba(6,199,85,.15);font-size:22px;">🕊️</div><div class="card-info"><div class="card-title">オープンチャットに参加する</div><div class="card-sub">新月・満月ごろにワンコ通信をお届け</div></div><div class="card-arr">›</div></div>
+        <div class="card-row"><div class="ci" style="background:rgba(6,199,85,.15);font-size:1.375em;">🕊️</div><div class="card-info"><div class="card-title">オープンチャットに参加する</div><div class="card-sub">新月・満月ごろにワンコ通信をお届け</div></div><div class="card-arr">›</div></div>
       </div>
     </div>
     <div class="sec">
       <div class="sec-lbl">📲 まずはここから</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:2px;">
-        <a href="tel:07056924173" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#F9C733;color:#2a2a2a;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-          <span style="font-size:26px;">📞</span>電話する
-          <span style="font-size:12px;font-weight:400;opacity:.88;">070-5692-4173</span>
-        </a>
-        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#fff;color:#507131;border:2px solid #91BD5A;border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.12);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-          <span style="font-size:26px;">✉️</span>フォームで相談
-          <span style="font-size:12px;font-weight:400;opacity:.88;">お問い合わせ</span>
-        </a>
-        <div onclick="openM('openchat')" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#06a844;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;cursor:pointer;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-          <span style="font-size:26px;">🕊️</span>オープンチャット
-          <span style="font-size:12px;font-weight:400;opacity:.88;">新月・満月ごろ更新</span>
+      <!-- メインCTA：電話 -->
+      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);border-radius:12px;padding:18px 20px;text-decoration:none;margin-bottom:10px;box-shadow:0 4px 14px rgba(249,199,51,0.3);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        <span style="font-size:2.125em;flex-shrink:0;">📞</span>
+        <div>
+          <div style="font-size:1em;font-weight:700;color:var(--txt);margin-bottom:3px;">無料電話で相談する</div>
+          <div style="font-size:.8125em;color:var(--txt);opacity:.75;">070-5692-4173（佐渡山）</div>
+          <div style="font-size:.75em;color:var(--txt);opacity:.65;margin-top:2px;">盆・正月・休日も対応 ☕️</div>
         </div>
-        <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#507131;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;box-shadow:0 3px 10px rgba(0,0,0,.18);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-          <span style="font-size:26px;">📬</span>メルマガ登録
-          <span style="font-size:12px;font-weight:400;opacity:.88;">ワンコ通信</span>
+      </a>
+      <!-- サブCTA：フォーム + LINE -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:6px;">
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc-d);color:var(--txt);border-radius:10px;padding:13px 8px;text-decoration:none;font-size:.8125em;font-weight:700;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+          ✉️ フォームで相談
         </a>
-        <a href="https://x.gd/Eu5zx" target="_blank" style="display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;background:#507131;color:#fff;border:1.5px solid rgba(0,0,0,.12);border-radius:10px;padding:16px 8px;text-decoration:none;font-weight:700;font-size:13px;transition:opacity .15s;grid-column:span 2;box-shadow:0 3px 12px rgba(0,0,0,.2);" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
-          <span style="font-size:26px;">✏️</span>勉強会に申し込む
-          <span style="font-size:12px;font-weight:400;opacity:.88;">ワンコイン勉強会・子育て勉強会</span>
-        </a>
+        <div onclick="openM('openchat')" style="display:flex;align-items:center;justify-content:center;gap:8px;background:#06C755;color:#fff;border-radius:10px;padding:13px 8px;font-size:.8125em;font-weight:700;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+          🕊️ オープンチャット
+        </div>
       </div>
-      <p style="font-size:13px;color:var(--txt-m);text-align:center;padding:8px 0 0;">盆・正月・休日も対応しています ☕️（担当：佐渡山）</p>
     </div>
     <div class="sec">
       <div class="sec-lbl">🌐 関連サイト</div>
@@ -586,7 +718,7 @@ const CONTENTS = {
 
       </div>
     </div>
-    <p style="text-align:center;font-size:12px;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
+    <p style="text-align:center;font-size:.75em;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
   `,
 
   ansin: `
@@ -595,98 +727,8 @@ const CONTENTS = {
       <p>うまく話せなくても、書き出すだけでも。<br>ひとりで抱えなくて大丈夫です。</p>
     </div>
 
-    <!-- 無料電話相談 メインCTA -->
-    <div style="margin:16px 16px 0;">
-      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);color:#2a2a2a;border-radius:16px;padding:18px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(249,199,51,0.35);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
-        <span style="font-size:32px;flex-shrink:0;">📞</span>
-        <div>
-          <div style="font-size:15px;font-weight:700;margin-bottom:2px;">無料電話相談</div>
-          <div style="font-size:13px;opacity:.88;">070-5692-4173（佐渡山）</div>
-          <div style="font-size:12px;opacity:.82;margin-top:2px;">盆・正月・休日も対応しています ☕️</div>
-        </div>
-      </a>
-    </div>
-
-    <!-- 書き出しメモ -->
-    <div class="memo-wrap">
-      <div class="memo-ttl">📝 気になっていることを書き出してみる（任意）</div>
-      <div class="memo-note">
-        面と向かうと言い忘れることってありますよね。<br>
-        電話の前でも、気持ちを整理したいときでも。<br>
-        <em>このメモはあなただけが見られます。送信されません。</em>
-      </div>
-      <textarea class="memo-textarea" placeholder="例）中2の息子が2学期からほぼ不登校。ゲームとYouTubeの毎日で会話も減っています。どう関わればいいか分からなくて…&#10;&#10;うまく書けなくても大丈夫です。"></textarea>
-      <p style="font-size:13px;color:var(--txt-m);line-height:1.7;margin-top:10px;">
-        書いたことを送らなくても大丈夫です。<br>
-        ここに残る言葉は、あなたが少し立ち止まった記録です。
-      </p>
-    <div style="margin-top:10px;display:flex;gap:8px;">
-        <a href="tel:07056924173" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--orange);color:#2a2a2a;border-radius:10px;padding:11px;text-decoration:none;font-size:13px;font-weight:700;">📞 電話する</a>
-        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="flex:1;display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc-d);color:#fff;border-radius:10px;padding:11px;text-decoration:none;font-size:13px;font-weight:700;">✉️ フォームで送る</a>
-      </div>
-    </div>
-
-    <!-- 相談の流れ -->
-    <div class="sec">
-      <div class="sec-lbl">📋 相談の流れ</div>
-      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);">
-        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">電話 or フォームでご連絡</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">「学校に行けない」「勉強についていけない」「どう接したらいいか分からない」—どんな小さなことでも話してみてください。うまく言えなくても大丈夫です。</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">無料電話相談 or 個別面談</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">お子さんの状況・ご家庭の様子をていねいにお聞きします。不登校・ADHD・発達特性・きょうだい間の悩みなど、複合的なことでも遠慮なくどうぞ。場所は自宅・カフェなど、話しやすい場所で。</div>
-          </div>
-        </div>
-        <div style="display:flex;gap:12px;align-items:flex-start;">
-          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:12px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
-          <div>
-            <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">モヤモヤを整理して、次の一歩へ</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">「モヤっとしていたことがすっきりした」「やるべきことが分かった」—そんな時間をご一緒します。ワンコイン勉強会・個別授業・MIKATAレポートなど、必要に応じてご提案します。</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- MIKATAレポート -->
-    <div class="sec">
-      <div class="sec-lbl">💡 子どものMIKATAレポート</div>
-      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--acc-d);">
-        <p style="font-size:13px;color:var(--txt);line-height:1.85;margin-bottom:10px;">相談後、ご希望の方には<strong>お子さんの学習・成長パターンを可視化したPDFレポート</strong>をお届けします。「俺できんし」「やる気ない」という言葉の裏にあるものを、多重知能（MI）の視点から整理します。</p>
-        <div style="background:var(--info);border-radius:10px;padding:10px 12px;font-size:13px;color:var(--txt-m);line-height:1.9;">
-          📄 基本レポート：1,500円<br>
-          🧩 多重知能チェック付き：＋500円<br>
-          🔄 定期フォロープラン（夏休み・年度初めなど節目ごと）：初回後にご相談
-        </div>
-      </div>
-    </div>
-
-    <div style="margin:12px 16px 0;">
-      <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--info);border:1.5px solid var(--acc);color:var(--acc-dd);border-radius:12px;padding:12px;text-decoration:none;font-size:13px;font-weight:700;">
-        📬 メルマガ「ワンコ通信」を読む
-      </a>
-    </div>
-
-    <div class="sec">
-      <div class="sec-lbl">🌿 わたしの歩みについて</div>
-      <div class="card" onclick="openM('ayumi-guide')">
-        <div class="card-row">
-          <div class="ci" style="background:var(--hi);font-size:20px;">🌿</div>
-          <div class="card-info">
-            <div class="card-title">気持ちの記録を残していく</div>
-            <div class="card-sub">立ち止まった日も、本人だけが見られる記録です</div>
-          </div>
-          <div class="card-arr">›</div>
-        </div>
-      </div>
-    </div>
-    <div class="sec">
+    <!-- 提案⑤: FAQ を最初に -->
+    <div class="sec" style="padding-top:8px;">
       <div class="sec-lbl">❓ よくある質問</div>
       <div class="faq-wrap">
         <div class="faq-item">
@@ -704,6 +746,95 @@ const CONTENTS = {
         <div class="faq-item">
           <span class="faq-q">Q. 勉強したい時だけお願いできますか？</span>
           <p class="faq-a">A. はい。当日でも空きがあれば可能です。まずは一度ご相談ください。</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提案⑤: 相談の流れ -->
+    <div class="sec">
+      <div class="sec-lbl">📋 相談の流れ</div>
+      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);">
+        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:.75em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+          <div>
+            <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">電話 or フォームでご連絡</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">「学校に行けない」「勉強についていけない」「どう接したらいいか分からない」—どんな小さなことでも話してみてください。うまく言えなくても大丈夫です。</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;margin-bottom:16px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:.75em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+          <div>
+            <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">無料電話相談 or 個別面談</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">お子さんの状況・ご家庭の様子をていねいにお聞きします。不登校・ADHD・発達特性・きょうだい間の悩みなど、複合的なことでも遠慮なくどうぞ。場所は自宅・カフェなど、話しやすい場所で。</div>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div style="width:28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;font-size:.75em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+          <div>
+            <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">モヤモヤを整理して、次の一歩へ</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">「モヤっとしていたことがすっきりした」「やるべきことが分かった」—そんな時間をご一緒します。ワンコイン勉強会・個別授業・MIKATAレポートなど、必要に応じてご提案します。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 提案⑤: 電話CTA を大きく -->
+    <div style="margin:12px 16px 0;">
+      <a href="tel:07056924173" style="display:flex;align-items:center;gap:14px;background:var(--orange);color:#2a2a2a;border-radius:16px;padding:20px 20px;text-decoration:none;box-shadow:0 4px 14px rgba(249,199,51,0.35);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        <span style="font-size:2.25em;flex-shrink:0;">📞</span>
+        <div>
+          <div style="font-size:1em;font-weight:700;margin-bottom:3px;">無料電話相談</div>
+          <div style="font-size:.875em;opacity:.85;">070-5692-4173（佐渡山）</div>
+          <div style="font-size:.75em;opacity:.75;margin-top:3px;">盆・正月・休日も対応しています ☕️</div>
+        </div>
+      </a>
+      <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc-d);color:var(--txt);border-radius:10px;padding:13px;text-decoration:none;font-size:.875em;font-weight:700;margin-top:8px;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        ✉️ フォームで相談する
+      </a>
+    </div>
+
+    <!-- 提案⑤: メモは任意・下に -->
+    <div class="memo-wrap" style="margin-top:12px;">
+      <div class="memo-ttl">📝 電話の前に気になることを書き出してみる（任意）</div>
+      <div class="memo-note">
+        面と向かうと言い忘れることってありますよね。<br>
+        <em>このメモはあなただけが見られます。送信されません。</em>
+      </div>
+      <textarea class="memo-textarea" placeholder="例）中2の息子が2学期からほぼ不登校。ゲームとYouTubeの毎日で会話も減っています。どう関わればいいか分からなくて…&#10;&#10;うまく書けなくても大丈夫です。"></textarea>
+      <p style="font-size:.8125em;color:var(--txt-m);line-height:1.7;margin-top:10px;">
+        ここに残る言葉は、あなたが少し立ち止まった記録です。
+      </p>
+    </div>
+
+    <!-- MIKATAレポート -->
+    <div class="sec">
+      <div class="sec-lbl">💡 子どものMIKATAレポート</div>
+      <div style="background:var(--white);border-radius:var(--r);padding:16px;box-shadow:var(--sh);border-left:4px solid var(--acc-d);">
+        <p style="font-size:.8125em;color:var(--txt);line-height:1.85;margin-bottom:10px;">相談後、ご希望の方には<strong>お子さんの学習・成長パターンを可視化したPDFレポート</strong>をお届けします。「俺できんし」「やる気ない」という言葉の裏にあるものを、多重知能（MI）の視点から整理します。</p>
+        <div style="background:var(--info);border-radius:10px;padding:10px 12px;font-size:.8125em;color:var(--txt-m);line-height:1.9;">
+          📄 基本レポート：1,500円<br>
+          🧩 多重知能チェック付き：＋500円<br>
+          🔄 定期フォロープラン（夏休み・年度初めなど節目ごと）：初回後にご相談
+        </div>
+      </div>
+    </div>
+
+    <div style="margin:12px 16px 0;">
+      <a href="https://teaunderclub.substack.com" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--info);border:1.5px solid var(--acc);color:var(--acc-dd);border-radius:12px;padding:12px;text-decoration:none;font-size:.8125em;font-weight:700;">
+        📬 メルマガ「ワンコ通信」を読む
+      </a>
+    </div>
+
+    <div class="sec">
+      <div class="sec-lbl">🌿 わたしの歩みについて</div>
+      <div class="card" onclick="openM('ayumi-guide')">
+        <div class="card-row">
+          <div class="ci" style="background:var(--hi);font-size:1.25em;">🌿</div>
+          <div class="card-info">
+            <div class="card-title">気持ちの記録を残していく</div>
+            <div class="card-sub">立ち止まった日も、本人だけが見られる記録です</div>
+          </div>
+          <div class="card-arr">›</div>
         </div>
       </div>
     </div>
@@ -731,7 +862,7 @@ const CONTENTS = {
       <div class="sec-lbl" style="margin-top:6px;">🌱 その他のプログラム</div>
       <div class="ev-item">
         <div class="ev-item-top"><div class="ev-item-title">🏠 個別授業（MI診断つき）</div><div class="ev-tag b">要相談</div></div>
-        <div class="hl-box">🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><span style="font-size:13px;color:var(--txt-m)">※ 1回90分 / 自宅または通いで実施</span></div>
+        <div class="hl-box">🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><span style="font-size:.8125em;color:var(--txt-m)">※ 1回90分 / 自宅または通いで実施</span></div>
         <div class="ev-price">まずは無料相談から</div>
         <button class="apbtn y" onclick="openM('kobetsu')">相談する</button>
       </div>
@@ -760,33 +891,33 @@ const CONTENTS = {
 
       <!-- 段階的参加の説明カード -->
       <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
-        <p style="font-size:14px;color:var(--txt);line-height:1.9;margin-bottom:4px;font-weight:700;">子どもの社会参加を<br>焦らず支えたい保護者のために</p>
-        <p style="font-size:13px;color:var(--txt-m);line-height:1.85;margin-bottom:12px;">「どう関わればいいか分からない」「無理に行かせるのも違う気がする」——そんなお母さんへ。実際の活動から見えてきた、子どもが少しずつ外に出ていくプロセスをお伝えします。</p>
+        <p style="font-size:.875em;color:var(--txt);line-height:1.9;margin-bottom:4px;font-weight:700;">子どもの社会参加を<br>焦らず支えたい保護者のために</p>
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.85;margin-bottom:12px;">「どう関わればいいか分からない」「無理に行かせるのも違う気がする」——そんなお母さんへ。実際の活動から見えてきた、子どもが少しずつ外に出ていくプロセスをお伝えします。</p>
 
         <!-- 3ステップ -->
         <div style="display:flex;flex-direction:column;gap:0;border:1px solid var(--border);border-radius:8px;overflow:hidden;">
 
           <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);border-bottom:1px solid var(--border);">
-            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:.8125em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">1</div>
             <div>
-              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">まず、来てみる</div>
-              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">猫がいて、手を動かせる場所があります。話さなくても、廊下にいるだけでも大丈夫。<br>「チラッと見る」ところから始まります。</div>
+              <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">まず、来てみる</div>
+              <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">猫がいて、手を動かせる場所があります。話さなくても、廊下にいるだけでも大丈夫。<br>「チラッと見る」ところから始まります。</div>
             </div>
           </div>
 
           <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);border-bottom:1px solid var(--border);">
-            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:.8125em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">2</div>
             <div>
-              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">好きなことを一緒にやってみる</div>
-              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">折り紙・フェルト手芸・アロマ・ビーズ・塗り絵…「不器用だから」でも大丈夫。作りながら自然と話が生まれます。<br>「家族に見せたら驚かれた」という声も。</div>
+              <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">好きなことを一緒にやってみる</div>
+              <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">折り紙・フェルト手芸・アロマ・ビーズ・塗り絵…「不器用だから」でも大丈夫。作りながら自然と話が生まれます。<br>「家族に見せたら驚かれた」という声も。</div>
             </div>
           </div>
 
           <div style="display:flex;align-items:flex-start;gap:12px;padding:13px 14px;background:var(--white);">
-            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
+            <div style="width:32px;height:32px;border-radius:50%;background:var(--hi);color:var(--acc-dd);font-size:.8125em;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;">3</div>
             <div>
-              <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:3px;">外の人に、自分の言葉で伝える</div>
-              <div style="font-size:13px;color:var(--txt-m);line-height:1.75;">文芸フリマでのワークショップ出展、展示、本の寄贈…。「お客様に説明できた」という経験が、自信になります。</div>
+              <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:3px;">外の人に、自分の言葉で伝える</div>
+              <div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">文芸フリマでのワークショップ出展、展示、本の寄贈…。「お客様に説明できた」という経験が、自信になります。</div>
             </div>
           </div>
 
@@ -795,36 +926,36 @@ const CONTENTS = {
 
       <!-- 実績ハイライト -->
       <div style="background:var(--hi);border-bottom:1px solid var(--border);padding:14px 16px;">
-        <div style="font-size:13px;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 現場で聞こえた声（保護者・子ども）</div>
+        <div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:10px;letter-spacing:.04em;">💬 現場で聞こえた声（保護者・子ども）</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:12px;color:var(--txt-s);">── 活動記録より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「無理に誘わなくても、気づいたら自分から入ってきていた。」<br><span style="font-size:.75em;color:var(--txt-s);">── 活動記録より</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:12px;color:var(--txt-s);">── 保護者の声より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「うちの子がお客さんに説明している姿を見て、泣きそうになった。」<br><span style="font-size:.75em;color:var(--txt-s);">── 保護者の声より</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「不器用だからって言ってたのに、家で家族の前で作ってみせたんです。」<br><span style="font-size:12px;color:var(--txt-s);">── 活動後の変化</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「不器用だからって言ってたのに、家で家族の前で作ってみせたんです。」<br><span style="font-size:.75em;color:var(--txt-s);">── 活動後の変化</span>
           </div>
-          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:13px;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
-  「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:12px;color:var(--txt-s);">── 担当者より</span>
+          <div style="background:var(--white);border-radius:8px;padding:11px 13px;font-size:.8125em;color:var(--txt);line-height:1.75;border-left:3px solid var(--acc-d);">
+  「押し付けず、本人のペースを信じて待つことが、一番の近道でした。」<br><span style="font-size:.75em;color:var(--txt-s);">── 担当者より</span>
           </div>
         </div>
       </div>
 
       <!-- セラピーキャットの役割 -->
       <div style="background:var(--white);border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:flex-start;gap:12px;">
-        <div style="font-size:28px;flex-shrink:0;">🐾</div>
+        <div style="font-size:1.75em;flex-shrink:0;">🐾</div>
         <div>
-          <div style="font-size:13px;font-weight:700;color:var(--txt);margin-bottom:4px;">セラピーキャットがいる場所</div>
-          <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">猫がいるだけで、場の空気が変わります。話さなくても、猫を撫でているうちに自然と言葉が出てくる。てぃあんだぁクラブの活動でも、猫がきっかけで外に出てきた子がたくさんいます。</div>
+          <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:4px;">セラピーキャットがいる場所</div>
+          <div style="font-size:.8125em;color:var(--txt-m);line-height:1.8;">猫がいるだけで、場の空気が変わります。話さなくても、猫を撫でているうちに自然と言葉が出てくる。てぃあんだぁクラブの活動でも、猫がきっかけで外に出てきた子がたくさんいます。</div>
         </div>
       </div>
 
       <!-- 相談CTA -->
       <div style="padding:14px 16px;background:var(--white);border-bottom:1px solid var(--border);">
-        <p style="font-size:13px;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかな？」「どこまで関わればいい？」<br>一人で悩まず、まずお電話ください。保護者だけでのご相談もOKです。</p>
-        <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#2a2a2a;border-radius:8px;padding:13px;text-decoration:none;font-size:13px;font-weight:700;">
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">「うちの子に合うかな？」「どこまで関わればいい？」<br>一人で悩まず、まずお電話ください。保護者だけでのご相談もOKです。</p>
+        <a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:#2a2a2a;border-radius:8px;padding:13px;text-decoration:none;font-size:.8125em;font-weight:700;">
           📞 無料電話相談（担当：佐渡山）
         </a>
       </div>
@@ -876,11 +1007,11 @@ const CONTENTS = {
         .ogp-card { background:var(--white); border-radius:0; margin-bottom:0; border-bottom:1px solid var(--border); overflow:hidden; cursor:pointer; transition:background .1s; text-decoration:none; display:block; }
         .ogp-card:hover { background:#fafafa; }
         .ogp-img { width:100%; height:160px; object-fit:cover; display:block; background:var(--info); }
-        .ogp-img-placeholder { width:100%; height:160px; background:linear-gradient(135deg,var(--acc),var(--acc-d)); display:flex; align-items:center; justify-content:center; font-size:40px; }
+        .ogp-img-placeholder { width:100%; height:160px; background:linear-gradient(135deg,var(--acc),var(--acc-d)); display:flex; align-items:center; justify-content:center; font-size:2.5em; }
         .ogp-body { padding:12px 14px; }
-        .ogp-tag { font-size:13px; font-weight:700; color:var(--acc-d); letter-spacing:.05em; margin-bottom:5px; display:block; }
-        .ogp-title { font-size:15px; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; }
-        .ogp-desc { font-size:13px; color:var(--txt-m); line-height:1.6; }
+        .ogp-tag { font-size:.8125em; font-weight:700; color:var(--acc-d); letter-spacing:.05em; margin-bottom:5px; display:block; }
+        .ogp-title { font-size:.9375em; font-weight:700; color:var(--txt); line-height:1.45; margin-bottom:4px; }
+        .ogp-desc { font-size:.8125em; color:var(--txt-m); line-height:1.6; }
       </style>
 
       <a class="ogp-card" href="https://news.ryukyu-tane.com/251130-nichiyougakkou-furugenchu/" target="_blank" id="ogp-1">
@@ -927,9 +1058,9 @@ const CONTENTS = {
       </div>
       <div class="card" onclick="openM('universe')" style="opacity:.8;">
         <div class="card-row">
-          <div class="ci s" style="font-size:18px;">🌌</div>
+          <div class="ci s" style="font-size:1.125em;">🌌</div>
           <div class="card-info">
-            <div class="card-title" style="font-size:13px;">あとから読み返す棚</div>
+            <div class="card-title" style="font-size:.8125em;">あとから読み返す棚</div>
             <div class="card-sub">これまでの教材・記事・記録を置いています</div>
           </div>
           <div class="card-arr">›</div>
@@ -939,19 +1070,19 @@ const CONTENTS = {
       <div style="background:var(--white);border-bottom:1px solid var(--border);padding:16px;">
         <div style="display:flex;flex-direction:column;gap:14px;">
           <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
-            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">わらべー ならいさーしむん</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">子どもは親のする事を見て、その通りに育つ。スマホばかり見てたらスマホばかり見る子になる。</div>
+            <div style="font-size:.9375em;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">わらべー ならいさーしむん</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.8;">子どもは親のする事を見て、その通りに育つ。スマホばかり見てたらスマホばかり見る子になる。</div>
           </div>
           <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
-            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">すみぃ知ぃっち むぬぅ知らん</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">学問ばかりで世間の通りを知らない。知識と経験を両方大切に。</div>
+            <div style="font-size:.9375em;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">すみぃ知ぃっち むぬぅ知らん</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.8;">学問ばかりで世間の通りを知らない。知識と経験を両方大切に。</div>
           </div>
           <div style="border-left:3px solid var(--acc-d);padding:2px 0 2px 12px;">
-            <div style="font-size:15px;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">むけーじらーんかい 棒や投げらん</div>
-            <div style="font-size:13px;color:var(--txt-m);line-height:1.8;">帰ってきた子に怒った顔で迎えない。まずはお腹いっぱいご飯を食べさせてから「どうしたの？」と。</div>
+            <div style="font-size:.9375em;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">むけーじらーんかい 棒や投げらん</div>
+            <div style="font-size:.8125em;color:var(--txt-m);line-height:1.8;">帰ってきた子に怒った顔で迎えない。まずはお腹いっぱいご飯を食べさせてから「どうしたの？」と。</div>
           </div>
         </div>
-        <div style="font-size:12px;color:var(--txt-s);margin-top:14px;text-align:right;">── ウチナーのオバァの人生指南より</div>
+        <div style="font-size:.75em;color:var(--txt-s);margin-top:14px;text-align:right;">── ウチナーのオバァの人生指南より</div>
       </div>
     </div>
   `,
@@ -1093,18 +1224,18 @@ const MS = {
   anger:{title:'🌼 アンガーマネジメント',sub:'子ども・保護者向け',body:'感情のコントロールに悩むお子さんと、その対応に迷う保護者のための心理教育プログラムです。<br><br><strong>子ども：</strong>落ち着く方法、感情の整理・伝え方を練習する<br><br><strong>保護者：</strong>子どもの感情を受け止める「聴き方」「伝え方」、家庭での共感的コミュニケーション<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
   ikukai:{title:'📚 子育て勉強会',sub:'不定期開催',body:'親が学び、つながり、安心を充電する場です。<br><br>開催日程はメルマガ「ワンコ通信」で先行案内しています。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 メルマガに登録する →</a><br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込みフォーム →</a>'},
   mi:{title:'多重知能（MI）とは',sub:'個別授業で活用しています',body:'ハワード・ガードナーが提唱した「8つの知能」の理論。<br><br>言語・論理・音楽・身体・空間・自然・対人・内省の8領域から、お子さんの得意・苦手を可視化します。<br><br>「勉強が苦手」ではなく、「この子の得意な学び方はこれだ」という視点に変えるためのツールです。'},
-  history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:13px;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:12px;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:12px;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:13px;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:12px;color:var(--txt-m);">2016年9月19日</span></a></div>'},
+  history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:.8125em;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:.75em;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:.75em;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:.75em;color:var(--txt-m);">2016年9月19日</span></a></div>'},
   wanko:{title:'子どもの「やらない」の裏にあるもの',sub:'ワンコ通信 · 2026年6月2日 · 芒種',body:'芒種の頃、稲の穂がそっと頭を出し始めます。<br><br>「なんで勉強しないの？」そう感じる瞬間、子どもの「やらない」の裏には何があるのでしょうか。<br><br>やる気がない、のではなく、やり方がわからないのかもしれません。怠けているのではなく、エネルギーが底をついているだけかもしれません。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 ワンコ通信の全文はSubstackで →</a>'},
   wanko2:{title:'ジョハリの窓 ── 見えていない自分',sub:'ワンコ通信バックナンバー',body:'「ジョハリの窓」は、人と人との関わりを通じて自分を知るための心理モデルです。<br><br>・開放の窓：自分も他人も知っている自分<br>・盲目の窓：他人は知っているが、自分では気づいていない自分<br>・秘密の窓：自分は知っているが、他人には見せていない自分<br>・未知の窓：誰にも知られていない、まだ出会っていない自分<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackでバックナンバーを読む →</a>'},
   universe:{title:'記録の棚（universe）',sub:'あとからゆっくり読み返す',body:'てぃあんだぁクラブのこれまでの活動記録・教材・メディア掲載をアーカイブしています。<br><br>「購入する」ではなく、「いつか読み返す棚」として置いてあります。<br><br>🌌 <a href="https://universe.tea-under.club" target="_blank">universe.tea-under.club</a>'},
   'apply-toyomi':{title:'ワンコイン勉強会（豊見城）',sub:'毎週水曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
   'apply-uruma':{title:'ワンコイン勉強会（うるま）',sub:'毎週金曜 10:00〜12:00 · 500円',body:'少人数・個別対応の学びの場です。当日でも空きがあれば参加できます。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>盆・正月・休日も対応しています☕️<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 お申し込みフォーム →</a>'},
   merumaga:{title:'メルマガ「ワンコ通信」',sub:'子育て勉強会の先行案内もお届け',body:'てぃあんだぁクラブの日々の気づきと活動のたよりです。<br>勉強会の先行案内もこちらからお届けします。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 Substackで登録する →</a>'},
-  openchat:{title:'🕊️ てぃあんだぁクラブ オープンチャット',sub:'新月・満月ごろにワンコ通信をお届け',body:'<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,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" alt="QRコード" style="width:180px;height:180px;border-radius:12px;border:3px solid rgb(186,218,122);"><p style="font-size:13px;color:var(--txt-m);margin-top:8px;">カメラで読み取るか、下のボタンからどうぞ</p></div><a href="https://line.me/ti/g2/6lyFFfcxR_VsZahIfVdPtYXBY18b5YRT6AxG9Q?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" style="display:block;background:#06C755;color:#fff;text-align:center;border-radius:12px;padding:12px;font-weight:700;font-size:14px;text-decoration:none;margin-bottom:16px;">🟢 LINEオープンチャットに参加する</a><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.9;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">🕊️ ワンコNEWS、届けています</p><p style="font-size:13px;color:var(--txt);">新月・満月ごろに「ワンコ通信」を配信。二十四節気にあわせた子育てのヒントや、地域のイベント情報、不登校・学習支援に役立つリンクなどをシェアしています。</p></div><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:8px;">💬 こんな投稿が集まっています</p>・子育てや家庭教育に役立つヒント<br>・地域のイベント・講座案内<br>・防災・奨学金・制度のお知らせ<br>・保護者同士の気づきや共感<br>・アンガーマネジメント、発達支援の情報<br><br><span style="font-size:13px;color:var(--txt-m);">「お？便利そう？何かの役に立ちそう？」と思ったことを気軽にシェアしてください。</span></div><div style="background:var(--hi);border-radius:12px;padding:14px;margin-bottom:12px;font-size:13px;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">📣 参加のルール（ゆるく・あたたかく）</p>投稿の際は「どんな子に役立ちそう？」など、子育て・教育の視点で一言添えていただけると嬉しいです🌱<br><br><span style="color:#c0392b;font-weight:700;">🚫 控えてほしい投稿：</span>宣伝目的のみの投稿・マルチ商法・政治・宗教活動・個人を傷つける表現</div><p style="font-size:13px;color:var(--txt);text-align:center;line-height:1.9;">みんなで楽しい子育て時間を増やしていきましょうฅˆ•ﻌ•ˆฅ♬*゜</p>'},
-  'ayumi-guide':{title:'🌿 わたしの歩みについて',sub:'気持ちの記録は、本人だけが見られます',body:'てぃあんだぁクラブでは、「できたこと」だけでなく、<strong>「立ち止まったこと」も記録していい</strong>と考えています。<br><br>このメモ欄に書いた言葉は、あなただけが見られます。誰かに送る必要はありません。<br><br>相談した日、勉強会に参加した日、今日は読むだけにした日。そういう小さなことが積み重なって、孤立から少しずつ抜けていくプロセスになります。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:10px;font-size:13px;color:var(--acc-dd);line-height:1.8;">🔒 記録は外部に共有されません。<br>本人だけが見られる、あなただけの歩みです。</div>'},
+  openchat:{title:'🕊️ てぃあんだぁクラブ オープンチャット',sub:'新月・満月ごろにワンコ通信をお届け',body:'<div style="text-align:center;margin-bottom:16px;"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjoAAAI6CAIAAAChKnWXAAAPH0lEQVR4nO3cwZErtxVAUdPFZBSOc3EYysXhKJz2Vosv6FsQ/HDJc7ZTHDSbTd7CAu/1PM8/AOBu/5y+AAD4c3IFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARDwnlr4X//+ZWrpQ/7z62+Lv67f77nXrhWvam3qbuz857WdT2HH56175zelaOdO7rC7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiDg9TzPyMLnJgic45r/rnXX7pwPMjXHYcedn/6dT92Oqfkv59x5zXZXAATIFQABcgVAgFwBECBXAATIFQABcgVAgFwBECBXAAS8py/gr/i8+QJrd17VOTtXde61d87LWP/nnSdn5x3dOalhamrJjuJv3Tl2VwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEJKdaFJ07UT917n1n6sHauSkPxRkBU3dyR/E+37kuv2d3BUCAXAEQIFcABMgVAAFyBUCAXAEQIFcABMgVAAFyBUCAqRYfbmrawrmZF2vn5ilMTYhYu/Oqzj0b554rcyvuZ3cFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQEByqkXx/PnO9IGpyQXnJghMzTXYuZPFSRznfN413/mrcudVTbG7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiDg0qkWxTPzO6bmOEydmb/z/Z6bPOI+//xr7zQ14YXfs7sCIECuAAiQKwAC5AqAALkCIECuAAiQKwAC5AqAALkCIOD1PM/0NXDpTIS1ndP4U5M4zl3zjnNzDc7dqzvnZZxz51V9G7srAALkCoAAuQIgQK4ACJArAALkCoAAuQIgQK4ACJArAALeUwsXz73fORNh7dx93rHzn4uf/o5zn9HUs3HnvIwpUzNc7vyNXbO7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBgbKrF1PSB4lnuNRMiblCcxfB534W1O39zzn36n/f52l0BECBXAATIFQABcgVAgFwBECBXAATIFQABcgVAgFwBEDA21aJ4Vv/OWQw758/X72jq3Pu5dzR1r3bcOV/gnKlv2Z3f7h2fN9/H7gqAALkCIECuAAiQKwAC5AqAALkCIECuAAiQKwAC5AqAgLGpFlOzJ6bOcp87M3/n+fOpGQFTn++d9/nOCS/r/7yz7p2zRYrTYe5kdwVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQABcgVAwNhUi53z58XXrp2bp3Dn5II7P4W1qXkZ5xQ//TvXLX76RXZXAATIFQABcgVAgFwBECBXAATIFQABcgVAgFwBECBXAASMTbVY+7Zz4FOn4s/NvCh+glNzHO78fHfe0dRzdecMl7WpWRtFdlcABMgVAAFyBUCAXAEQIFcABMgVAAFyBUCAXAEQIFcABIxNtbjzZPva551731n3zrkVd06XmHJujsM5d86tOPfdP/fLUPzNWbO7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiDg9TzP9DX8wLdNH/i2eRmfd81Tn+Ba8bm689ko3o3PY3cFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQMB7auGdk95TZ9d3Zm2cm9NRnABy7prPzZ74PFPPxretu+Z34+fZXQEQIFcABMgVAAFyBUCAXAEQIFcABMgVAAFyBUCAXAEQ8HqeZ2ThqfkC505r77yjb7uqtXPXPDUjYG1q3bWp+SB3rrs2NSHi22Ze2F0BECBXAATIFQABcgVAgFwBECBXAATIFQABcgVAgFwBEDA21WKH2QSfve6dcw3MB/nmdc89scWn3VQLAPhDcgVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQAB76mFpyZTrP/zudPan/d+z523X7vzmqdmE+y4c37EuXXP2bkqz+TPs7sCIECuAAiQKwAC5AqAALkCIECuAAiQKwAC5AqAALkCIGBsqsXauRkQO+vuuPMkf3EyxdS652YE3PlsnDP17d75BKdeu3bn83yO3RUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAa/neaav4QfunC5xp3MzAqbO269NTR9Yu/OJvXNSw7c9G2tTT86d3+41uysAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAt5TC587U73+z+fOkO/YOSV+59SD4pn5O5+NO69qytTd+LxP4dzMi3PsrgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIeD3PM30N/7NzsxjOzVOYuuap97t255n5talnY604m2DqiS1+j6aejalfhjW7KwAC5AqAALkCIECuAAiQKwAC5AqAALkCIECuAAiQKwAC3tMX8GN3nrguXtW5166t78a5WQxTUx7OPRt3zoA4pzinY+3O340iuysAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAsamWuyc9L7zvP2Oc3djan7E2p3XPHU31qaejSnF78LauftcnJayw+4KgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgICxqRZrU5MLpuZlrE2dt99Z987ZBOcmcZxzbnLBzmvPPRtTvu13486ZJmt2VwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEXDrVYu3cefudddem5nScc+dcg3Nn9YtTAO6ctrBWnKZx56SVqas6x+4KgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgIDkVItzps6BnztDXjy7PnXOf+c/n3PnxIS1b5s7c+6163d05/f3HLsrAALkCoAAuQIgQK4ACJArAALkCoAAuQIgQK4ACJArAALGplrcOblg7c65FefW/bwZEN/mzpkm5+Z0nJsQceeMj6mrmnpy7K4ACJArAALkCoAAuQIgQK4ACJArAALkCoAAuQIgQK4ACBibarE2NRNhat0p597vzpn54lyD4gSQtXOzGHbWnTI1hefca4vsrgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIeD3PM7Lwzonrc+feP29ywdS92nHnXIM7ZwQUvwvFdadMTVq5k90VAAFyBUCAXAEQIFcABMgVAAFyBUCAXAEQIFcABMgVAAHvqYV3TmtP2TlDfu50+vq1U+fe7/x8i5M4zn2+O3fj29b9tmkad7K7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBgbKrFOVOTC6bmR6ztrFucPXFutsiOO6dpTD3Pd6679m2zJ+78NbO7AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiDg9TzPyMI7p6bvfO05507jT51OXyt+RmtT12zdv2vd4n8+t66pFgDwh+QKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAsamWpxz58yLOydTfN6cjp117/zPU+78ppz7jNY+7/3eObdize4KgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgID31MJOp//8a9em7uTa+qrOTXk49452/vOdUw8+z9S9OvftvnO6xBS7KwAC5AqAALkCIECuAAiQKwAC5AqAALkCIECuAAiQKwACXs/zjCx87hz4neve6fPmKdw5H+TO+3zn0/5tvwzFWTlTT47dFQABcgVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQABY1Mt1u48Yb5j6hz41Ln3c87NgJiaAnDnBIEddz51U09Ocf7Lnc+k3RUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEyBUAAe/pC/grzp0/L055+LwJAndOAFmbmmswNcXj3H++89nYMTWFp3iv1uyuAAiQKwAC5AqAALkCIECuAAiQKwAC5AqAALkCIECuAAgYm2px7pz/t50hv3M2wbn/fOcUj6mZJmvnZovc+dq1qV+Gc4qzY3bYXQEQIFcABMgVAAFyBUCAXAEQIFcABMgVAAFyBUCAXAEQ8HqeZ/oavsK50/ifNx9kx53zMqbWLb6jO6957duuaordFQABcgVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQAB76mFz801mHLnyfa1cxMTdkxN8dhx5yyGqYkYO+tOzbw499QVn42pa16zuwIgQK4ACJArAALkCoAAuQIgQK4ACJArAALkCoAAuQIgYGyqxdrUqem1nZPt586Qnztvf05x6sHa1BM79Y6+bdLKjuKzcecvsN0VAAFyBUCAXAEQIFcABMgVAAFyBUCAXAEQIFcABMgVAAGXTrVYu/NE/Z3rTs0I+LzZBMWruvN5nvr+npsdc+ezsXbnk7NmdwVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQABcgVAQHKqxecpnjCfmsRx5wSBc3fj3CyGc/d56nm+83tUfJ7vvJN2VwAEyBUAAXIFQIBcARAgVwAEyBUAAXIFQIBcARAgVwAEmGrxf3JuRsDOa3dOp09NTFg7t+6d8yPOOfds7CjeybU7Z4vceSftrgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIeD3PM7LwuWkL50xNiDineJ/PufNu7Dg3xePz1l07N9NkR/FXdIfdFQABcgVAgFwBECBXAATIFQABcgVAgFwBECBXAATIFQAB7+kL+LGpuQbnnDvnv3OyfWpOx/o/33nNa1P3asfU1IPiunc+defcOS/D7gqAALkCIECuAAiQKwAC5AqAALkCIECuAAiQKwAC5AqAgNfzPNPXAAB/wu4KgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAIkCsAAuQKgAC5AiBArgAI+C/2q7GxKc1LXQAAAABJRU5ErkJggg==" alt="QRコード" style="width:180px;height:180px;border-radius:12px;border:3px solid rgb(186,218,122);"><p style="font-size:.8125em;color:var(--txt-m);margin-top:8px;">カメラで読み取るか、下のボタンからどうぞ</p></div><a href="https://line.me/ti/g2/6lyFFfcxR_VsZahIfVdPtYXBY18b5YRT6AxG9Q?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" style="display:block;background:#06C755;color:#fff;text-align:center;border-radius:12px;padding:12px;font-weight:700;font-size:.875em;text-decoration:none;margin-bottom:16px;">🟢 LINEオープンチャットに参加する</a><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:.8125em;line-height:1.9;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">🕊️ ワンコNEWS、届けています</p><p style="font-size:.8125em;color:var(--txt);">新月・満月ごろに「ワンコ通信」を配信。二十四節気にあわせた子育てのヒントや、地域のイベント情報、不登校・学習支援に役立つリンクなどをシェアしています。</p></div><div style="background:var(--info);border-radius:12px;padding:14px;margin-bottom:12px;font-size:.8125em;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:8px;">💬 こんな投稿が集まっています</p>・子育てや家庭教育に役立つヒント<br>・地域のイベント・講座案内<br>・防災・奨学金・制度のお知らせ<br>・保護者同士の気づきや共感<br>・アンガーマネジメント、発達支援の情報<br><br><span style="font-size:.8125em;color:var(--txt-m);">「お？便利そう？何かの役に立ちそう？」と思ったことを気軽にシェアしてください。</span></div><div style="background:var(--hi);border-radius:12px;padding:14px;margin-bottom:12px;font-size:.8125em;line-height:1.85;"><p style="font-weight:700;color:var(--acc-dd);margin-bottom:6px;">📣 参加のルール（ゆるく・あたたかく）</p>投稿の際は「どんな子に役立ちそう？」など、子育て・教育の視点で一言添えていただけると嬉しいです🌱<br><br><span style="color:#c0392b;font-weight:700;">🚫 控えてほしい投稿：</span>宣伝目的のみの投稿・マルチ商法・政治・宗教活動・個人を傷つける表現</div><p style="font-size:.8125em;color:var(--txt);text-align:center;line-height:1.9;">みんなで楽しい子育て時間を増やしていきましょうฅˆ•ﻌ•ˆฅ♬*゜</p>'},
+  'ayumi-guide':{title:'🌿 わたしの歩みについて',sub:'気持ちの記録は、本人だけが見られます',body:'てぃあんだぁクラブでは、「できたこと」だけでなく、<strong>「立ち止まったこと」も記録していい</strong>と考えています。<br><br>このメモ欄に書いた言葉は、あなただけが見られます。誰かに送る必要はありません。<br><br>相談した日、勉強会に参加した日、今日は読むだけにした日。そういう小さなことが積み重なって、孤立から少しずつ抜けていくプロセスになります。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:10px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">🔒 記録は外部に共有されません。<br>本人だけが見られる、あなただけの歩みです。</div>'},
   enen:{title:'🪷 ご縁カード',sub:'必要な人にそっと渡せる案内カード',body:'ご縁カードをお持ちの方は、初回の勉強会を安心価格でご参加いただけます。<br><br>カードに記載のコードをお知らせください。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br><br><a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank">📋 フォームから入力 →</a>'},
-  'kodomo-qa':{title:'子ども・学生の方へ',sub:'小学生・中学生・高校生 それぞれの相談',body:'<strong style="color:var(--acc-dd);">小学生</strong><br><br><strong>時計の問題が難しいです。</strong><br>視覚支援で難易度を変えて練習できるwebアプリがありますよ。<a href="https://kenlab.web.app/trainingclock" target="_blank">こちら →</a><br><br><strong>なんで恐竜って言うんですか？</strong><br>恐竜→Dinosaurs→「deinos（恐ろしい）」+「sauros（トカゲ・爬虫類）」らしいです。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">中学生</strong><br><br><strong>高校進学か就職か迷っています。</strong><br>「チャンスロス」という考え方で一緒に考えてみましょう。まずは電話相談を。<br><br><strong>勉強の仕方がわかりません。</strong><br>自分がどういう方法が向いているか、まずは方法を一緒に考えてみましょう！<br><br><strong>相談する人がいなくて、、、</strong><br>インターネットや電話を使う方法もあります。一緒に考えてみましょう！<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">高校生</strong><br><br><strong>進路の決め方がわかりません。</strong><br>自分が苦手なこと・やりたくないことを考えて、自分を活かせる進路を一緒に考えましょう。<br><br><strong>苦手な人との付き合い方は？</strong><br>あります。そのためにはたくさん勉強して苦手な人がいない環境に行けるようになることです。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:13px;color:var(--acc-dd);line-height:1.8;">📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>電話相談は無料・通話料もかかりません。</div>'},
-  goods:{title:'📱 おすすめ教材・アプリ',sub:'実際の授業で活用しているツール',body:'<strong style="color:var(--acc-dd);">アプリ</strong><br><br>🧠 <strong>脳トレゲーム（ワーキングメモリー）</strong> — iPhone<br>授業開始時のウォームアップや、ぼーっとしている生徒の着火剤として活用。なぜか大人気。<br><br>🧬 <strong>人体模型パズル（内臓）</strong> — iPhone / Android<br>中学「人体の内臓」をタイムアタック形式で覚えられます。<br><br>⚛️ <strong>原子核アプリ</strong> — iPhone / Android<br>「電子がぐるぐる回っているイメージ」を説明するときに便利。中学イオンの授業で活用。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">Web</strong><br><br>📚 <strong>カーリル</strong> — <a href="https://calil.jp" target="_blank">calil.jp</a><br>地域の図書館の本を横断検索。相互貸借制度を使えば沖縄中から本を借り出せます。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">ダウンロードシート</strong><br><br>📋 <strong>学習環境確認シート</strong><br>お子さんひとりひとりの「学習環境」を見える化するシート。<br><br>🌈 <strong>虹の架け橋シート</strong><br>お子さんの「困りごと」を整理・見える化するシート。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:13px;color:var(--acc-dd);line-height:1.8;">リンク・詳細は📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）までお気軽に。</div>'},
+  'kodomo-qa':{title:'子ども・学生の方へ',sub:'小学生・中学生・高校生 それぞれの相談',body:'<strong style="color:var(--acc-dd);">小学生</strong><br><br><strong>時計の問題が難しいです。</strong><br>視覚支援で難易度を変えて練習できるwebアプリがありますよ。<a href="https://kenlab.web.app/trainingclock" target="_blank">こちら →</a><br><br><strong>なんで恐竜って言うんですか？</strong><br>恐竜→Dinosaurs→「deinos（恐ろしい）」+「sauros（トカゲ・爬虫類）」らしいです。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">中学生</strong><br><br><strong>高校進学か就職か迷っています。</strong><br>「チャンスロス」という考え方で一緒に考えてみましょう。まずは電話相談を。<br><br><strong>勉強の仕方がわかりません。</strong><br>自分がどういう方法が向いているか、まずは方法を一緒に考えてみましょう！<br><br><strong>相談する人がいなくて、、、</strong><br>インターネットや電話を使う方法もあります。一緒に考えてみましょう！<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">高校生</strong><br><br><strong>進路の決め方がわかりません。</strong><br>自分が苦手なこと・やりたくないことを考えて、自分を活かせる進路を一緒に考えましょう。<br><br><strong>苦手な人との付き合い方は？</strong><br>あります。そのためにはたくさん勉強して苦手な人がいない環境に行けるようになることです。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>電話相談は無料・通話料もかかりません。</div>'},
+  goods:{title:'📱 おすすめ教材・アプリ',sub:'実際の授業で活用しているツール',body:'<strong style="color:var(--acc-dd);">アプリ</strong><br><br>🧠 <strong>脳トレゲーム（ワーキングメモリー）</strong> — iPhone<br>授業開始時のウォームアップや、ぼーっとしている生徒の着火剤として活用。なぜか大人気。<br><br>🧬 <strong>人体模型パズル（内臓）</strong> — iPhone / Android<br>中学「人体の内臓」をタイムアタック形式で覚えられます。<br><br>⚛️ <strong>原子核アプリ</strong> — iPhone / Android<br>「電子がぐるぐる回っているイメージ」を説明するときに便利。中学イオンの授業で活用。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">Web</strong><br><br>📚 <strong>カーリル</strong> — <a href="https://calil.jp" target="_blank">calil.jp</a><br>地域の図書館の本を横断検索。相互貸借制度を使えば沖縄中から本を借り出せます。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">ダウンロードシート</strong><br><br>📋 <strong>学習環境確認シート</strong><br>お子さんひとりひとりの「学習環境」を見える化するシート。<br><br>🌈 <strong>虹の架け橋シート</strong><br>お子さんの「困りごと」を整理・見える化するシート。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">リンク・詳細は📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）までお気軽に。</div>'},
 };
 
 function openM(k) {
@@ -1122,6 +1253,73 @@ function showToast(msg) {
   t.textContent = msg; t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2500);
 }
+
+/* =============================================
+   UD設定（文字サイズ × 背景色）
+   ============================================= */
+function openSettings() {
+  const s = JSON.parse(localStorage.getItem('tia_ud')||'{"theme":"base","font":"base"}');
+
+  function udBtn(type, val, label, sample) {
+    const on = s[type] === val;
+    const sampleEl = sample
+      ? `<span class="ud-sample">${sample}</span>`
+      : `<span class="ud-sample" style="font-size:.9em;">●</span>`;
+    return `<button class="ud-opt ${on?'on':'off'}" onclick="setSetting('${type}','${val}')">${sampleEl}<span class="ud-lbl">${label}</span></button>`;
+  }
+
+  const themeColors = {
+    base: `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#F5EFE6;border:1.5px solid #C8BBA8;vertical-align:middle;"></span>`,
+    white:`<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#ffffff;border:1.5px solid #ccc;vertical-align:middle;"></span>`,
+    dark: `<span class="ud-sample" style="display:inline-block;width:1.4em;height:1.4em;border-radius:4px;background:#1c1c1e;border:1.5px solid #555;vertical-align:middle;"></span>`
+  };
+  function themeBtn(val, label) {
+    const on = s.theme === val;
+    return `<button class="ud-opt ${on?'on':'off'}" onclick="setSetting('theme','${val}')">${themeColors[val]}<span class="ud-lbl">${label}</span></button>`;
+  }
+
+  document.getElementById('mc').innerHTML = `
+    <div class="md-title">表示設定</div>
+    <div class="md-sub">文字の大きさと背景色を変えられます</div>
+    <div style="margin-bottom:18px;">
+      <div style="font-size:.8125em;font-weight:700;color:var(--txt-m);margin-bottom:8px;">文字サイズ</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        ${udBtn('font','base','標準','あ')}
+        ${udBtn('font','lg','大','あ')}
+        ${udBtn('font','xl','特大','あ')}
+      </div>
+    </div>
+    <div style="margin-bottom:8px;">
+      <div style="font-size:.8125em;font-weight:700;color:var(--txt-m);margin-bottom:8px;">背景色</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;">
+        ${themeBtn('base','通常')}
+        ${themeBtn('white','白')}
+        ${themeBtn('dark','ダーク')}
+      </div>
+    </div>
+    <p style="font-size:.75em;color:var(--txt-s);text-align:center;margin-top:10px;">設定は次回も引き継がれます</p>
+  `;
+  document.getElementById('mo').classList.add('open');
+}
+
+function setSetting(type, val) {
+  const s = JSON.parse(localStorage.getItem('tia_ud')||'{"theme":"base","font":"base"}');
+  s[type] = val;
+  localStorage.setItem('tia_ud', JSON.stringify(s));
+  applyUD(s);
+  openSettings();
+}
+
+function applyUD(s) {
+  document.body.classList.remove('theme-white','theme-dark','font-lg','font-xl');
+  if(s.theme !== 'base') document.body.classList.add('theme-'+s.theme);
+  if(s.font !== 'base') document.body.classList.add('font-'+s.font);
+}
+
+(function(){
+  const s = JSON.parse(localStorage.getItem('tia_ud')||'{"theme":"base","font":"base"}');
+  applyUD(s);
+})();
 </script>
 </body>
 </html>
