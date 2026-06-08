@@ -254,6 +254,10 @@ textarea::placeholder { color:var(--txt-m); }
     flex-shrink:0; background:#fff; display:flex;
     padding-bottom:env(safe-area-inset-bottom,0px);
     border-top:1px solid var(--border);
+    transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  }
+  #sp-bnav.bnav-hidden {
+    transform: translateY(100%);
   }
   .bn { flex:1; padding:8px 2px 10px; text-align:center; cursor:pointer; color:var(--txt-m); font-size:12px; line-height:1.4; transition:color .18s; user-select:none; }
   .bn .bico { font-size:22px; display:block; margin-bottom:3px; transition:transform .18s; }
@@ -1141,6 +1145,7 @@ function spGoTo(n) {
     document.getElementById('bn-'+t).classList.toggle('on', t===n);
   });
   document.getElementById('sp-scroll').scrollTop = 0;
+  document.getElementById('sp-bnav').classList.remove('bnav-hidden');
 }
 
 /* =============================================
@@ -1167,6 +1172,33 @@ if(pcMain) {
     navItems.forEach((item,i) => item.classList.toggle('on', i === scs.indexOf(active)));
   });
 }
+
+/* =============================================
+   スマホ：スクロールでボトムナビを自動非表示
+   ============================================= */
+(function() {
+  const scroll = document.getElementById('sp-scroll');
+  const bnav   = document.getElementById('sp-bnav');
+  if (!scroll || !bnav) return;
+  let lastY   = 0;
+  let ticking = false;
+  scroll.addEventListener('scroll', function() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() {
+      const y = scroll.scrollTop;
+      if (y < 40) {
+        bnav.classList.remove('bnav-hidden');
+      } else if (y > lastY + 8) {
+        bnav.classList.add('bnav-hidden');
+      } else if (y < lastY - 8) {
+        bnav.classList.remove('bnav-hidden');
+      }
+      lastY   = y;
+      ticking = false;
+    });
+  }, { passive: true });
+})();
 
 /* =============================================
    共通ナビ（コンテンツ内のonclick用）
