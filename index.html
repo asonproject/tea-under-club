@@ -268,6 +268,7 @@ textarea::placeholder { color:var(--txt-m); }
 
   /* PC要素を隠す */
   #pc-shell { display:none; }
+  #pc-panel { display:none; }
 }
 
 /* =============================================
@@ -333,9 +334,9 @@ textarea::placeholder { color:var(--txt-m); }
   .pt-sub { font-size:13px; color:var(--txt-m); }
   .pt-about { width:30px; height:30px; background:var(--info); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:15px; cursor:pointer; flex-shrink:0; }
 
-  /* PCでは全セクションを縦に並べて表示 */
-  .pc-sc { display:block; border-bottom:8px solid #ebebeb; }
-  .pc-sc:last-child { border-bottom:none; }
+  /* PCではアクティブセクションのみ表示 */
+  .pc-sc { display:none; }
+  .pc-sc.on { display:block; }
 
   /* PC用セクション区切りヘッダー */
   .pc-sc-label {
@@ -368,12 +369,15 @@ textarea::placeholder { color:var(--txt-m); }
   /* PC：スタンプ2列 */
   .stamps { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
 
-  /* スクロールアニメ用 */
-  .pc-sc { animation:fu .3s ease; }
+  /* 表示アニメ */
+  .pc-sc.on { animation:fu .3s ease; }
   .pc-sc-label h2 { font-size:15px; }
 
   /* フッター */
   .pc-footer { padding:20px 24px; background:var(--info); text-align:center; font-size:13px; color:var(--txt-m); }
+  /* PC 右パネル（3列目） */
+  #pc-panel { width:258px; flex-shrink:0; height:100vh; overflow-y:auto; border-left:1px solid var(--border); background:var(--white); scrollbar-width:none; }
+  #pc-panel::-webkit-scrollbar { display:none; }
 }
 
 /* =============================================
@@ -565,7 +569,7 @@ body.font-lg .hero-overlay h2, body.font-xl .hero-overlay h2 { font-size:1.375em
       </div>
     </div>
 
-    <div class="pc-sc" id="pc-home">
+    <div class="pc-sc on" id="pc-home">
       <div class="pc-sc-label"><span class="lico">🏠</span><h2>ホーム</h2></div>
       <div id="pc-content-home"></div>
     </div>
@@ -588,6 +592,48 @@ body.font-lg .hero-overlay h2, body.font-xl .hero-overlay h2 { font-size:1.375em
     </div>
     -->
     <div class="pc-footer">© 2013-2025 てぃあんだぁクラブ</div>
+  </div>
+
+  <!-- 右パネル（3列目） -->
+  <div id="pc-panel">
+    <!-- 次回の集まり -->
+    <div style="padding:14px 16px 12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.75em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;letter-spacing:.04em;">📅 次回の集まり</div>
+      <div class="ev-card" onclick="navigate('tsunagaru')" style="margin:0;">
+        <div class="ev-badge">NEXT · 水曜</div>
+        <h3>✏️ ワンコイン勉強会</h3>
+        <div class="ev-meta">
+          <span>📍 豊見城市</span><span>🕙 10:00〜12:00</span><span>💴 500円</span>
+        </div>
+        <button class="ev-btn">予約・詳細 →</button>
+      </div>
+    </div>
+    <!-- まずはここから -->
+    <div style="padding:14px 16px 12px;border-bottom:1px solid var(--border);">
+      <div style="font-size:.75em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;letter-spacing:.04em;">📲 まずはここから</div>
+      <a href="tel:07056924173" style="display:flex;align-items:center;gap:10px;background:var(--orange);border-radius:10px;padding:13px 14px;text-decoration:none;margin-bottom:8px;box-shadow:0 2px 8px rgba(249,199,51,.25);transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+        <span style="font-size:1.5em;flex-shrink:0;">📞</span>
+        <div>
+          <div style="font-size:.875em;font-weight:700;color:var(--txt);">無料電話で相談する</div>
+          <div style="font-size:.75em;color:var(--txt);opacity:.7;">070-5692-4173（佐渡山）</div>
+        </div>
+      </a>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+        <a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:6px;background:var(--acc-d);color:var(--txt);border-radius:8px;padding:11px 6px;text-decoration:none;font-size:.8125em;font-weight:700;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">✉️ フォーム</a>
+        <div onclick="openM('openchat')" style="display:flex;align-items:center;justify-content:center;gap:6px;background:#06C755;color:#fff;border-radius:8px;padding:11px 6px;font-size:.8125em;font-weight:700;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">🕊️ チャット</div>
+      </div>
+    </div>
+    <!-- 最新ワンコ通信 -->
+    <div style="padding:14px 16px 18px;">
+      <div style="font-size:.75em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;letter-spacing:.04em;">📝 最新ワンコ通信</div>
+      <div style="background:var(--info);border-radius:8px;padding:12px 14px;">
+        <div style="font-size:.75em;color:var(--acc-d);font-weight:700;margin-bottom:3px;">第二十四候 · 麦秋至</div>
+        <div style="font-size:.8125em;font-weight:700;color:var(--txt);margin-bottom:6px;">🌾 麦の穂が黄金色に染まる季節</div>
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.7;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">暦の上では、五月の終わりから六月の初めにかけてを「麦秋至（むぎのときいたる）」と呼びます。畑の麦の穂が、ようやく実りの時を迎える頃です。子どもたちの成長も、この麦の穂に似ているのかもしれません。</p>
+        <a href="https://x.gd/tRsaL" target="_blank" style="font-size:.8125em;font-weight:700;color:var(--acc-d);text-decoration:none;">続きを読む →</a>
+      </div>
+      <a href="https://teaunderclub.substack.com" target="_blank" style="display:block;text-align:center;margin-top:10px;font-size:.8125em;color:var(--txt-m);text-decoration:none;transition:opacity .15s;" onmouseover="this.style.opacity='.7'" onmouseout="this.style.opacity='1'">すべてのワンコ通信を読む →</a>
+    </div>
   </div>
 </div>
 
@@ -726,14 +772,13 @@ const CONTENTS = {
         <!-- universe：一時保留
         <a class="rel-a" href="https://universe.tea-under.club" target="_blank"><div class="rel-ico">🌌</div><div class="rel-info"><div class="rel-title">てぃあんだぁクラブ universe</div><div class="rel-sub">教材・実践・作品のアーカイブ</div></div><div class="rel-arr">›</div></a>
         -->
-        <a class="rel-a" href="https://alpaca-school.okinawa" target="_blank"><div class="rel-ico">🦙</div><div class="rel-info"><div class="rel-title">アルパカすく〜る</div><div class="rel-sub">外の世界を、無理なく試す場所</div></div><div class="rel-arr">›</div></a>
+        <a class="rel-a" href="https://alpaca-school.okinawa" target="_blank"><div class="rel-ico">🦙</div><div class="rel-info"><div class="rel-title">アルパカすく〜る</div><div class="rel-sub">職場体験・社会見学ツアー（おひとりさま · 9歳〜）</div></div><div class="rel-arr">›</div></a>
         <a class="rel-a" href="https://yumetsumugi.ainoie1962.com/" target="_blank"><div class="rel-ico">🌷</div><div class="rel-info"><div class="rel-title">わたしの夢つむぎ</div><div class="rel-sub">不登校の子・保護者向け無料動画教材 12本</div></div><div class="rel-arr">›</div></a>
         <a class="rel-a" href="https://teaunderclub.substack.com" target="_blank"><div class="rel-ico">📬</div><div class="rel-info"><div class="rel-title">メルマガ「ワンコ通信」</div><div class="rel-sub">日々の気づきと活動のたより</div></div><div class="rel-arr">›</div></a>
         <a class="rel-a" href="https://note.com/kodomo_no_mikata" target="_blank"><div class="rel-ico">📝</div><div class="rel-info"><div class="rel-title">子どものMIKATA（note）</div><div class="rel-sub">子育て・学びのヒントを発信</div></div><div class="rel-arr">›</div></a>
 
       </div>
     </div>
-    <p style="text-align:center;font-size:.75em;color:var(--txt-m);padding:18px 0 4px;">© 2013-2025 てぃあんだぁクラブ</p>
   `,
 
   ansin: `
@@ -924,6 +969,33 @@ const CONTENTS = {
           <div class="ogp-desc">文学・イラスト・漫画・ハンドメイドなど。子どもから大人まで誰もが主役になれる場所。</div>
         </div>
       </a>
+
+      <div class="sec-lbl" style="margin-top:0;">🦙 社会とのご縁をつくる</div>
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:15px 16px;">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px;">
+          <div style="width:40px;height:40px;border-radius:11px;background:rgba(186,218,122,.2);display:flex;align-items:center;justify-content:center;font-size:1.375em;flex-shrink:0;">🦙</div>
+          <div>
+            <div style="font-size:.9375em;font-weight:700;color:var(--acc-dd);">アルパカツアー</div>
+            <div style="font-size:.75em;color:var(--txt-m);">おひとりさま職場体験・社会見学 · アルパカすく〜る</div>
+          </div>
+        </div>
+        <div style="background:var(--info);border-radius:8px;padding:11px 13px;margin-bottom:12px;border-left:3px solid var(--acc);">
+          <p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;font-style:italic;">「ずっと家の中にいるのもちょっとしんどくなっちゃった」<br>そんな君へ。</p>
+        </div>
+        <p style="font-size:.8125em;color:var(--txt);line-height:1.85;margin-bottom:12px;">社会で活動するいろんな人に出会うことで、未来へのヒントが見つかるかも。仕事はご縁から生まれる——見えなかった素敵な仕事を感じて、「自分にもできそう」という気づきのきっかけに。9歳から、おひとりさまで参加できます。</p>
+        <div onclick="openM('alpaca-tour-video')" style="display:flex;align-items:center;gap:10px;background:var(--info);border:1px solid var(--border);border-radius:8px;padding:11px 13px;margin-bottom:8px;cursor:pointer;transition:opacity .15s;" onmouseover="this.style.opacity='.85'" onmouseout="this.style.opacity='1'">
+          <span style="font-size:1.375em;flex-shrink:0;">▶️</span>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);">アルパカツアー紹介動画を見る</div>
+            <div style="font-size:.75em;color:var(--txt-m);margin-top:2px;">YouTube · 約1分</div>
+          </div>
+          <span style="font-size:.875em;color:#ccc;flex-shrink:0;">›</span>
+        </div>
+        <a href="https://alpaca-school.okinawa" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc-d);color:var(--txt);border-radius:8px;padding:13px;text-decoration:none;font-size:.8125em;font-weight:700;transition:opacity .15s;" onmouseover="this.style.opacity='.88'" onmouseout="this.style.opacity='1'">
+          🦙 アルパカすく〜るのサイトへ →
+        </a>
+      </div>
+
       <div class="sec-lbl" style="margin-top:0;">🌱 保護者のヒント集</div>
 
       <!-- 段階的参加の説明カード -->
@@ -1012,12 +1084,32 @@ const CONTENTS = {
     </div>
     <div class="sec">
       <div class="sec-lbl">📝 ワンコ通信</div>
-      <div class="art-card" onclick="openM('wanko')">
-        <div class="art-row"><div class="art-thumb">🌾</div><div class="art-info"><span class="art-tag">最新号 · 芒種</span><div class="art-title">子どもの「やらない」の裏にあるもの</div><div class="art-date">2026年6月2日</div></div></div>
+      <div style="display:flex;gap:8px;padding:10px 16px 10px;background:var(--white);border-bottom:1px solid var(--border);">
+        <a href="https://www.instagram.com/tea_under_club" target="_blank" style="font-size:.75em;background:var(--info);color:var(--txt-m);border-radius:10px;padding:4px 10px;font-weight:700;text-decoration:none;">📷 Instagram</a>
+        <a href="https://teaunderclub.substack.com" target="_blank" style="font-size:.75em;background:var(--hi);color:var(--acc-dd);border-radius:10px;padding:4px 10px;font-weight:700;text-decoration:none;">📬 Substack</a>
       </div>
-      <div class="art-card" onclick="openM('wanko2')">
-        <div class="art-row"><div class="art-thumb">🌸</div><div class="art-info"><span class="art-tag">バックナンバー</span><div class="art-title">ジョハリの窓 ── 見えていない自分との出会い方</div><div class="art-date">2026年3月5日</div></div></div>
+
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:15px 16px;">
+        <span style="font-size:.75em;font-weight:700;color:var(--acc-d);letter-spacing:.04em;display:block;margin-bottom:5px;">第二十四候 · 麦秋至（むぎのときいたる）</span>
+        <div style="font-size:.9375em;font-weight:700;color:var(--txt);margin-bottom:8px;">🌾 麦の穂が黄金色に染まり、実りへの感謝が溢れる季節に</div>
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">暦の上では、五月の終わりから六月の初めにかけてを「麦秋至（むぎのときいたる）」と呼びます。「秋」という字が使われていますが、これは冬に蒔かれた麦が厳しい寒さを乗り越え、今まさに黄金色の穂を揺らし、収穫の時を迎えたことを祝う季節です。子どもたちの成長も、この麦の穂に似ているのかもしれません。</p>
+        <a href="https://x.gd/tRsaL" target="_blank" style="font-size:.8125em;font-weight:700;color:var(--acc-d);text-decoration:none;">続きを読む →</a>
       </div>
+
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:15px 16px;">
+        <span style="font-size:.75em;font-weight:700;color:var(--acc-d);letter-spacing:.04em;display:block;margin-bottom:5px;">第二十一候 · 竹笋生（たけのこしょうず）</span>
+        <div style="font-size:.9375em;font-weight:700;color:var(--txt);margin-bottom:8px;">🎋 竹の子が育つ季節に</div>
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">暦の上で「竹笋生（たけのこしょうず）」と言われるこの時期は、竹の子が育つ季節です。5月15日から5月20日頃、沖縄でも様々な成長が見られる時です。子どもたちも、この季節のようにどんどん育っていくものです。ただし、その育ち方は、一人ひとり違います。</p>
+        <a href="https://x.gd/rKucG" target="_blank" style="font-size:.8125em;font-weight:700;color:var(--acc-d);text-decoration:none;">続きを読む →</a>
+      </div>
+
+      <div style="background:var(--white);border-bottom:1px solid var(--border);padding:15px 16px;">
+        <span style="font-size:.75em;font-weight:700;color:var(--acc-d);letter-spacing:.04em;display:block;margin-bottom:5px;">第十五候 · 虹始見（にじはじめてあらわる）</span>
+        <div style="font-size:.9375em;font-weight:700;color:var(--txt);margin-bottom:8px;">🌈 雨あがりの空に</div>
+        <p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;margin-bottom:10px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;">雨あがりの空に、ふと虹が見える頃になりました。春のやわらかさの中に、季節が少しずつ次へ進んでいく気配があります。2025年度、県立K高校さまより「人間関係スキル」に関する講話のご依頼をいただき、高校2年生を対象に授業を行いました。</p>
+        <a href="https://x.gd/WNcpj" target="_blank" style="font-size:.8125em;font-weight:700;color:var(--acc-d);text-decoration:none;">続きを読む →</a>
+      </div>
+
       <a class="sub-btn" href="https://teaunderclub.substack.com" target="_blank">
         <span>📬 ワンコ通信をすべて読む（Substack）</span><span class="arr">›</span>
       </a>
@@ -1078,13 +1170,13 @@ const CONTENTS = {
         </div>
       </a>
       <div class="sec-lbl" style="margin-top:8px;">📓 活動ダイアリー</div>
-      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+      <div class="art-card" onclick="openM('okane')">
         <div class="art-row"><div class="art-thumb">💰</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">「どうしたら金持ちになれますか？」小6男子からの質問</div><div class="art-date">ひとり親家庭 · 小学6年男子</div></div></div>
       </div>
-      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+      <div class="art-card" onclick="openM('curry')">
         <div class="art-row"><div class="art-thumb">🍛</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">カレーライスを作れるようになりたい！</div><div class="art-date">家庭科リクエスト · 中学3年男子</div></div></div>
       </div>
-      <div class="art-card" onclick="window.open('https://teaunderclub.mystrikingly.com/','_blank')">
+      <div class="art-card" onclick="openM('days1058')">
         <div class="art-row"><div class="art-thumb">📅</div><div class="art-info"><span class="art-tag">授業記録</span><div class="art-title">1,058日後の高校入試に向けて</div><div class="art-date">関係発達 · 中学進級男子</div></div></div>
       </div>
       <a class="sub-btn" href="https://teaunderclub.mystrikingly.com/" target="_blank">
@@ -1183,27 +1275,18 @@ function spGoTo(n) {
 /* =============================================
    PC スクロールナビ
    ============================================= */
-function pcScrollTo(e, id) {
+function pcGoTo(id) {
+  document.querySelectorAll('.pc-sc').forEach(s => s.classList.remove('on'));
   const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
-  document.querySelectorAll('.pc-nav-item').forEach(x => x.classList.remove('on'));
-  if(e && e.currentTarget) e.currentTarget.classList.add('on');
+  if(el) el.classList.add('on');
+  document.querySelectorAll('.pc-nav-item').forEach(x => {
+    x.classList.toggle('on', !!(x.getAttribute('onclick') && x.getAttribute('onclick').includes(id)));
+  });
+  const main = document.getElementById('pc-main');
+  if(main) main.scrollTop = 0;
 }
 
-// スクロール位置でサイドナビをハイライト
-const pcMain = document.getElementById('pc-main');
-if(pcMain) {
-  pcMain.addEventListener('scroll', () => {
-    const scs = ['pc-home','pc-ansin','pc-tsunagaru','pc-manabu','pc-ayumi'];
-    let active = scs[0];
-    scs.forEach(id => {
-      const el = document.getElementById(id);
-      if(el && el.getBoundingClientRect().top <= 80) active = id;
-    });
-    const navItems = document.querySelectorAll('.pc-nav-item');
-    navItems.forEach((item,i) => item.classList.toggle('on', i === scs.indexOf(active)));
-  });
-}
+function pcScrollTo(e, id) { pcGoTo(id); }
 
 /* =============================================
    スマホ：スクロールでボトムナビを自動非表示
@@ -1239,14 +1322,10 @@ if(pcMain) {
    ============================================= */
 function navigate(tab) {
   if(window.innerWidth >= 768) {
-    pcScrollTo2('pc-'+tab);
+    pcGoTo('pc-'+tab);
   } else {
     spGoTo(tab);
   }
-}
-function pcScrollTo2(id) {
-  const el = document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth', block:'start'});
 }
 
 /* =============================================
@@ -1288,7 +1367,7 @@ const MS = {
   about:{title:'てぃあんだぁクラブとは',sub:'家庭教育サポート | 2013年〜',body:'「てぃあんだぁ」は沖縄の言葉で、手のぬくもり・心のこもった手当てを意味します。<br><br>子どもを変える場所ではありません。まずはお母さんが安心感を充電する。そこから、お子さんとの関わり方を一緒に考えていきましょう。<br><br>担当：佐渡山（さどやま）<br>📞 <a href="tel:07056924173">070-5692-4173</a><br>盆・正月・休日も対応しています☕️'},
   wankokai:{title:'✏️ ワンコイン勉強会',sub:'週2回 · 500円 / 回',body:'学校に通えていない小・中学生、中学卒業後に高校受験を目指す子のための学びの場です。「久しぶりに人と学ぶ」ための、無理のない入口です。<br><br>📅 水曜 10-12時：豊見城市<br>📅 金曜 10-12時：うるま市<br><br>・1回 500円（少人数・個別対応）<br>・勉強 ＋ 相談の時間<br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込み →</a>'},
   kobetsu:{title:'🏠 個別授業',sub:'MI診断つき · 1回90分',body:'多重知能（MI）チェックで得意・苦手を可視化。本人のペースで学習をサポートします。<br><br>🌱 好きな科目・家庭学習の習慣・学校での感情コントロールなど<br><br>※ 1回90分 / 自宅または通いで実施<br><br>まずは無料の電話相談からどうぞ。<br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
-  anger:{title:'🌼 アンガーマネジメント',sub:'子ども・保護者向け',body:'感情のコントロールに悩むお子さんと、その対応に迷う保護者のための心理教育プログラムです。<br><br><strong>子ども：</strong>落ち着く方法、感情の整理・伝え方を練習する<br><br><strong>保護者：</strong>子どもの感情を受け止める「聴き方」「伝え方」、家庭での共感的コミュニケーション<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）'},
+  anger:{title:'🌼 アンガーマネジメント',sub:'早稲田大学 本田恵子教授監修プログラム · 修了資格保持',body:'<div style="background:var(--hi);border-radius:8px;padding:10px 12px;margin-bottom:14px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">🎓 早稲田大学 本田恵子教授が監修するアンガーマネージメント研究会のプログラムを受講し、修了資格を保持しています。</div><p style="font-size:.875em;color:var(--txt);line-height:1.9;margin-bottom:12px;">怒り・悲しみ・孤独感など混乱した気持ちを整理し、状況を客観的に見る力を育て、衝動が高まっても自分で落ち着き、適切に表現・問題解決できる力を学ぶプログラムです。</p><div style="margin-bottom:14px;"><div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;">3つのプログラム目標</div><div style="background:var(--white);border:1px solid var(--border);border-radius:8px;overflow:hidden;font-size:.8125em;color:var(--txt);"><div style="padding:10px 12px;border-bottom:1px solid var(--border);"><strong>① 生理的反応への対応</strong><br><span style="color:var(--txt-m);">興奮した身体・心を鎮静化するストレスマネジメント</span></div><div style="padding:10px 12px;border-bottom:1px solid var(--border);"><strong>② 認知反応への対応</strong><br><span style="color:var(--txt-m);">状況を客観的に把握し、視野を広げ、先を見通す力を育てる</span></div><div style="padding:10px 12px;"><strong>③ 向社会的判断力・行動力の育成</strong><br><span style="color:var(--txt-m);">気持ちや欲求を適切な方法で伝えるソーシャルスキルを学ぶ</span></div></div></div><div style="margin-bottom:14px;"><div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;">てぃあんだぁクラブで使えるプログラム</div><div style="display:flex;flex-direction:column;gap:8px;"><div style="background:var(--white);border:1.5px solid var(--acc);border-radius:8px;padding:12px 14px;"><div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">📚 Cプログラム（中学・高校生向け）</div><div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">行動パターン・考え方・コミュニケーションパターンの理解を中心に、具体的な問題場面の解決方法を学びます。<br>標準：<strong>8回</strong> ／ 予防用短縮版：<strong>6回</strong></div></div><div style="background:var(--white);border:1.5px solid var(--acc);border-radius:8px;padding:12px 14px;"><div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:4px;">🧒 Dプログラム（小学生・特別な配慮を要する児童生徒向け）</div><div style="font-size:.8125em;color:var(--txt-m);line-height:1.75;">集団活動に大切なアンガーマネジメントの基礎を学びます。小学校低学年・高学年・中学以上の<strong>3パターン</strong>で対応。<br>標準：<strong>9回</strong> ／ 予防用短縮版：<strong>6回</strong></div></div></div></div><div style="margin-bottom:14px;"><div style="font-size:.8125em;font-weight:700;color:var(--acc-dd);margin-bottom:8px;">対象別の内容</div><div style="font-size:.8125em;color:var(--txt);line-height:1.95;">🧒 <strong>小学生</strong>：思考力・視野を広げる力・友だちとの関わり力が中心<br>📚 <strong>中学・高校生</strong>：行動パターンの理解・コミュニケーション・具体的な問題解決<br>🌿 <strong>発達障害の児童・生徒</strong>：衝動性の緩和、自分の特性に合ったソーシャルスキル<br>👪 <strong>保護者</strong>：子どもの感情を受け止める聴き方・伝え方、家庭での対応</div></div><p style="font-size:.8125em;color:var(--txt-m);line-height:1.85;margin-bottom:14px;">講義とロールプレイを組み合わせた実践的な内容です。学校・相談室・ご家庭でも活用できます。</p><a href="tel:07056924173" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--orange);color:var(--txt);border-radius:8px;padding:13px;text-decoration:none;font-size:.875em;font-weight:700;">📞 無料電話で相談する（佐渡山）</a>'},
   ikukai:{title:'📚 子育て勉強会',sub:'不定期開催',body:'親が学び、つながり、安心を充電する場です。<br><br>開催日程はメルマガ「ワンコ通信」で先行案内しています。<br><br><a href="https://teaunderclub.substack.com" target="_blank">📬 メルマガに登録する →</a><br><br><a href="https://x.gd/Eu5zx" target="_blank">📋 勉強会のお申し込みフォーム →</a>'},
   mi:{title:'多重知能（MI）とは',sub:'個別授業で活用しています',body:'ハワード・ガードナーが提唱した「8つの知能」の理論。<br><br>言語・論理・音楽・身体・空間・自然・対人・内省の8領域から、お子さんの得意・苦手を可視化します。<br><br>「勉強が苦手」ではなく、「この子の得意な学び方はこれだ」という視点に変えるためのツールです。'},
   history:{title:'てぃあんだぁクラブのはじまり',sub:'〜那覇市 仲井真教室の思い出〜 2013年〜',body:'「ファーストフード店くらいの料金で飲食ができて、時に微分積分まで質問できるような、楽しく勉強できるところがあったらいいな」<br><br>そんな思いつきから、2013年11月に那覇市仲井真で「1日ワンコイン（500円）」で利用できる勉強室をオープンしました。<br><br>その後、無料塾が普及したこともあり2017年に店舗は閉じましたが、その時の「楽しく学ぶ」想いは現在の活動に引き継がれています。<br><br><div style="background:var(--info);border-radius:10px;padding:12px;margin-top:4px;"><strong style="color:var(--acc-dd);font-size:.8125em;">📰 メディア掲載・インタビュー</strong><br><br><a href="https://drive.google.com/file/d/0BxHVWALbJxS0eTlzcjZwQ0w3Wms/view?usp=sharing&resourcekey=0-81PZ6esNEMQTRik0J6xv-A" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 日経新聞「ワンコインの居場所 心育む」<br><span style="font-size:.75em;color:var(--txt-m);">2014年4月13日</span></a><a href="https://www.okinawatimes.co.jp/articles/-/17792" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;border-bottom:1px solid var(--sand);text-decoration:none;">📰 沖縄タイムス「ワンコインで自習室」<br><span style="font-size:.75em;color:var(--txt-m);">2015年8月18日</span></a><a href="https://www.tsuushinsei-navi.com/real/expert/354/" target="_blank" style="display:block;color:var(--acc-d);font-size:.8125em;padding:7px 0;text-decoration:none;">🎤 通信制高校ナビ インタビュー<br><span style="font-size:.75em;color:var(--txt-m);">2016年9月19日</span></a></div>'},
@@ -1302,6 +1381,10 @@ const MS = {
   'ayumi-guide':{title:'🌿 わたしの歩みについて',sub:'気持ちの記録は、本人だけが見られます',body:'てぃあんだぁクラブでは、「できたこと」だけでなく、<strong>「立ち止まったこと」も記録していい</strong>と考えています。<br><br>このメモ欄に書いた言葉は、あなただけが見られます。誰かに送る必要はありません。<br><br>相談した日、勉強会に参加した日、今日は読むだけにした日。そういう小さなことが積み重なって、孤立から少しずつ抜けていくプロセスになります。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:10px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">🔒 記録は外部に共有されません。<br>本人だけが見られる、あなただけの歩みです。</div>'},
   enen:{title:'🪷 ご縁カード',sub:'必要な人にそっと渡せる案内カード',body:'ご縁カードをお持ちの方は、初回の勉強会を安心価格でご参加いただけます。<br><br>カードに記載のコードをお知らせください。<br><br>📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br><br><a href="https://forms.gle/8tFF9vksKx6JJDfZA" target="_blank">📋 フォームから入力 →</a>'},
   'kodomo-qa':{title:'子ども・学生の方へ',sub:'小学生・中学生・高校生 それぞれの相談',body:'<strong style="color:var(--acc-dd);">小学生</strong><br><br><strong>時計の問題が難しいです。</strong><br>視覚支援で難易度を変えて練習できるwebアプリがありますよ。<a href="https://kenlab.web.app/trainingclock" target="_blank">こちら →</a><br><br><strong>なんで恐竜って言うんですか？</strong><br>恐竜→Dinosaurs→「deinos（恐ろしい）」+「sauros（トカゲ・爬虫類）」らしいです。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">中学生</strong><br><br><strong>高校進学か就職か迷っています。</strong><br>「チャンスロス」という考え方で一緒に考えてみましょう。まずは電話相談を。<br><br><strong>勉強の仕方がわかりません。</strong><br>自分がどういう方法が向いているか、まずは方法を一緒に考えてみましょう！<br><br><strong>相談する人がいなくて、、、</strong><br>インターネットや電話を使う方法もあります。一緒に考えてみましょう！<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">高校生</strong><br><br><strong>進路の決め方がわかりません。</strong><br>自分が苦手なこと・やりたくないことを考えて、自分を活かせる進路を一緒に考えましょう。<br><br><strong>苦手な人との付き合い方は？</strong><br>あります。そのためにはたくさん勉強して苦手な人がいない環境に行けるようになることです。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）<br>電話相談は無料・通話料もかかりません。</div>'},
+  curry:{title:'🍛 カレーライスを作れるようになりたい！',sub:'家庭科リクエスト · 中学3年男子',body:'<p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">「カレーライスを作ってみたい❗️」と中３男子から家庭科の授業リクエスト。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">まずは、油を炒めるところからの調理法を一緒に確認。次は材料の確認。そして、玉ねぎ🧅人参🥕のみじん切りへ。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">普段は人参はマルカットだけど、弟が食わず嫌いをするので、食べやすく小さくカット。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:12px;">じゃがいも、鶏肉もカットして、いよいよ火をつけて鍋でぐつぐつ。隠し味にトマト🍅を入れて出来上がり❗️</p><p style="font-size:.875em;font-weight:700;color:var(--acc-dd);">これから、カレー担当として家族みんなに振る舞ってね☺️</p>'},
+  okane:{title:'💰 お金の質問',sub:'ひとり親家庭 · 小学6年男子',body:'<p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:12px;">ひとり親家庭で親が高齢だからか、いろんな不安が出てくる。</p><div style="font-size:.875em;line-height:2.1;color:var(--txt);">👦「どうしたら金持ちになれますか？」<br>👦「なんで学校の先生は給料教えてくれないの？」<br>🤓「そうなんだぁ。まぁ答えにくいよね。」<br>👦「なんで？」<br><br>返答を間違えると、誤った将来設計をしかねないので慎重にお話する。<br><br>🤓「お金好き？」<br>👦「大好き」<br>🤓「だよね。じゃぁ、お金欲しい時はどうする？」<br>👦「おとうの手伝いする」<br>🤓「だよね。手伝いするとお金もらえるよね。ということは、１つ目は、たくさんお手伝いをするとたくさんお金もらえてお金持ちになれる。言っている意味わかる？」<br>👦「うん」<br>🤓「次に２つ目は、学校は中学校まで行けばもう行かなくていい。」<br>👦「まじ？」<br>🤓「まじ。でも、高校に行ったり専門学校に行ったり、大学に行くと、知識や技術が増えて、手伝えるレベルが上がって、少ない手伝いでもたくさんお金がもらえてお金持ちになれる。言っている意味わかる？」<br>👦「なんとか。」<br>🤓「お、すごい。んじゃ、さっきの２つとは違うんだけど、生涯年収と言って、生きていて大体１億から３億くらいまで稼ぐんだって。でも、youtuberとかメジャーリーガーみたいに１年とかで億稼ぐ人もいるよね。」<br>👦「いる。」<br>🤓「３つ目は、クリエーションしたりスポーツでエンターテインメントで誰かを喜ばせたり感動させたりすることでたくさんお金をもらってお金持ちになる。」<br>👦「・・・」<br>🤓「で、最後なんだけど、これまでの３つは時間で稼ぐ方法ね。世の中には時間ではなくで資産で稼ぐ方法があるわけさ。多分、先生はそれがあるから、答えにくいんじゃないかな？」<br>👦「は？なにそれ？」<br>🤓「そう、そうなるよね。その辺は不労所得って言うんだけど、あなたはまだ未成年でお金の話はちょっと難しいから、保護者のお父さんに許可得てからでいい？」<br>👦「おとうの許可は大事だね。おとう怒ったら怖いからね。」<br>🤓「じゃ、そろそろ宿題やった方が良くない❓⤴️」<br>👦「あーね」</div><p style="font-size:.8125em;color:var(--txt-m);line-height:1.85;margin-top:14px;background:var(--hi);border-radius:8px;padding:10px 12px;">大人の世界を匂わせつつ、なんとなしに労働所得と不労所得を伝える。お父さんに不労所得もOKもらえたら、直接経済と間接経済まで世界観広げてみたい。</p>'},
+  days1058:{title:'📅 1,058日後の高校入試に向けて',sub:'南部地区 · 中学1年男子',body:'<p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">学校から持ち帰ってきてもらった教科書巻末に「特別支援・知的障害」の文字を見てズシリとくる。</p><p style="font-size:.875em;line-height:1.9;font-weight:700;color:var(--acc-dd);margin-bottom:12px;">でもあせらない。高校入試まであと1,058日📅ある。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">以前は、感情を爆発させて飛び出していたが、最近、感情を言語化しようと無言になる事が増えてきた。また、嫌々言いながらも、苦手な文章読解📖も小５レベルまではできてきた。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">今日は、小６プログラミング🖥の平均もできた。</p><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:12px;">先日、tiktokで見つけた「スーパー長距離飛ぶ紙飛行機✈️」を授業題材にし、ベルヌーイの定理や風洞実験を説明した。気に入ったのか、試行錯誤しながら今日は「ニュー紙飛行機」を作ってきて、飛行実験を所望してきた。授業後の振り返りでは、次回希望する科目に「理科」の文字が書かれていた。</p><div style="background:var(--hi);border-radius:8px;padding:12px 14px;margin-bottom:12px;font-size:.875em;color:var(--txt);line-height:2.1;">授業が始まって２年目。<br>一緒に散歩しながらの会話が増えたり、<br>私へのボディタッチが増えたり、<br>休み時間の間隔が短くなったり、<br>「家庭教師！」だったのが「佐渡山さん」と敬語で話し始めたり、<br>家庭の皿洗い、洗濯干し、玄関の靴並べも率先してできるようになり、<br>なんとなく、今、10歳の壁を乗り越えた感じがする。</div><p style="font-size:.875em;line-height:1.9;color:var(--txt);margin-bottom:10px;">今度の特別支援学級の先生は、保護者とも顔見知りのようで彼にとって学校は安心の場所になれそうだ。</p><p style="font-size:.875em;line-height:1.9;font-weight:700;color:var(--acc-dd);">保護者、クラス担任、本人、兄弟、そして私、<br>普通高校受験への10人11脚が楽しみ✨</p>'},
+  'alpaca-tour-video':{title:'🦙 アルパカツアー紹介動画',sub:'おひとりさま職場体験・社会見学 · アルパカすく〜る',body:'<div style="position:relative;padding-top:56.25%;border-radius:8px;overflow:hidden;margin-bottom:14px;background:#000;"><iframe src="https://www.youtube.com/embed/xURV8bHmSTQ?rel=0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:8px;"></iframe></div><p style="font-size:.8125em;color:var(--txt-m);line-height:1.8;margin-bottom:12px;">9歳からの社会人予備校。仕事を通して人とつながり、未来の自分につながるご縁を見つける体験です。</p><a href="https://alpaca-school.okinawa" target="_blank" style="display:flex;align-items:center;justify-content:center;gap:8px;background:var(--acc-d);color:var(--txt);border-radius:8px;padding:12px;text-decoration:none;font-size:.8125em;font-weight:700;">🦙 アルパカすく〜るのサイトへ →</a>'},
   goods:{title:'📱 おすすめ教材・アプリ',sub:'実際の授業で活用しているツール',body:'<strong style="color:var(--acc-dd);">アプリ</strong><br><br>🧠 <strong>脳トレゲーム（ワーキングメモリー）</strong> — iPhone<br>授業開始時のウォームアップや、ぼーっとしている生徒の着火剤として活用。なぜか大人気。<br><br>🧬 <strong>人体模型パズル（内臓）</strong> — iPhone / Android<br>中学「人体の内臓」をタイムアタック形式で覚えられます。<br><br>⚛️ <strong>原子核アプリ</strong> — iPhone / Android<br>「電子がぐるぐる回っているイメージ」を説明するときに便利。中学イオンの授業で活用。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">Web</strong><br><br>📚 <strong>カーリル</strong> — <a href="https://calil.jp" target="_blank">calil.jp</a><br>地域の図書館の本を横断検索。相互貸借制度を使えば沖縄中から本を借り出せます。<br><br><hr style="border:none;border-top:1px solid var(--border);margin:12px 0;"><strong style="color:var(--acc-dd);">ダウンロードシート</strong><br><br>📋 <strong>学習環境確認シート</strong><br>お子さんひとりひとりの「学習環境」を見える化するシート。<br><br>🌈 <strong>虹の架け橋シート</strong><br>お子さんの「困りごと」を整理・見える化するシート。<br><br><div style="background:var(--hi);border-radius:8px;padding:12px;margin-top:8px;font-size:.8125em;color:var(--acc-dd);line-height:1.8;">リンク・詳細は📞 <a href="tel:07056924173">070-5692-4173</a>（佐渡山）までお気軽に。</div>'},
 };
 
@@ -1311,8 +1394,10 @@ function openM(k) {
   document.getElementById('mo').classList.add('open');
 }
 function closeM(e) {
-  if(!e || e.target===document.getElementById('mo') || !e.target)
+  if(!e || e.target===document.getElementById('mo') || !e.target) {
+    document.querySelectorAll('#md iframe').forEach(f => { f.src = ''; });
     document.getElementById('mo').classList.remove('open');
+  }
 }
 
 function showToast(msg) {
