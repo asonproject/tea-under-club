@@ -226,6 +226,7 @@ textarea::placeholder { color:var(--txt-m); }
     max-width:390px; margin:0 auto;
     height:100dvh; display:flex; flex-direction:column;
     background:var(--bg); overflow:hidden;
+    position:relative;
   }
 
   /* スマホ トップバー */
@@ -251,7 +252,8 @@ textarea::placeholder { color:var(--txt-m); }
 
   /* スマホ ボトムナビ */
   #sp-bnav {
-    flex-shrink:0; background:#fff; display:flex;
+    position:absolute; bottom:0; left:0; right:0; z-index:5;
+    background:#fff; display:flex;
     padding-bottom:env(safe-area-inset-bottom,0px);
     border-top:1px solid var(--border);
     transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
@@ -1180,6 +1182,8 @@ if(pcMain) {
   const scroll = document.getElementById('sp-scroll');
   const bnav   = document.getElementById('sp-bnav');
   if (!scroll || !bnav) return;
+  // ナビの高さ分だけスクロール領域の下端を空けてコンテンツが隠れないようにする
+  scroll.style.paddingBottom = bnav.offsetHeight + 'px';
   let lastY   = 0;
   let ticking = false;
   scroll.addEventListener('scroll', function() {
