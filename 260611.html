@@ -1,542 +1,726 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>喜名キャリア教育学校プロジェクト（地域協育振興事業）</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>喜名キャリア教育学校プロジェクト｜昨年度のまとめと今年度の活動</title>
 
-    <style>
-        /* 全体カスタマイズ */
-        .reveal {
-            font-family: 'BIZ UDGothic', sans-serif;
-            color: #111111;
-            background: #ffffff;
-        }
-        
-        /* スライド領域の基本定義 */
-        .reveal .slides section {
-            text-align: left;
-            font-size: 24px;
-            padding: 40px !important;
-            box-sizing: border-box;
-            height: 100%;
-        }
+  <!-- Reveal.js -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/theme/white.min.css" />
 
-        /* 共通ヘッダーバンド・デザイン（タイトルスライド以外） */
-        .reveal .slides section:not(.title-slide) {
-            padding-top: 160px !important;
-        }
-        .reveal .slides section:not(.title-slide)::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 110px;
-            background: #f0f0f0;
-            z-index: -1;
-        }
-        .reveal .slides section:not(.title-slide)::after {
-            content: '';
-            position: absolute;
-            top: 110px; left: 0; right: 0;
-            height: 4px;
-            background: #999999;
-            z-index: -1;
-        }
+  <!-- Japanese web font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=BIZ+UDGothic:wght@400;700&display=swap" rel="stylesheet" />
 
-        /* ヘッドライン */
-        .reveal .slides section h1 {
-            font-family: 'BIZ UDGothic', sans-serif;
-            font-size: 2.0em;
-            font-weight: 700;
-            color: #111111;
-            text-transform: none;
-            margin: 0;
-            position: absolute;
-            top: 25px;
-            left: 40px;
-            right: 40px;
-            line-height: 1.2;
-        }
-        .reveal .slides section h2 {
-            font-family: 'BIZ UDGothic', sans-serif;
-            font-size: 0.9em;
-            font-weight: 400;
-            color: #555555;
-            text-transform: none;
-            margin: 0;
-            position: absolute;
-            top: 80px;
-            left: 45px;
-        }
+  <style>
+    /* =========================================================
+       KCS Presentation Theme
+       - 16:9 / 1280x720
+       - Monochrome, readable, local presentation style
+       ========================================================= */
 
-        /* タイトルスライド専用 */
-        .title-badge {
-            background: #333333;
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 5px;
-            font-size: 0.75em;
-            font-weight: 700;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-        .title-main {
-            font-size: 2.6em;
-            font-weight: 700;
-            color: #1a1a1a;
-            line-height: 1.3;
-            margin: 0;
-        }
-        .title-sub {
-            font-size: 2.2em;
-            font-weight: 700;
-            color: #555555;
-            line-height: 1.3;
-            margin: 10px 0 0 0;
-        }
-        .title-meta {
-            text-align: right;
-            font-size: 0.85em;
-            color: #333333;
-            margin-top: 40px;
-            line-height: 1.6;
-        }
+    :root {
+      --font-base: "BIZ UDGothic", sans-serif;
 
-        /* グリッドレイアウト */
-        .cols2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .cols3 {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 20px;
-        }
+      --color-bg: #ffffff;
+      --color-text: #111111;
+      --color-muted: #555555;
+      --color-line: #999999;
+      --color-surface: #f2f2f2;
+      --color-surface-2: #e4e4e4;
+      --color-dark: #222222;
+      --color-dark-2: #333333;
+      --color-accent: #c8a800;
+      --color-border: #cccccc;
 
-        /* 各種カード・コンポーネント */
-        .stat-card {
-            background: #f0f0f0;
-            border-radius: 12px;
-            padding: 25px 15px;
-            text-align: center;
-        }
-        .big-num {
-            font-size: 2.8em;
-            font-weight: 700;
-            color: #111111;
-            line-height: 1;
-        }
-        .stat-label {
-            font-size: 0.85em;
-            font-weight: 700;
-            margin-top: 10px;
-        }
-        .stat-sub {
-            font-size: 0.65em;
-            color: #555555;
-            margin-top: 5px;
-        }
+      --slide-padding-x: 40px;
+      --slide-padding-y: 40px;
+      --header-height: 110px;
+      --header-border-height: 4px;
+      --content-top-offset: 160px;
 
-        /* 定性成果リスト */
-        .check-list {
-            list-style: none;
-            padding: 0;
-            margin: 10px 0 0 0;
-        }
-        .check-list li {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-            font-size: 1.05em;
-        }
-        .check-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #333333;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.8em;
-            font-weight: bold;
-            flex-shrink: 0;
-        }
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 12px;
 
-        /* ダークカード */
-        .card-dark {
-            background: #222222;
-            color: #ffffff;
-            border-radius: 10px;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            font-size: 0.9em;
-            font-weight: 700;
-        }
+      --gap-sm: 12px;
+      --gap-md: 20px;
+      --gap-lg: 30px;
+    }
 
-        /* 課題行 */
-        .issue-row {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            margin-bottom: 18px;
-        }
-        .issue-num {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: #222222;
-            color: #ffffff;
-            font-size: 0.95em;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-        .issue-body {
-            flex: 1;
-            background: #f2f2f2;
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 1.1em;
-            font-weight: 700;
-            color: #111111;
-        }
+    /* ---------- Reveal base ---------- */
 
-        /* バナー */
-        .banner {
-            background: #222222;
-            color: #ffffff;
-            border-radius: 8px;
-            padding: 12px 20px;
-            font-size: 0.95em;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 25px;
-        }
+    .reveal {
+      font-family: var(--font-base);
+      color: var(--color-text);
+      background: var(--color-bg);
+    }
 
-        /* 課題から対策へのテーブル */
-        .policy-row {
-            display: grid;
-            grid-template-columns: 1fr 45px 1fr;
-            align-items: center;
-            margin-bottom: 12px;
-            font-size: 0.95em;
-        }
-        .policy-from {
-            background: #efefef;
-            padding: 12px 18px;
-            color: #111111;
-        }
-        .policy-arrow {
-            background: #c8a800;
-            color: #111111;
-            text-align: center;
-            padding: 12px 0;
-            font-weight: 700;
-        }
-        .policy-to {
-            background: #e4e4e4;
-            padding: 12px 18px;
-            color: #111111;
-            font-weight: 700;
-        }
+    .reveal .slides section {
+      box-sizing: border-box;
+      height: 100%;
+      padding: var(--slide-padding-y) var(--slide-padding-x) !important;
+      text-align: left;
+      font-size: 24px;
+    }
 
-        /* ステップカード */
-        .step-card {
-            background: #2a2a2a;
-            color: #ffffff;
-            border-radius: 12px;
-            padding: 20px 15px;
-            text-align: center;
-        }
-        .step-card h3 {
-            font-size: 1.4em;
-            font-weight: 700;
-            color: #ffffff;
-            margin: 0;
-        }
-        .step-sub {
-            font-size: 0.7em;
-            color: #dddddd;
-            margin: 2px 0 10px 0;
-        }
-        .step-card hr {
-            border: none;
-            border-top: 1px solid #666666;
-            margin: 10px 0;
-        }
-        .step-card ul {
-            text-align: left;
-            padding-left: 15px;
-            margin: 0;
-            font-size: 0.75em;
-            color: #ffffff;
-            line-height: 1.8;
-        }
+    .reveal .slides section:not(.cover-slide):not(.closing-slide) {
+      padding-top: var(--content-top-offset) !important;
+    }
 
-        /* 最終スライドパーツ */
-        .catch-phrase {
-            font-size: 1.4em;
-            font-weight: 700;
-            text-align: center;
-            margin: -10px 0 15px 0;
-            color: #111111;
-            line-height: 1.4;
-        }
-        .review-box {
-            background: #f2f2f2;
-            border-radius: 10px;
-            padding: 15px;
-            font-size: 0.75em;
-        }
-        .review-title {
-            font-weight: 700;
-            margin-bottom: 5px;
-        }
-        .contact-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .contact-card {
-            border: 1px solid #cccccc;
-            border-radius: 10px;
-            padding: 12px 15px;
-            font-size: 0.65em;
-        }
-        .contact-card h4 {
-            font-weight: 700;
-            color: #111111;
-            margin: 0 0 5px 0;
-            font-size: 1.1em;
-        }
-        .contact-card p {
-            margin: 2px 0;
-            color: #333333;
-        }
-        .footer-bar {
-            background: #222222;
-            color: #ffffff;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.75em;
-            font-weight: 700;
-            margin-top: 15px;
-            border-radius: 6px;
-        }
-    </style>
+    .reveal .slides section:not(.cover-slide):not(.closing-slide)::before,
+    .reveal .slides section:not(.cover-slide):not(.closing-slide)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: -1;
+    }
+
+    .reveal .slides section:not(.cover-slide):not(.closing-slide)::before {
+      top: 0;
+      height: var(--header-height);
+      background: #f0f0f0;
+    }
+
+    .reveal .slides section:not(.cover-slide):not(.closing-slide)::after {
+      top: var(--header-height);
+      height: var(--header-border-height);
+      background: var(--color-line);
+    }
+
+    /* ---------- Typography ---------- */
+
+    .reveal h1,
+    .reveal h2,
+    .reveal h3,
+    .reveal h4,
+    .reveal p {
+      font-family: var(--font-base);
+      text-transform: none;
+    }
+
+    .slide-title {
+      position: absolute;
+      top: 25px;
+      left: var(--slide-padding-x);
+      right: var(--slide-padding-x);
+      margin: 0;
+      color: var(--color-text);
+      font-size: 2em;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .slide-subtitle {
+      position: absolute;
+      top: 80px;
+      left: 45px;
+      margin: 0;
+      color: var(--color-muted);
+      font-size: 0.9em;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    .section-lead {
+      margin: 0 0 var(--gap-md);
+      font-size: 1.05em;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    /* ---------- Layout utilities ---------- */
+
+    .grid {
+      display: grid;
+      gap: var(--gap-md);
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+    }
+
+    .mt-md { margin-top: var(--gap-md); }
+    .mt-lg { margin-top: var(--gap-lg); }
+
+    /* ---------- Cover slide ---------- */
+
+    .cover-slide {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .project-badge {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 20px;
+      padding: 8px 16px;
+      border-radius: 5px;
+      background: var(--color-dark-2);
+      color: #ffffff;
+      font-size: 0.75em;
+      font-weight: 700;
+    }
+
+    .cover-title {
+      margin: 0;
+      color: #1a1a1a;
+      font-size: 2.6em;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .cover-subtitle {
+      margin: 10px 0 0;
+      color: var(--color-muted);
+      font-size: 2.2em;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .cover-rule {
+      width: 100%;
+      margin: 40px 0 0;
+      border: 0;
+      border-top: 2px solid var(--color-line);
+    }
+
+    .cover-meta {
+      margin-top: 40px;
+      color: var(--color-dark-2);
+      text-align: right;
+      font-size: 0.85em;
+      line-height: 1.6;
+    }
+
+    .cover-meta strong {
+      font-weight: 700;
+    }
+
+    /* ---------- Components ---------- */
+
+    .stat-card {
+      border-radius: var(--radius-lg);
+      background: #f0f0f0;
+      padding: 25px 15px;
+      text-align: center;
+    }
+
+    .stat-card.is-dark {
+      background: #444444;
+      color: #ffffff;
+      padding: 15px;
+    }
+
+    .stat-number {
+      color: var(--color-text);
+      font-size: 2.8em;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .stat-card.is-dark .stat-number {
+      color: #ffffff;
+    }
+
+    .stat-label {
+      margin-top: 10px;
+      font-size: 0.85em;
+      font-weight: 700;
+    }
+
+    .stat-note {
+      margin-top: 5px;
+      color: var(--color-muted);
+      font-size: 0.65em;
+    }
+
+    .stat-card.is-dark .stat-note {
+      color: #cccccc;
+    }
+
+    .check-list {
+      margin: 10px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+      font-size: 1.05em;
+      line-height: 1.45;
+    }
+
+    .check-icon {
+      display: inline-flex;
+      flex: 0 0 36px;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--color-dark-2);
+      color: #ffffff;
+      font-size: 0.8em;
+      font-weight: 700;
+    }
+
+    .dark-card {
+      border-radius: var(--radius-md);
+      background: var(--color-dark);
+      color: #ffffff;
+      padding: 15px 20px;
+      font-size: 0.9em;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .issue-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .issue-item {
+      display: flex;
+      align-items: center;
+      gap: var(--gap-md);
+    }
+
+    .issue-number {
+      display: inline-flex;
+      flex: 0 0 50px;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--color-dark);
+      color: #ffffff;
+      font-size: 0.95em;
+      font-weight: 700;
+    }
+
+    .issue-text {
+      flex: 1;
+      border-radius: 8px;
+      background: var(--color-surface);
+      padding: 12px 20px;
+      color: var(--color-text);
+      font-size: 1.1em;
+      font-weight: 700;
+    }
+
+    .message-banner {
+      margin-bottom: 25px;
+      border-radius: 8px;
+      background: var(--color-dark);
+      color: #ffffff;
+      padding: 12px 20px;
+      text-align: center;
+      font-size: 0.95em;
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .policy-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .policy-item {
+      display: grid;
+      grid-template-columns: 1fr 45px 1fr;
+      align-items: stretch;
+      font-size: 0.95em;
+    }
+
+    .policy-before,
+    .policy-after,
+    .policy-arrow {
+      display: flex;
+      align-items: center;
+      min-height: 52px;
+      padding: 12px 18px;
+    }
+
+    .policy-before {
+      background: #efefef;
+      color: var(--color-text);
+    }
+
+    .policy-arrow {
+      justify-content: center;
+      background: var(--color-accent);
+      color: var(--color-text);
+      padding-right: 0;
+      padding-left: 0;
+      font-weight: 700;
+    }
+
+    .policy-after {
+      background: var(--color-surface-2);
+      color: var(--color-text);
+      font-weight: 700;
+    }
+
+    .step-card {
+      border-radius: var(--radius-lg);
+      background: #2a2a2a;
+      color: #ffffff;
+      padding: 20px 15px;
+      text-align: center;
+    }
+
+    .step-card:nth-child(2) { background: #3a3a3a; }
+    .step-card:nth-child(3) { background: #4a4a4a; }
+
+    .step-title {
+      margin: 0;
+      color: #ffffff;
+      font-size: 1.4em;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .step-label {
+      margin: 2px 0 10px;
+      color: #dddddd;
+      font-size: 0.7em;
+    }
+
+    .step-rule {
+      margin: 10px 0;
+      border: 0;
+      border-top: 1px solid #666666;
+    }
+
+    .step-card ul {
+      margin: 0;
+      padding-left: 15px;
+      color: #ffffff;
+      text-align: left;
+      font-size: 0.75em;
+      line-height: 1.8;
+    }
+
+    /* ---------- Closing slide ---------- */
+
+    .closing-slide {
+      display: flex !important;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .closing-message {
+      margin: -10px 0 15px;
+      color: var(--color-text);
+      text-align: center;
+      font-size: 1.4em;
+      font-weight: 700;
+      line-height: 1.4;
+    }
+
+    .review-box {
+      border-radius: var(--radius-md);
+      background: var(--color-surface);
+      padding: 15px;
+      font-size: 0.75em;
+      line-height: 1.5;
+    }
+
+    .review-title {
+      margin-bottom: 5px;
+      color: var(--color-text);
+      font-weight: 700;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px;
+      margin-top: 15px;
+    }
+
+    .contact-card {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 12px 15px;
+      font-size: 0.65em;
+      line-height: 1.45;
+    }
+
+    .contact-card h4 {
+      margin: 0 0 5px;
+      color: var(--color-text);
+      font-size: 1.1em;
+      font-weight: 700;
+    }
+
+    .contact-card p {
+      margin: 2px 0;
+      color: var(--color-dark-2);
+    }
+
+    .footer-message {
+      margin-top: 15px;
+      border-radius: var(--radius-sm);
+      background: var(--color-dark);
+      color: #ffffff;
+      padding: 10px;
+      text-align: center;
+      font-size: 0.75em;
+      font-weight: 700;
+    }
+  </style>
 </head>
+
 <body>
+  <div class="reveal">
+    <div class="slides">
 
-    <div class="reveal">
-        <div class="slides">
+      <!-- 01. Cover -->
+      <section class="cover-slide" data-transition="fade">
+        <div class="project-badge">喜名キャリア教育学校プロジェクト（地域協育振興事業）</div>
 
-            <section class="title-slide" data-transition="fade">
-                <div class="title-badge">喜名キャリア教育学校プロジェクト（地域協育振興事業）</div>
-                <div style="margin-top: 40px;">
-                    <h1 class="title-main">昨年度のまとめと</h1>
-                    <h2 class="title-sub">今年度の活動について</h2>
-                </div>
-                <hr style="border:none; border-top:2px solid #999999; margin-top: 40px;">
-                <div class="title-meta">
-                    <div>令和8年6月11日（木） 喜名公民館</div>
-                    <div style="font-weight: 700;">喜名自治会 × 株式会社琉球のタネ</div>
-                </div>
-            </section>
-
-            <section>
-                <h1>2025年度 KCS事業 実施概要</h1>
-                <h2>2025年10月〜2026年3月 参加生徒6名</h2>
-                
-                <div class="cols3" style="margin-top: 20px;">
-                    <div class="stat-card">
-                        <div class="big-num">35回</div>
-                        <div class="stat-label">授業・体験 合計</div>
-                        <div class="stat-sub">公民館17回 ＋ 職場体験18回</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="big-num">約98名</div>
-                        <div class="stat-label">延べ参加者数</div>
-                        <div class="stat-sub">継続参加率 80%</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="big-num">6名</div>
-                        <div class="stat-label">参加生徒数</div>
-                        <div class="stat-sub">3年1名・2年4名・1年1名</div>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h1>子どもたちの変化</h1>
-                <h2>定性的な成果</h2>
-                
-                <ul class="check-list">
-                    <li><div class="check-icon">✓</div><div>学校への登校が再開した</div></li>
-                    <li><div class="check-icon">✓</div><div>挨拶ができるようになった（笑顔が増えた）</div></li>
-                    <li><div class="check-icon">✓</div><div>生活リズムが改善した（朝起きる・貯金を始める）</div></li>
-                    <li><div class="check-icon">✓</div><div>「高校に進学したい」など将来への意欲が芽生えた</div></li>
-                    <li><div class="check-icon">✓</div><div>社会福祉協議会へ自発的に謝罪（制服改造の反省）</div></li>
-                </ul>
-            </section>
-
-            <section>
-                <h1>保護者・地域への波及</h1>
-                
-                <div class="cols2" style="margin-top: 20px;">
-                    <div>
-                        <div class="card-dark">子育て勉強会から新たな支援者が誕生</div>
-                        <div class="card-dark">「困っているお母さんに何かしたい」という保護者の声</div>
-                        <div class="card-dark">PTA会長の協力で参加費補助措置が実現</div>
-                    </div>
-                    <div>
-                        <div class="stat-card" style="background: #444444; color: #ffffff; margin-bottom: 15px; padding: 15px;">
-                            <div class="big-num" style="color: #ffffff;">80%</div>
-                            <div class="stat-sub" style="color: #cccccc;">授業継続参加率</div>
-                        </div>
-                        <div class="stat-card" style="background: #444444; color: #ffffff; padding: 15px;">
-                            <div class="big-num" style="color: #ffffff;">38名</div>
-                            <div class="stat-sub" style="color: #cccccc;">子育て勉強会参加者</div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h1>現場で見えてきた課題</h1>
-                <h2>→ 支援の質を次の段階へ引き上げる重要な示唆</h2>
-                
-                <div style="margin-top: 30px;">
-                    <div class="issue-row">
-                        <div class="issue-num">①</div>
-                        <div class="issue-body">属人的支援の限界</div>
-                    </div>
-                    <div class="issue-row">
-                        <div class="issue-num">②</div>
-                        <div class="issue-body">連携体制の未整備</div>
-                    </div>
-                    <div class="issue-row">
-                        <div class="issue-num">③</div>
-                        <div class="issue-body">行動変容に伴う課題</div>
-                    </div>
-                </div>
-            </section>
-
-            <section>
-                <h1>2026年度 基本方針</h1>
-                
-                <div class="banner">善意に頼る活動 → 学校を核とした持続可能な「協育」の実践へ</div>
-                
-                <div class="policy-row">
-                    <div class="policy-from">属人的依存</div>
-                    <div class="policy-arrow">＞</div>
-                    <div class="policy-to">受入企業ネットワーク化</div>
-                </div>
-                <div class="policy-row">
-                    <div class="policy-from">情報共有不足</div>
-                    <div class="policy-arrow">＞</div>
-                    <div class="policy-to">学校窓口の一本化</div>
-                </div>
-                <div class="policy-row">
-                    <div class="policy-from">対価発生リスク</div>
-                    <div class="policy-arrow">＞</div>
-                    <div class="policy-to">100%「無賃」・法令遵守</div>
-                </div>
-            </section>
-
-            <section>
-                <h1>3ステップ実践フロー</h1>
-                <h2>すべての学びは「学校」を窓口として地域へ繋ぐ</h2>
-                
-                <div class="cols3" style="margin-top: 30px;">
-                    <div class="step-card">
-                        <h3>ほっぷ</h3>
-                        <div class="step-sub">公民館授業</div>
-                        <hr>
-                        <ul>
-                            <li>月曜午前 キャリア学習</li>
-                            <li>出席ポイント付与</li>
-                        </ul>
-                    </div>
-                    <div class="step-card" style="background: #3a3a3a;">
-                        <h3>すてっぷ</h3>
-                        <div class="step-sub">地域探訪・見学</div>
-                        <hr>
-                        <ul>
-                            <li>職場・事業所の見学</li>
-                            <li>4者同意書の締結</li>
-                        </ul>
-                    </div>
-                    <div class="step-card" style="background: #4a4a4a;">
-                        <h3>じゃんぷ</h3>
-                        <div class="step-sub">現場実習</div>
-                        <hr>
-                        <ul>
-                            <li>個別マッチング実習</li>
-                            <li>月2回上限</li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-
-            <section class="title-slide">
-                <div class="catch-phrase">子どもたちの「自立と社会参加」を、<br>地域全体の力で支える仕組みへ。</div>
-                
-                <div class="cols2">
-                    <div class="review-box">
-                        <div class="review-title" style="color: #111111;">★ 良かった点</div>
-                        <div style="color: #222222;">・一人の大人との出会いが、子どもの人生を変えうる。</div>
-                    </div>
-                    <div class="review-box">
-                        <div class="review-title" style="color: #111111;">★ 改善点</div>
-                        <div style="color: #222222;">・個人の熱意だけでは持続可能にならない。組織と地域の連携が必要。</div>
-                    </div>
-                </div>
-
-                <div class="contact-grid">
-                    <div class="contact-card">
-                        <h4>喜名公民館（KCS事業事務局）</h4>
-                        <p>TEL：098-958-2236</p>
-                        <p>Mail：k17kou3nkan@gmail.com</p>
-                    </div>
-                    <div class="contact-card">
-                        <h4>株式会社琉球のタネ（プログラム担当）</h4>
-                        <p>TEL：070-5692-4173（代表：佐渡山要）</p>
-                        <p>Mail：info@ryukyu-tane.com</p>
-                    </div>
-                </div>
-
-                <div class="footer-bar">皆さまのお力添えを、よろしくお願いいたします。</div>
-            </section>
-
+        <div>
+          <h1 class="cover-title">昨年度のまとめと</h1>
+          <p class="cover-subtitle">今年度の活動について</p>
         </div>
-    </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
-    <script>
-        Reveal.initialize({
-            width: 1280,
-            height: 720,
-            margin: 0,
-            minScale: 0.2,
-            maxScale: 2.0,
-            controls: true,
-            progress: true,
-            history: true,
-            center: false,
-            transition: 'slide', // none/fade/slide/convex/concave/zoom
-            hash: true
-        });
-    </script>
+        <hr class="cover-rule" />
+
+        <div class="cover-meta">
+          <div>令和8年6月11日（木） 喜名公民館</div>
+          <div><strong>喜名自治会 × 株式会社琉球のタネ</strong></div>
+        </div>
+      </section>
+
+      <!-- 02. Overview -->
+      <section>
+        <h1 class="slide-title">2025年度 KCS事業 実施概要</h1>
+        <p class="slide-subtitle">2025年10月〜2026年3月 参加生徒6名</p>
+
+        <div class="grid grid-3 mt-md">
+          <article class="stat-card">
+            <div class="stat-number">35回</div>
+            <div class="stat-label">授業・体験 合計</div>
+            <div class="stat-note">公民館17回 ＋ 職場体験18回</div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-number">約98名</div>
+            <div class="stat-label">延べ参加者数</div>
+            <div class="stat-note">継続参加率 80%</div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-number">6名</div>
+            <div class="stat-label">参加生徒数</div>
+            <div class="stat-note">3年1名・2年4名・1年1名</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 03. Student change -->
+      <section>
+        <h1 class="slide-title">子どもたちの変化</h1>
+        <p class="slide-subtitle">定性的な成果</p>
+
+        <ul class="check-list">
+          <li><span class="check-icon">✓</span><span>学校への登校が再開した</span></li>
+          <li><span class="check-icon">✓</span><span>挨拶ができるようになった（笑顔が増えた）</span></li>
+          <li><span class="check-icon">✓</span><span>生活リズムが改善した（朝起きる・貯金を始める）</span></li>
+          <li><span class="check-icon">✓</span><span>「高校に進学したい」など将来への意欲が芽生えた</span></li>
+          <li><span class="check-icon">✓</span><span>社会福祉協議会へ自発的に謝罪（制服改造の反省）</span></li>
+        </ul>
+      </section>
+
+      <!-- 04. Ripple effect -->
+      <section>
+        <h1 class="slide-title">保護者・地域への波及</h1>
+
+        <div class="grid grid-2 mt-md">
+          <div class="stack">
+            <article class="dark-card">子育て勉強会から新たな支援者が誕生</article>
+            <article class="dark-card">「困っているお母さんに何かしたい」という保護者の声</article>
+            <article class="dark-card">PTA会長の協力で参加費補助措置が実現</article>
+          </div>
+
+          <div class="stack">
+            <article class="stat-card is-dark">
+              <div class="stat-number">80%</div>
+              <div class="stat-note">授業継続参加率</div>
+            </article>
+
+            <article class="stat-card is-dark">
+              <div class="stat-number">38名</div>
+              <div class="stat-note">子育て勉強会参加者</div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- 05. Issues -->
+      <section>
+        <h1 class="slide-title">現場で見えてきた課題</h1>
+        <p class="slide-subtitle">→ 支援の質を次の段階へ引き上げる重要な示唆</p>
+
+        <div class="issue-list mt-lg">
+          <article class="issue-item">
+            <span class="issue-number">①</span>
+            <div class="issue-text">属人的支援の限界</div>
+          </article>
+
+          <article class="issue-item">
+            <span class="issue-number">②</span>
+            <div class="issue-text">連携体制の未整備</div>
+          </article>
+
+          <article class="issue-item">
+            <span class="issue-number">③</span>
+            <div class="issue-text">行動変容に伴う課題</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 06. Policy -->
+      <section>
+        <h1 class="slide-title">2026年度 基本方針</h1>
+
+        <div class="message-banner">善意に頼る活動 → 学校を核とした持続可能な「協育」の実践へ</div>
+
+        <div class="policy-list">
+          <article class="policy-item">
+            <div class="policy-before">属人的依存</div>
+            <div class="policy-arrow">＞</div>
+            <div class="policy-after">受入企業ネットワーク化</div>
+          </article>
+
+          <article class="policy-item">
+            <div class="policy-before">情報共有不足</div>
+            <div class="policy-arrow">＞</div>
+            <div class="policy-after">学校窓口の一本化</div>
+          </article>
+
+          <article class="policy-item">
+            <div class="policy-before">対価発生リスク</div>
+            <div class="policy-arrow">＞</div>
+            <div class="policy-after">100%「無賃」・法令遵守</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 07. Flow -->
+      <section>
+        <h1 class="slide-title">3ステップ実践フロー</h1>
+        <p class="slide-subtitle">すべての学びは「学校」を窓口として地域へ繋ぐ</p>
+
+        <div class="grid grid-3 mt-lg">
+          <article class="step-card">
+            <h3 class="step-title">ほっぷ</h3>
+            <div class="step-label">公民館授業</div>
+            <hr class="step-rule" />
+            <ul>
+              <li>月曜午前 キャリア学習</li>
+              <li>出席ポイント付与</li>
+            </ul>
+          </article>
+
+          <article class="step-card">
+            <h3 class="step-title">すてっぷ</h3>
+            <div class="step-label">地域探訪・見学</div>
+            <hr class="step-rule" />
+            <ul>
+              <li>職場・事業所の見学</li>
+              <li>4者同意書の締結</li>
+            </ul>
+          </article>
+
+          <article class="step-card">
+            <h3 class="step-title">じゃんぷ</h3>
+            <div class="step-label">現場実習</div>
+            <hr class="step-rule" />
+            <ul>
+              <li>個別マッチング実習</li>
+              <li>月2回上限</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <!-- 08. Closing -->
+      <section class="closing-slide" data-transition="fade">
+        <p class="closing-message">
+          子どもたちの「自立と社会参加」を、<br />
+          地域全体の力で支える仕組みへ。
+        </p>
+
+        <div class="grid grid-2">
+          <article class="review-box">
+            <div class="review-title">★ 良かった点</div>
+            <div>・一人の大人との出会いが、子どもの人生を変えうる。</div>
+          </article>
+
+          <article class="review-box">
+            <div class="review-title">★ 改善点</div>
+            <div>・個人の熱意だけでは持続可能にならない。組織と地域の連携が必要。</div>
+          </article>
+        </div>
+
+        <div class="contact-grid">
+          <article class="contact-card">
+            <h4>喜名公民館（KCS事業事務局）</h4>
+            <p>TEL：098-958-2236</p>
+            <p>Mail：k17kou3nkan@gmail.com</p>
+          </article>
+
+          <article class="contact-card">
+            <h4>株式会社琉球のタネ（プログラム担当）</h4>
+            <p>TEL：070-5692-4173（代表：佐渡山要）</p>
+            <p>Mail：info@ryukyu-tane.com</p>
+          </article>
+        </div>
+
+        <div class="footer-message">皆さまのお力添えを、よろしくお願いいたします。</div>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.5.0/reveal.min.js"></script>
+  <script>
+    Reveal.initialize({
+      width: 1280,
+      height: 720,
+      margin: 0,
+      minScale: 0.2,
+      maxScale: 2.0,
+      controls: true,
+      progress: true,
+      history: true,
+      hash: true,
+      center: false,
+      transition: "slide"
+    });
+  </script>
 </body>
 </html>
