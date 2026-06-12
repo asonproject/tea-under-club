@@ -176,8 +176,8 @@
   // 絵文字モード: 水やりステップ入りの6ステップ
   const emojiStates = [
     { frame: 200, tree: 0,   opacity: 0, label: '枠だけ',          water: false },
-    { frame: 200, tree: 28,  opacity: 1, label: '① 小さな木が出現', water: false },
-    { frame: 200, tree: 28,  opacity: 1, label: '② 水をあげる',     water: true  },
+    { frame: 200, tree: 84,  opacity: 1, label: '① 小さな苗が出現', water: false, content: '🌱' },
+    { frame: 200, tree: 84,  opacity: 1, label: '② 水をあげる',     water: true,  content: '🌱' },
     { frame: 200, tree: 130, opacity: 1, label: '③ 育って「困」',   water: false },
     { frame: 200, tree: 200, opacity: 1, label: '④ 囲いにぶつかる!', water: false },
     { frame: 260, tree: 220, opacity: 1, label: '⑤ 囲いが広がる',   water: false },
@@ -199,7 +199,7 @@
     tree.style.fontSize = s.tree + 'px';
     tree.style.opacity = s.opacity;
     stepLabel.textContent = s.label;
-    tree.textContent = mode === 'kanji' ? '木' : '🌲';
+    tree.textContent = mode === 'kanji' ? '木' : (s.content || '🌲');
     caption.style.display = mode === 'kanji' ? 'block' : 'none';
 
     // ぶつかる演出(最後から2番目のステップ)
