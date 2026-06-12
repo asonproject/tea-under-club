@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<style>
+  .kanji-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  }
+
+  /* 囗（くにがまえ）の設定 */
+  .kunigamae {
+    font-size: 180px;
+    position: absolute;
+    color: #333;
+  }
+
+  /* 木（なかのき）の設定とアニメーション */
+  .ki {
+    font-size: 110px; /* 最終的な大きさ */
+    position: absolute;
+    color: #333;
+    /* 4秒かけて、最初に戻らず1回だけアニメーションする */
+    animation: growTree 4s forwards ease-in-out; 
+  }
+
+  /* 徐々に大きくなるアニメーションの変化 */
+  @keyframes growTree {
+    0% {
+      transform: scale(0.1); /* 最初は10%の大きさ */
+      opacity: 0.3;          /* 少し薄く */
+    }
+    100% {
+      transform: scale(1);   /* 最終的に100%の大きさ */
+      opacity: 1;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="kanji-container">
+  <div class="kunigamae">囗</div>
+  <div class="ki">木</div>
+</div>
+
+</body>
+</html>
