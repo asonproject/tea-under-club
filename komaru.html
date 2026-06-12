@@ -1,52 +1,158 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>困のアニメーション</title>
 <style>
-  .kanji-container {
+  body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background: #faf6ef;
+    font-family: "Noto Sans JP", sans-serif;
+  }
+
+  .stage {
+    position: relative;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+  }
+
+  .frame {
     position: relative;
     width: 200px;
     height: 200px;
+    border: 10px solid #5a4632;
+    border-radius: 8px;
+    box-sizing: border-box;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    justify-content: center;
+    overflow: hidden;
+    transition: width 0.6s ease, height 0.6s ease, border-color 0.3s ease;
   }
 
-  /* 囗（くにがまえ）の設定 */
-  .kunigamae {
-    font-size: 180px;
-    position: absolute;
-    color: #333;
+  .tree {
+    font-weight: bold;
+    color: #5a4632;
+    line-height: 1;
+    font-size: 8px;
+    transition: font-size 0.6s ease, opacity 0.6s ease;
   }
 
-  /* 木（なかのき）の設定とアニメーション */
-  .ki {
-    font-size: 110px; /* 最終的な大きさ */
-    position: absolute;
-    color: #333;
-    /* 4秒かけて、最初に戻らず1回だけアニメーションする */
-    animation: growTree 4s forwards ease-in-out; 
+  .caption {
+    margin-top: 24px;
+    color: #888;
+    font-size: 14px;
+    text-align: center;
   }
 
-  /* 徐々に大きくなるアニメーションの変化 */
-  @keyframes growTree {
-    0% {
-      transform: scale(0.1); /* 最初は10%の大きさ */
-      opacity: 0.3;          /* 少し薄く */
-    }
-    100% {
-      transform: scale(1);   /* 最終的に100%の大きさ */
-      opacity: 1;
-    }
+  .step {
+    font-size: 18px;
+    color: #5a4632;
+    font-weight: bold;
+    margin-bottom: 4px;
+  }
+
+  .toggle-btn {
+    margin-top: 20px;
+    padding: 10px 24px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #fff;
+    background: #5a4632;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .toggle-btn:active {
+    background: #c0392b;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-6px); }
+    40% { transform: translateX(6px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(3px); }
+  }
+  .frame.bump {
+    animation: shake 0.35s ease;
+    border-color: #c0392b;
   }
 </style>
 </head>
 <body>
 
-<div class="kanji-container">
-  <div class="kunigamae">囗</div>
-  <div class="ki">木</div>
+<div class="stage" id="stage">
+  <div class="frame" id="frame">
+    <div class="tree" id="tree">木</div>
+  </div>
 </div>
+
+<div class="caption">
+  <div class="step" id="step">枠だけ</div>
+  タップして進める
+</div>
+
+<button class="toggle-btn" id="modeBtn">🌲 絵文字に切替</button>
+
+<script>
+  const frame = document.getElementById('frame');
+  const tree = document.getElementById('tree');
+  const stage = document.getElementById('stage');
+  const stepLabel = document.getElementById('step');
+  const modeBtn = document.getElementById('modeBtn');
+
+  const states = [
+    { frame: 200, tree: 0,   opacity: 0, label: '枠だけ' },
+    { frame: 200, tree: 28,  opacity: 1, label: '① 小さな木が出現' },
+    { frame: 200, tree: 130, opacity: 1, label: '② 育って「困」' },
+    { frame: 200, tree: 200, opacity: 1, label: '③ 囲いにぶつかる!' },
+    { frame: 260, tree: 220, opacity: 1, label: '④ 囲いが広がる' },
+  ];
+
+  let current = 0;
+  let mode = 'kanji'; // 'kanji' or 'emoji'
+
+  function render() {
+    const s = states[current];
+    frame.style.width = s.frame + 'px';
+    frame.style.height = s.frame + 'px';
+    tree.style.fontSize = s.tree + 'px';
+    tree.style.opacity = s.opacity;
+    stepLabel.textContent = s.label;
+    tree.textContent = mode === 'kanji' ? '木' : '🌲';
+
+    if (current === 3) {
+      frame.classList.remove('bump');
+      void frame.offsetWidth;
+      frame.classList.add('bump');
+    }
+  }
+
+  stage.addEventListener('click', () => {
+    current = (current + 1) % states.length;
+    render();
+  });
+
+  modeBtn.addEventListener('click', () => {
+    mode = mode === 'kanji' ? 'emoji' : 'kanji';
+    modeBtn.textContent = mode === 'kanji' ? '🌲 絵文字に切替' : '木 文字に切替';
+    render();
+  });
+
+  render();
+</script>
 
 </body>
 </html>
