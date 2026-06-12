@@ -89,14 +89,53 @@
     animation: shake 0.35s ease;
     border-color: #c0392b;
   }
+
+  .watering-can {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    font-size: 44px;
+    opacity: 0;
+    transform: rotate(0deg);
+    transform-origin: 70% 70%;
+  }
+  .watering-can.active {
+    animation: tilt 1.2s ease forwards;
+  }
+  @keyframes tilt {
+    0%   { opacity: 0; transform: rotate(0deg); }
+    15%  { opacity: 1; }
+    45%  { transform: rotate(-35deg); }
+    80%  { transform: rotate(-35deg); opacity: 1; }
+    100% { transform: rotate(0deg); opacity: 0; }
+  }
+
+  .water-drop {
+    position: absolute;
+    top: 60px;
+    right: 95px;
+    font-size: 22px;
+    opacity: 0;
+  }
+  .water-drop.active {
+    animation: drop 1.2s ease-in 0.35s forwards;
+  }
+  @keyframes drop {
+    0%   { opacity: 0; transform: translateY(0) scale(0.7); }
+    20%  { opacity: 1; }
+    80%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(70px) scale(1); }
+  }
 </style>
 </head>
 <body>
 
 <div class="stage" id="stage">
   <div class="frame" id="frame">
-    <div class="tree" id="tree">木</div>
+    <div class="tree" id="tree">🌲</div>
   </div>
+  <div class="watering-can" id="wateringCan">🚿</div>
+  <div class="water-drop" id="waterDrop">💧</div>
 </div>
 
 <div class="caption">
@@ -104,7 +143,7 @@
   タップして進める
 </div>
 
-<button class="toggle-btn" id="modeBtn">🌲 絵文字に切替</button>
+<button class="toggle-btn" id="modeBtn">木 文字に切替</button>
 
 <script>
   const frame = document.getElementById('frame');
@@ -112,8 +151,11 @@
   const stage = document.getElementById('stage');
   const stepLabel = document.getElementById('step');
   const modeBtn = document.getElementById('modeBtn');
+  const wateringCan = document.getElementById('wateringCan');
+  const waterDrop = document.getElementById('waterDrop');
 
-  const states = [
+  // 文字モード: 5ステップ
+  const kanjiStates = [
     { frame: 200, tree: 0,   opacity: 0, label: '枠だけ' },
     { frame: 200, tree: 28,  opacity: 1, label: '① 小さな木が出現' },
     { frame: 200, tree: 130, opacity: 1, label: '② 育って「困」' },
@@ -121,11 +163,27 @@
     { frame: 260, tree: 220, opacity: 1, label: '④ 囲いが広がる' },
   ];
 
+  // 絵文字モード: 水やりステップ入りの6ステップ
+  const emojiStates = [
+    { frame: 200, tree: 0,   opacity: 0, label: '枠だけ',          water: false },
+    { frame: 200, tree: 28,  opacity: 1, label: '① 小さな木が出現', water: false },
+    { frame: 200, tree: 28,  opacity: 1, label: '② 水をあげる',     water: true  },
+    { frame: 200, tree: 130, opacity: 1, label: '③ 育って「困」',   water: false },
+    { frame: 200, tree: 200, opacity: 1, label: '④ 囲いにぶつかる!', water: false },
+    { frame: 260, tree: 220, opacity: 1, label: '⑤ 囲いが広がる',   water: false },
+  ];
+
   let current = 0;
-  let mode = 'kanji'; // 'kanji' or 'emoji'
+  let mode = 'emoji'; // 'kanji' or 'emoji'
+
+  function getStates() {
+    return mode === 'kanji' ? kanjiStates : emojiStates;
+  }
 
   function render() {
+    const states = getStates();
     const s = states[current];
+
     frame.style.width = s.frame + 'px';
     frame.style.height = s.frame + 'px';
     tree.style.fontSize = s.tree + 'px';
@@ -133,14 +191,30 @@
     stepLabel.textContent = s.label;
     tree.textContent = mode === 'kanji' ? '木' : '🌲';
 
-    if (current === 3) {
+    // ぶつかる演出(最後から2番目のステップ)
+    if (current === states.length - 2) {
       frame.classList.remove('bump');
       void frame.offsetWidth;
       frame.classList.add('bump');
+    } else {
+      frame.classList.remove('bump');
+    }
+
+    // 水やり演出
+    if (s.water) {
+      wateringCan.classList.remove('active');
+      waterDrop.classList.remove('active');
+      void wateringCan.offsetWidth;
+      wateringCan.classList.add('active');
+      waterDrop.classList.add('active');
+    } else {
+      wateringCan.classList.remove('active');
+      waterDrop.classList.remove('active');
     }
   }
 
   stage.addEventListener('click', () => {
+    const states = getStates();
     current = (current + 1) % states.length;
     render();
   });
@@ -148,6 +222,7 @@
   modeBtn.addEventListener('click', () => {
     mode = mode === 'kanji' ? 'emoji' : 'kanji';
     modeBtn.textContent = mode === 'kanji' ? '🌲 絵文字に切替' : '木 文字に切替';
+    current = 0; // モード切替時は最初の状態に戻す
     render();
   });
 
