@@ -112,14 +112,17 @@
 
   .water-drop {
     position: absolute;
-    top: 60px;
-    right: 95px;
-    font-size: 22px;
+    font-size: 20px;
     opacity: 0;
   }
-  .water-drop.active {
-    animation: drop 1.2s ease-in 0.35s forwards;
-  }
+  .water-drop-1 { top: 58px; right: 140px; }
+  .water-drop-2 { top: 58px; right: 120px; font-size: 16px; }
+  .water-drop-3 { top: 58px; right: 105px; font-size: 14px; }
+
+  .water-drop-1.active { animation: drop 1s ease-in 0.35s forwards; }
+  .water-drop-2.active { animation: drop 1s ease-in 0.55s forwards; }
+  .water-drop-3.active { animation: drop 1s ease-in 0.75s forwards; }
+
   @keyframes drop {
     0%   { opacity: 0; transform: translateY(0) scale(0.7); }
     20%  { opacity: 1; }
@@ -135,10 +138,12 @@
     <div class="tree" id="tree">🌲</div>
   </div>
   <div class="watering-can" id="wateringCan">🚿</div>
-  <div class="water-drop" id="waterDrop">💧</div>
+  <div class="water-drop water-drop-1" id="waterDrop1">💧</div>
+  <div class="water-drop water-drop-2" id="waterDrop2">💧</div>
+  <div class="water-drop water-drop-3" id="waterDrop3">💧</div>
 </div>
 
-<div class="caption">
+<div class="caption" id="caption">
   <div class="step" id="step">枠だけ</div>
   タップして進める
 </div>
@@ -150,9 +155,14 @@
   const tree = document.getElementById('tree');
   const stage = document.getElementById('stage');
   const stepLabel = document.getElementById('step');
+  const caption = document.getElementById('caption');
   const modeBtn = document.getElementById('modeBtn');
   const wateringCan = document.getElementById('wateringCan');
-  const waterDrop = document.getElementById('waterDrop');
+  const waterDrops = [
+    document.getElementById('waterDrop1'),
+    document.getElementById('waterDrop2'),
+    document.getElementById('waterDrop3'),
+  ];
 
   // 文字モード: 5ステップ
   const kanjiStates = [
@@ -190,6 +200,7 @@
     tree.style.opacity = s.opacity;
     stepLabel.textContent = s.label;
     tree.textContent = mode === 'kanji' ? '木' : '🌲';
+    caption.style.display = mode === 'kanji' ? 'block' : 'none';
 
     // ぶつかる演出(最後から2番目のステップ)
     if (current === states.length - 2) {
@@ -203,13 +214,16 @@
     // 水やり演出
     if (s.water) {
       wateringCan.classList.remove('active');
-      waterDrop.classList.remove('active');
       void wateringCan.offsetWidth;
       wateringCan.classList.add('active');
-      waterDrop.classList.add('active');
+      waterDrops.forEach(drop => {
+        drop.classList.remove('active');
+        void drop.offsetWidth;
+        drop.classList.add('active');
+      });
     } else {
       wateringCan.classList.remove('active');
-      waterDrop.classList.remove('active');
+      waterDrops.forEach(drop => drop.classList.remove('active'));
     }
   }
 
