@@ -66,11 +66,12 @@ async function callGas(env, { method, params, body }) {
   let res = await fetch(target.toString(), init);
 
   // GASは302で script.googleusercontent.com へリダイレクトする。
-  // redirect:'follow' に任せるとPOSTがGETへ化けてbodyが消えるため、
-  // 同じmethod/bodyのままリダイレクト先へ1回だけ手動で追従する。
+  // このリダイレクト先は「doPost/doGetの処理結果を取得するだけの場所」で、
+  // 元のリクエストがPOSTでも常にGET・bodyなしでアクセスする必要がある
+  // （POSTのまま再送信すると「ページが見つかりません」というDriveの汎用エラーになる）。
   if (res.status >= 300 && res.status < 400) {
     const location = res.headers.get('Location');
-    if (location) res = await fetch(location, init);
+    if (location) res = await fetch(location, { method: 'GET', redirect: 'follow' });
   }
   return res;
 }
