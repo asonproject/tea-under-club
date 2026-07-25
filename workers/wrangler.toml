@@ -1,0 +1,10 @@
+name = "tea-under-club-osagari"
+main = "osagari-worker.js"
+compatibility_date = "2026-07-25"
+
+# tea-under.club は既にCloudflareでゾーン管理されている前提（DNSはGitHub Pagesへのプロキシとして稼働中）
+# このWorkerは /osagari/api/* のパスだけを横取りし、それ以外（/osagari/index.html等の静的ファイル）は
+# 引き続きGitHub Pagesがそのまま配信する
+routes = [
+  { pattern = "tea-under.club/osagari/api/*", zone_name = "tea-under.club" }
+]

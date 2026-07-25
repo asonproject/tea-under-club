@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>おさがりシェアリング｜てぃあんだぁクラブ</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: #F5EFE6;
+    color: #2a2a2a;
+    line-height: 1.7;
+  }
+  header {
+    background: #91BD5A;
+    color: #fff;
+    padding: 20px 16px;
+    text-align: center;
+  }
+  header h1 { margin: 0; font-size: 1.3rem; }
+  header p { margin: 4px 0 0; font-size: 0.85rem; opacity: 0.9; }
+  main { max-width: 480px; margin: 0 auto; padding: 16px; }
+  .status-msg { text-align: center; padding: 40px 16px; color: #666; }
+  .item-list { display: flex; flex-direction: column; gap: 12px; }
+  .item-card {
+    display: flex;
+    gap: 12px;
+    background: #fff;
+    border-radius: 12px;
+    padding: 12px;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .item-card img {
+    width: 88px;
+    height: 88px;
+    object-fit: cover;
+    border-radius: 8px;
+    background: #eee;
+    flex-shrink: 0;
+  }
+  .item-card .info { min-width: 0; }
+  .item-card .name { font-weight: bold; margin: 0 0 4px; }
+  .item-card .meta { font-size: 0.8rem; color: #666; margin: 0; }
+  .badge {
+    display: inline-block;
+    font-size: 0.7rem;
+    background: #91BD5A;
+    color: #fff;
+    border-radius: 6px;
+    padding: 1px 8px;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🛋️ おさがりシェアリング</h1>
+  <p>会員のあいだで、モノを次の人へつなぐ場所です</p>
+</header>
+<main>
+  <div id="status" class="status-msg">読み込み中です…</div>
+  <div id="list" class="item-list"></div>
+</main>
+
+<script>
+async function loadItems() {
+  const statusEl = document.getElementById('status');
+  const listEl = document.getElementById('list');
+  try {
+    const res = await fetch('/osagari/api/items', { credentials: 'same-origin' });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      statusEl.textContent = data.error || '読み込みに失敗しました。時間をおいて再度お試しください。';
+      return;
+    }
+    const items = data.items || [];
+    if (items.length === 0) {
+      statusEl.textContent = '現在、掲載中のおさがりはありません。';
+      return;
+    }
+    statusEl.style.display = 'none';
+    listEl.innerHTML = items.map(renderCard).join('');
+  } catch (e) {
+    statusEl.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+  }
+}
+
+function renderCard(item) {
+  const img = item['画像URL'] || '';
+  const name = escapeHtml(item['商品名'] || '(名称未設定)');
+  const area = escapeHtml(item['地域'] || '');
+  const status = escapeHtml(item['掲載状況'] || '');
+  return `
+    <a class="item-card" href="item.html?id=${encodeURIComponent(item['商品ID'])}">
+      <img src="${img}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+      <div class="info">
+        <p class="name">${name}</p>
+        <p class="meta">${area}</p>
+        <span class="badge">${status}</span>
+      </div>
+    </a>
+  `;
+}
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+
+loadItems();
+</script>
+</body>
+</html>

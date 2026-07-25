@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商品詳細｜おさがりシェアリング</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: #F5EFE6;
+    color: #2a2a2a;
+    line-height: 1.7;
+  }
+  header {
+    background: #91BD5A;
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  header a { color: #fff; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 480px; margin: 0 auto; padding: 16px; }
+  .status-msg { text-align: center; padding: 40px 16px; color: #666; }
+  #detail { display: none; }
+  .photo { width: 100%; border-radius: 12px; background: #eee; aspect-ratio: 4/3; object-fit: cover; }
+  h2 { margin: 16px 0 4px; }
+  .meta-row { font-size: 0.85rem; color: #666; margin: 2px 0; }
+  .desc { background: #fff; border-radius: 12px; padding: 14px; margin-top: 12px; white-space: pre-wrap; }
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  form h3 { margin: 0 0 4px; }
+  label { font-size: 0.85rem; font-weight: bold; }
+  input, textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  .website-field { position: absolute; left: -9999px; }
+  button {
+    background: #91BD5A;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; }
+  #form-msg { font-size: 0.9rem; text-align: center; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<header><a href="index.html">← 一覧にもどる</a></header>
+<main>
+  <div id="status" class="status-msg">読み込み中です…</div>
+
+  <div id="detail">
+    <img id="photo" class="photo" alt="">
+    <h2 id="name"></h2>
+    <p class="meta-row" id="area"></p>
+    <p class="meta-row" id="size"></p>
+    <p class="meta-row" id="handover"></p>
+    <div class="desc" id="desc"></div>
+
+    <form id="apply-form">
+      <h3>譲ってほしい方はこちらから</h3>
+      <label for="f-name">お名前</label>
+      <input id="f-name" name="name" required>
+
+      <label for="f-email">メールアドレス</label>
+      <input id="f-email" name="email" type="email" required>
+
+      <label for="f-phone">電話番号（任意）</label>
+      <input id="f-phone" name="phone" type="tel">
+
+      <label for="f-date">受取希望日（任意）</label>
+      <input id="f-date" name="preferredDate" type="date">
+
+      <label for="f-message">メッセージ（任意）</label>
+      <textarea id="f-message" name="message" rows="3"></textarea>
+
+      <div class="website-field" aria-hidden="true">
+        <label for="f-website">ウェブサイト</label>
+        <input id="f-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" id="submit-btn">この内容で申し込む</button>
+      <p id="form-msg"></p>
+    </form>
+  </div>
+</main>
+
+<script>
+const params = new URLSearchParams(location.search);
+const itemId = params.get('id');
+let currentItem = null;
+
+async function loadItem() {
+  const statusEl = document.getElementById('status');
+  if (!itemId) {
+    statusEl.textContent = '商品が指定されていません。';
+    return;
+  }
+  try {
+    const res = await fetch('/osagari/api/item?id=' + encodeURIComponent(itemId), { credentials: 'same-origin' });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      statusEl.textContent = data.error || '商品が見つかりませんでした。';
+      return;
+    }
+    currentItem = data.item;
+    renderItem(currentItem);
+    statusEl.style.display = 'none';
+    document.getElementById('detail').style.display = 'block';
+  } catch (e) {
+    statusEl.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+  }
+}
+
+function renderItem(item) {
+  document.title = (item['商品名'] || '商品詳細') + '｜おさがりシェアリング';
+  const photo = document.getElementById('photo');
+  if (item['画像URL']) { photo.src = item['画像URL']; } else { photo.style.display = 'none'; }
+  document.getElementById('name').textContent = item['商品名'] || '';
+  document.getElementById('area').textContent = '地域：' + (item['地域'] || '未設定');
+  document.getElementById('size').textContent = 'サイズ：' + (item['サイズ'] || '未設定');
+  document.getElementById('handover').textContent = '受渡方法：' + (item['受渡方法'] || '未設定');
+  document.getElementById('desc').textContent = item['説明文'] || '';
+}
+
+document.getElementById('apply-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-msg');
+  const form = e.target;
+
+  const payload = {
+    itemId: itemId,
+    name: form.name.value.trim(),
+    email: form.email.value.trim(),
+    phone: form.phone.value.trim(),
+    preferredDate: form.preferredDate.value,
+    message: form.message.value.trim(),
+    website: form.website.value, // ハニーポット。人間は空のまま送信する
+  };
+
+  btn.disabled = true;
+  msg.textContent = '送信しています…';
+  msg.style.color = '#666';
+
+  try {
+    const res = await fetch('/osagari/api/apply', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      msg.textContent = data.error || '送信に失敗しました。';
+      msg.style.color = '#c0392b';
+      btn.disabled = false;
+      return;
+    }
+    msg.textContent = '申込みを受け付けました。ご連絡までお待ちください。';
+    msg.style.color = '#2e7d32';
+    form.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
+  } catch (e) {
+    msg.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+    msg.style.color = '#c0392b';
+    btn.disabled = false;
+  }
+});
+
+loadItem();
+</script>
+</body>
+</html>
