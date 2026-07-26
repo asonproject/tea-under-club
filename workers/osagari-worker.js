@@ -41,6 +41,10 @@ export default {
         return passThrough(res);
       }
 
+      if (url.pathname === '/osagari/api/image' && request.method === 'GET') {
+        return proxyImage(url.searchParams.get('src'));
+      }
+
       return jsonResponse({ error: 'Not Found' }, 404);
     } catch (err) {
       return jsonResponse({ error: 'サーバーエラー: ' + err.message }, 500);
@@ -91,4 +95,38 @@ async function passThrough(res) {
 
 function jsonResponse(obj, status) {
   return new Response(JSON.stringify(obj), { status, headers: { 'Content-Type': 'application/json; charset=utf-8' } });
+}
+
+// 画像を同一オリジン（tea-under.club）経由で配信する中継。
+// 広告ブロッカー・プライバシー系拡張機能がdrive.google.com等を直接ブロックするケースが
+// 実際に確認されたため、ブラウザからは常にこのWorker経由でのみ画像を取得させる設計にした。
+const IMAGE_ALLOWED_HOSTS = [
+  'drive.google.com',
+  'drive.usercontent.google.com',
+  'v5.airtableusercontent.com',
+];
+
+async function proxyImage(src) {
+  if (!src) return new Response('missing src', { status: 400 });
+
+  let target;
+  try {
+    target = new URL(src);
+  } catch {
+    return new Response('invalid src', { status: 400 });
+  }
+
+  // SSRF対策：任意のURLを中継しないよう、許可したホストのみ通す
+  if (!IMAGE_ALLOWED_HOSTS.includes(target.hostname)) {
+    return new Response('host not allowed', { status: 400 });
+  }
+
+  const res = await fetch(target.toString(), { redirect: 'follow' });
+  if (!res.ok) return new Response('image fetch failed', { status: 502 });
+
+  const headers = new Headers();
+  headers.set('Content-Type', res.headers.get('Content-Type') || 'image/jpeg');
+  headers.set('Cache-Control', 'public, max-age=86400'); // Cloudflareエッジで1日キャッシュ
+
+  return new Response(res.body, { status: 200, headers });
 }

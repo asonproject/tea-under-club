@@ -101,14 +101,23 @@ async function loadItems() {
   }
 }
 
+function proxyImageUrl(rawUrl) {
+  // drive.google.com等を直接埋め込むと広告ブロッカー等にブロックされることがあるため、
+  // 常に自サイト（tea-under.club）経由のWorkers中継URLに書き換える
+  return rawUrl ? '/osagari/api/image?src=' + encodeURIComponent(rawUrl) : '';
+}
+
 function renderCard(item) {
-  const img = item['画像URL'] || '';
+  const img = proxyImageUrl(item['画像URL']);
   const name = escapeHtml(item['商品名'] || '(名称未設定)');
   const area = escapeHtml(item['地域'] || '');
   const status = escapeHtml(item['掲載状況'] || '');
+  const imgTag = img
+    ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
+    : `<div style="width:100%;aspect-ratio:1/1;background:#eee;"></div>`;
   return `
     <a class="item-card" href="item.html?id=${encodeURIComponent(item['商品ID'])}">
-      <img src="${img}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+      ${imgTag}
       <div class="info">
         <p class="name">${name}</p>
         <p class="meta">${area}</p>

@@ -84,6 +84,9 @@
       <label for="f-email">メールアドレス</label>
       <input id="f-email" name="email" type="email" required>
 
+      <label for="f-email-confirm">メールアドレス（確認用・もう一度入力してください）</label>
+      <input id="f-email-confirm" name="emailConfirm" type="email" required>
+
       <label for="f-phone">電話番号（任意）</label>
       <input id="f-phone" name="phone" type="tel">
 
@@ -131,10 +134,17 @@ async function loadItem() {
   }
 }
 
+function proxyImageUrl(rawUrl) {
+  // drive.google.com等を直接埋め込むと広告ブロッカー等にブロックされることがあるため、
+  // 常に自サイト（tea-under.club）経由のWorkers中継URLに書き換える
+  return rawUrl ? '/osagari/api/image?src=' + encodeURIComponent(rawUrl) : '';
+}
+
 function renderItem(item) {
   document.title = (item['商品名'] || '商品詳細') + '｜おさがりシェアリング';
   const photo = document.getElementById('photo');
-  if (item['画像URL']) { photo.src = item['画像URL']; } else { photo.style.display = 'none'; }
+  const imgSrc = proxyImageUrl(item['画像URL']);
+  if (imgSrc) { photo.src = imgSrc; } else { photo.style.display = 'none'; }
   document.getElementById('name').textContent = item['商品名'] || '';
   document.getElementById('area').textContent = '地域：' + (item['地域'] || '未設定');
   document.getElementById('size').textContent = 'サイズ：' + (item['サイズ'] || '未設定');
@@ -148,10 +158,18 @@ document.getElementById('apply-form').addEventListener('submit', async (e) => {
   const msg = document.getElementById('form-msg');
   const form = e.target;
 
+  const email = form.email.value.trim();
+  const emailConfirm = form.emailConfirm.value.trim();
+  if (email !== emailConfirm) {
+    msg.textContent = 'メールアドレスが一致しません。確認のうえ、もう一度入力してください。';
+    msg.style.color = '#c0392b';
+    return;
+  }
+
   const payload = {
     itemId: itemId,
     name: form.name.value.trim(),
-    email: form.email.value.trim(),
+    email: email,
     phone: form.phone.value.trim(),
     preferredDate: form.preferredDate.value,
     message: form.message.value.trim(),
