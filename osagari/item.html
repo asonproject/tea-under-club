@@ -27,6 +27,13 @@
   #detail { display: none; }
   .photo { width: 100%; border-radius: 12px; background: #eee; aspect-ratio: 4/3; object-fit: cover; }
   h2 { margin: 16px 0 4px; }
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    border-radius: 6px;
+    padding: 2px 10px;
+    margin-bottom: 4px;
+  }
   .meta-row { font-size: 0.85rem; color: #666; margin: 2px 0; }
   .desc { background: #fff; border-radius: 12px; padding: 14px; margin-top: 12px; white-space: pre-wrap; }
   form {
@@ -71,6 +78,7 @@
   <div id="detail">
     <img id="photo" class="photo" alt="">
     <h2 id="name"></h2>
+    <div id="status-badge"></div>
     <p class="meta-row" id="area"></p>
     <p class="meta-row" id="size"></p>
     <p class="meta-row" id="handover"></p>
@@ -140,12 +148,29 @@ function proxyImageUrl(rawUrl) {
   return rawUrl ? '/osagari/api/image?src=' + encodeURIComponent(rawUrl) : '';
 }
 
+const STATUS_COLORS = {
+  '受付中': { bg: '#91BD5A', fg: '#fff' },
+  '要確認': { bg: '#F9C733', fg: '#5c4b00' },
+  '終了': { bg: '#999', fg: '#fff' },
+};
+
+function escapeHtml(str) {
+  return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+}
+
+function statusBadge(status) {
+  if (!status) return '';
+  const c = STATUS_COLORS[status] || { bg: '#91BD5A', fg: '#fff' };
+  return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeHtml(status)}</span>`;
+}
+
 function renderItem(item) {
   document.title = (item['商品名'] || '商品詳細') + '｜おさがりシェアリング';
   const photo = document.getElementById('photo');
   const imgSrc = proxyImageUrl(item['画像URL']);
   if (imgSrc) { photo.src = imgSrc; } else { photo.style.display = 'none'; }
   document.getElementById('name').textContent = item['商品名'] || '';
+  document.getElementById('status-badge').innerHTML = statusBadge(item['掲載状況'] || '');
   document.getElementById('area').textContent = '地域：' + (item['地域'] || '未設定');
   document.getElementById('size').textContent = 'サイズ：' + (item['サイズ'] || '未設定');
   document.getElementById('handover').textContent = '受渡方法：' + (item['受渡方法'] || '未設定');

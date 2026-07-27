@@ -14,6 +14,7 @@ const SHEET_APPLICATIONS = '申込み';
 const ITEM_HEADERS = ['表示', '商品ID', '商品名', '分類', '画像URL', 'サイズ', '地域', '状態', '受渡方法', '掲載状況', '説明文', '更新日時'];
 const PROVIDER_HEADERS = ['商品ID', '提供者名', '住所', '電話番号', 'メールアドレス', '同意確認'];
 const APPLICATION_HEADERS = ['申込ID', '商品ID', '申込者名', 'メールアドレス', '電話番号', 'メッセージ', '受取希望日', '対応状況', '申込日時'];
+const STATUS_OPTIONS = ['受付中', '要確認', '終了'];
 
 /**
  * 初回セットアップ用。Apps Scriptエディタの関数選択で setupSheets を選び、実行ボタンを押す。
@@ -26,6 +27,7 @@ function setupSheets() {
   createSheetIfMissing_(ss, SHEET_PROVIDERS, PROVIDER_HEADERS);
   createSheetIfMissing_(ss, SHEET_APPLICATIONS, APPLICATION_HEADERS);
   ensureVisibilityCheckboxes_();
+  ensureStatusDropdown_();
 
   ['シート1', 'Sheet1'].forEach(name => {
     const sheet = ss.getSheetByName(name);
@@ -73,6 +75,38 @@ function ensureVisibilityCheckboxes_() {
   const sheet = getSheet(SHEET_ITEMS);
   if (sheet.getRange(1, 1).getValue() !== '表示') return;
   sheet.getRange(2, 1, 999, 1).insertCheckboxes();
+}
+
+/**
+ * 「掲載状況」列をプルダウン選択制（受付中／要確認／終了）にする。
+ * 列の位置はヘッダー行から実際に探すため、列順が変わっても安全に動作する。
+ * 既存データの旧表記「掲載終了」は新しい選択肢「終了」に統一する。
+ * 何度実行しても安全（冪等）。
+ */
+function ensureStatusDropdown_() {
+  const sheet = getSheet(SHEET_ITEMS);
+  const headerRow = sheet.getRange(1, 1, 1, sheet.getLastColumn()).getValues()[0];
+  const statusCol = headerRow.indexOf('掲載状況') + 1; // 1-indexed。見つからなければ0+1=1にはならず0のままなので下でガード
+  if (statusCol === 0) return;
+
+  const rule = SpreadsheetApp.newDataValidation().requireValueInList(STATUS_OPTIONS, true).setAllowInvalid(false).build();
+  sheet.getRange(2, statusCol, 999, 1).setDataValidation(rule);
+
+  const lastRow = sheet.getLastRow();
+  if (lastRow > 1) {
+    const range = sheet.getRange(2, statusCol, lastRow - 1, 1);
+    const values = range.getValues();
+    range.setValues(values.map(r => [r[0] === '掲載終了' ? '終了' : r[0]]));
+  }
+}
+
+/**
+ * 移行用に単独実行できる版（setupSheetsからも呼ばれるが、既存シートに対して
+ * すぐ反映したい場合はApps Scriptエディタでこの関数を直接実行してもよい）。
+ */
+function setupStatusDropdown() {
+  ensureStatusDropdown_();
+  Logger.log('掲載状況のプルダウンを設定しました。');
 }
 
 function createSheetIfMissing_(ss, name, headers) {
@@ -262,7 +296,7 @@ function importFromAirtable() {
     if (existingIds.has(itemId) || !f[AIRTABLE_FIELD.name]) { skipped++; return; }
 
     const durationName = pickName_(f[AIRTABLE_FIELD.duration]);
-    const status = durationName === '終了' ? '掲載終了' : '受付中';
+    const status = durationName === '終了' ? '終了' : '受付中';
 
     const priceName = pickName_(f[AIRTABLE_FIELD.price]);
     const priceText = priceName ? (priceName === 'あげます' ? '無料でお譲りします。' : `価格：${priceName}`) : '';
@@ -273,7 +307,7 @@ function importFromAirtable() {
     const imageUrl = importFirstAttachmentToDrive_(f[AIRTABLE_FIELD.image], itemId);
 
     itemsSheet.appendRow([
-      status !== '掲載終了', // 表示
+      status !== '終了', // 表示
       itemId,
       f[AIRTABLE_FIELD.name],
       pickName_(f[AIRTABLE_FIELD.category]),

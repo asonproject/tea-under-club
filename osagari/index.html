@@ -60,8 +60,6 @@
   .badge {
     display: inline-block;
     font-size: 0.7rem;
-    background: #91BD5A;
-    color: #fff;
     border-radius: 6px;
     padding: 1px 8px;
     margin-top: 4px;
@@ -107,11 +105,23 @@ function proxyImageUrl(rawUrl) {
   return rawUrl ? '/osagari/api/image?src=' + encodeURIComponent(rawUrl) : '';
 }
 
+const STATUS_COLORS = {
+  '受付中': { bg: '#91BD5A', fg: '#fff' },
+  '要確認': { bg: '#F9C733', fg: '#5c4b00' },
+  '終了': { bg: '#999', fg: '#fff' },
+};
+
+function statusBadge(status) {
+  if (!status) return '';
+  const c = STATUS_COLORS[status] || { bg: '#91BD5A', fg: '#fff' };
+  return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeHtml(status)}</span>`;
+}
+
 function renderCard(item) {
   const img = proxyImageUrl(item['画像URL']);
   const name = escapeHtml(item['商品名'] || '(名称未設定)');
   const area = escapeHtml(item['地域'] || '');
-  const status = escapeHtml(item['掲載状況'] || '');
+  const status = item['掲載状況'] || '';
   const imgTag = img
     ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
     : `<div style="width:100%;aspect-ratio:1/1;background:#eee;"></div>`;
@@ -121,7 +131,7 @@ function renderCard(item) {
       <div class="info">
         <p class="name">${name}</p>
         <p class="meta">${area}</p>
-        <span class="badge">${status}</span>
+        ${statusBadge(status)}
       </div>
     </a>
   `;
