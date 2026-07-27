@@ -6,9 +6,21 @@ Asanaタスク①（3シート作成）・②（Apps Scriptの器作成）が完
 **実際のSHARED_SECRET・ADMIN_EMAIL・デプロイURLの値は、このファイルには書かない。**
 このリポジトリはGitHub Pagesで公開される（`asonproject/tea-under-club`）ため、READMEに書くとそのまま外部に漏れる。実際の値は`.gitignore`対象の `gas/.env.local` に控えること。
 
-## 手順
+## 手順（2026-07-27〜：clasp運用に移行）
 
-1. `Code.gs` の中身を、②で作ったApps Scriptエディタの `コード.gs` に全て貼り付けて保存する。
+このディレクトリは `clasp`（Google公式CLI）で管理しており、`gas/`配下で `npx @google/clasp push` を実行するとApps Scriptエディタの `コード.gs`・`appsscript.json` に直接反映される。手動でのコピペ貼り替えは不要になった。
+- `.clasp.json` にスクリプトIDを保持している（SHARED_SECRET等と違い、スクリプトID単体では第三者はプロジェクトを開けない＝編集権限が必要なため、このファイルはgit管理下に置いている）
+- ローカルのファイル名は、GAS側の既存ファイル名（日本語「コード」）に合わせて `コード.gs` としている（英語名`Code.gs`のままpushすると重複ファイルが増えるため）
+- 本番Webアプリ（`GAS_WEBAPP_URL`）へ反映するには、コードのpushだけでは不十分。デプロイのバージョン更新が必要：
+  ```
+  npx @google/clasp deploy --deploymentId <既存のdeploymentId> --description "変更内容"
+  ```
+  既存のdeploymentIdは `npx @google/clasp deployments` で確認できる（`.env.local`のGAS_WEBAPP_URLに含まれるIDと一致するものを選ぶ）
+- スプレッドシートの構造・データ検証（プルダウン等）を変える関数（`setupSheets`・`setupStatusDropdown`・`addVisibilityColumn`等）は、コードをpushしただけでは実行されない。Apps Scriptエディタを開き、プルダウンで対象関数を選んで▶実行ボタンを押す必要がある（`clasp run`は「実行可能API」としての追加デプロイが必要なため、今のところ手動実行を採用）
+
+## 初回セットアップ手順（新規Apps Scriptプロジェクトの場合）
+
+1. `コード.gs` の中身を、②で作ったApps Scriptエディタの `コード.gs` に全て貼り付けて保存する（またはclasp運用なら`npx @google/clasp push`）。
 
 2. 関数選択のプルダウンで `setupSheets` を選び、▶実行ボタンを押す（初回は権限承認のダイアログが出るので許可する）。3シート（公開商品／提供者情報／申込み）が自動作成され、既定の空シートは削除される。
 
