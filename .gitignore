@@ -35,6 +35,10 @@ npm-debug.log*
 # Environment
 .env
 .env.local
+.dev.vars
+
+# Cloudflare Workers local cache
+.wrangler/
 
 # Temporary files
 tmp/

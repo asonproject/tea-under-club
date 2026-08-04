@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>台風・防災ダッシュボード｜てぃあんだぁクラブ</title>
+<link rel="icon" href="favicon.jpg" type="image/jpeg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:      #ffffff;
+  --txt:     #2a2a2a;
+  --txt-m:   #595959;
+  --txt-s:   #767676;
+  --acc:     #BADA7A;
+  --acc-d:   #91BD5A;
+  --acc-dd:  #507131;
+  --hi:      #EAF5D3;
+  --info:    #f5f5f5;
+  --white:   #fafafa;
+  --border:  #e0e0e0;
+  --r:       8px;
+  --r-sm:    4px;
+  --orange:  #F9C733;
+  --red:     #d64545;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+:focus-visible { outline:3px solid var(--acc-d); outline-offset:2px; border-radius:2px; }
+body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--info); font-size:16px; line-height:1.8; -webkit-text-size-adjust:100%; }
+
+.wrap { max-width:760px; margin:0 auto; background:var(--bg); min-height:100vh; }
+
+.hdr { background:var(--acc-dd); color:#fff; padding:16px 16px 20px; }
+.back { display:inline-flex; align-items:center; gap:4px; color:#fff; text-decoration:none; font-size:13px; opacity:.85; margin-bottom:10px; }
+.back:hover { opacity:1; }
+.hdr h1 { font-size:21px; font-weight:700; display:flex; align-items:center; gap:8px; margin-bottom:6px; }
+.hdr p { font-size:13.5px; opacity:.92; line-height:1.7; }
+
+.note { background:var(--hi); border-left:4px solid var(--acc-d); margin:14px 16px; padding:12px 14px; border-radius:var(--r-sm); font-size:13px; color:var(--acc-dd); line-height:1.75; }
+.note.warn { background:#fdecec; border-left-color:var(--red); color:#a63333; }
+
+.sec { padding:20px 16px 4px; }
+.sec-lbl { font-size:14px; font-weight:700; color:var(--txt); margin-bottom:10px; padding:10px 14px; border-left:4px solid var(--acc-d); background:var(--info); display:flex; align-items:center; gap:6px; border-radius:0 var(--r-sm) var(--r-sm) 0; }
+.sec-desc { font-size:12.5px; color:var(--txt-m); margin-bottom:10px; padding:0 2px; line-height:1.75; }
+
+/* ライブパネル（iframe埋め込み） */
+.panel { background:var(--white); border:1px solid var(--border); border-radius:10px; overflow:hidden; margin-bottom:14px; }
+.panel-hdr { display:flex; align-items:center; justify-content:space-between; gap:8px; padding:11px 13px; background:var(--info); border-bottom:1px solid var(--border); }
+.panel-hdr-l { display:flex; align-items:center; gap:8px; min-width:0; }
+.panel-ico { width:32px; height:32px; border-radius:9px; background:var(--hi); display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0; }
+.panel-title { font-size:14px; font-weight:700; color:var(--txt); }
+.panel-sub { font-size:11.5px; color:var(--txt-s); }
+.panel-open { font-size:11.5px; font-weight:700; color:var(--acc-dd); text-decoration:none; white-space:nowrap; flex-shrink:0; }
+.panel iframe { width:100%; height:380px; border:0; display:block; background:var(--info); }
+.panel-fallback { padding:10px 13px; font-size:12px; color:var(--txt-s); border-top:1px solid var(--border); }
+
+/* 台風マップ（大きめ） */
+.map-panel iframe { height:420px; }
+
+/* リンクカード（埋め込み不可のもののみ） */
+.lk { display:flex; align-items:center; gap:12px; background:var(--white); border:1px solid var(--border); border-radius:10px; padding:13px 15px; text-decoration:none; margin-bottom:8px; }
+.lk:hover { background:#f6f6f6; }
+.lk-ico { width:36px; height:36px; border-radius:10px; background:var(--hi); display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.lk-body { flex:1; min-width:0; }
+.lk-title { font-size:14px; font-weight:700; color:var(--txt); margin-bottom:2px; }
+.lk-sub { font-size:12px; color:var(--txt-m); line-height:1.6; }
+.lk-arr { color:var(--acc-d); font-size:16px; flex-shrink:0; }
+
+.ftr { padding:22px 16px 30px; text-align:center; }
+.ftr a { color:var(--acc-dd); font-size:13px; text-decoration:none; font-weight:700; margin:0 8px; }
+.ftr .cp { margin-top:14px; font-size:11px; color:var(--txt-s); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hdr">
+    <a class="back" href="index.html">← ホームに戻る</a>
+    <h1>🌀 台風・防災ダッシュボード</h1>
+    <p>台風の風の動きと、バス4社の最新お知らせを、このページ内でそのまま確認できます。数値の詳細（進路・気圧・警報）は仕様上埋め込みができないため、下部のリンクからご覧ください。</p>
+  </div>
+
+  <div class="note">
+    表示されるのは各サイトの「今の中身」がそのまま映っています。読み込みに数秒かかることがあります。表示が崩れる・出ない場合は、パネル右上の「元のページを開く」からご確認ください。
+  </div>
+
+  <div class="sec">
+    <div class="sec-lbl">🌬️ リアルタイム風・台風マップ</div>
+    <div class="sec-desc">沖縄本島を中心に、今の風の強さ・動きを常時更新で表示しています。地図右側のアイコン列から「ハリケーントラッカー」を選ぶと、気象庁など複数機関の進路予想を比較できます。</div>
+    <div class="panel map-panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">🌐</div>
+          <div>
+            <div class="panel-title">Windy.com（沖縄本島）</div>
+            <div class="panel-sub">ライブ更新・操作可能</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://www.windy.com/-Weather-radar-radar?radar,26.212,127.681,7" target="_blank" rel="noopener">全画面で開く ›</a>
+      </div>
+      <iframe
+        src="https://embed.windy.com/embed2.html?lat=26.21&lon=127.68&detailLat=26.21&detailLon=127.68&width=650&height=450&zoom=7&level=surface&overlay=wind&product=ecmwf&menu=true&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
+        loading="lazy" title="Windy 沖縄本島 風マップ"></iframe>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-lbl">🚌 バス運行お知らせ（4社）</div>
+    <div class="sec-desc">沖縄本島のバス4社は、沖縄県バス協会で運行の継続・中止を共通協議して発表します。各社の最新お知らせをそのまま埋め込んでいます。</div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">🚏</div>
+          <div>
+            <div class="panel-title">沖縄県バス協会</div>
+            <div class="panel-sub">4社共通の方針・お知らせ</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://www.bus-okinawa.or.jp/" target="_blank" rel="noopener">元のページ ›</a>
+      </div>
+      <iframe src="https://www.bus-okinawa.or.jp/" loading="lazy" title="沖縄県バス協会"></iframe>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">🚌</div>
+          <div>
+            <div class="panel-title">那覇バス・琉球バス交通</div>
+            <div class="panel-sub">お知らせ一覧</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://daiichibus.co.jp/news/" target="_blank" rel="noopener">元のページ ›</a>
+      </div>
+      <iframe src="https://daiichibus.co.jp/news/" loading="lazy" title="那覇バス・琉球バス交通 お知らせ"></iframe>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">🚍</div>
+          <div>
+            <div class="panel-title">沖縄バス</div>
+            <div class="panel-sub">お知らせ一覧</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://okinawabus.com/wp/category/ma_news/" target="_blank" rel="noopener">元のページ ›</a>
+      </div>
+      <iframe src="https://okinawabus.com/wp/category/ma_news/" loading="lazy" title="沖縄バス お知らせ"></iframe>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">📋</div>
+          <div>
+            <div class="panel-title">東陽バス</div>
+            <div class="panel-sub">台風時の運行取扱いルール</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://toyo-bus.com/typhoon/" target="_blank" rel="noopener">元のページ ›</a>
+      </div>
+      <iframe src="https://toyo-bus.com/typhoon/" loading="lazy" title="東陽バス 台風時の運行取扱い"></iframe>
+    </div>
+
+    <div class="panel">
+      <div class="panel-hdr">
+        <div class="panel-hdr-l">
+          <div class="panel-ico">🚐</div>
+          <div>
+            <div class="panel-title">やんばる急行バス</div>
+            <div class="panel-sub">公式サイト・お知らせ</div>
+          </div>
+        </div>
+        <a class="panel-open" href="https://yanbaru-expressbus.com/" target="_blank" rel="noopener">元のページ ›</a>
+      </div>
+      <iframe src="https://yanbaru-expressbus.com/" loading="lazy" title="やんばる急行バス"></iframe>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-lbl">📊 台風の数値・警報（埋め込み不可・直接リンク）</div>
+    <div class="sec-desc">気象庁・tenki.jpはセキュリティ上の理由で他サイトへの埋め込みを許可していないため、ここだけは直接リンクになります。</div>
+
+    <a class="lk" href="https://www.jma.go.jp/bosai/typhoon/" target="_blank" rel="noopener">
+      <div class="lk-ico">🇯🇵</div>
+      <div class="lk-body">
+        <div class="lk-title">気象庁「台風情報」</div>
+        <div class="lk-sub">進路予想・気圧・最大風速などの公式一次情報</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+
+    <a class="lk" href="https://tenki.jp/bousai/warn/10/50/" target="_blank" rel="noopener">
+      <div class="lk-ico">🚨</div>
+      <div class="lk-body">
+        <div class="lk-title">tenki.jp「沖縄県の警報・注意報」</div>
+        <div class="lk-sub">市町村別の暴風警報などの発表状況</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+  </div>
+
+  <div class="note warn" style="margin-top:6px;">
+    バスの運行中止＝休校とは限りません。最終判断は学校・園からの一斉連絡で必ず確認してください。
+  </div>
+
+  <div class="ftr">
+    <a href="taifu-print.html">🖨️ 印刷用シート</a>
+    <a href="taifu.html">リンク一覧版はこちら</a>
+    <a href="index.html">ホームへ</a>
+    <div class="cp">© 2013-2026 てぃあんだぁクラブ</div>
+  </div>
+
+</div>
+</body>
+</html>

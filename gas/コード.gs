@@ -137,6 +137,7 @@ function doPost(e) {
 
     const body = JSON.parse(e.postData.contents);
     if (body.action === 'apply') return jsonResponse(submitApplication(body));
+    if (body.action === 'register') return jsonResponse(submitRegistration(body));
     return jsonResponse({ error: '不正なリクエストです' }, 400);
   } catch (err) {
     return jsonResponse({ error: 'サーバーエラー: ' + err.message }, 500);
@@ -227,6 +228,87 @@ function submitApplication(body) {
   } finally {
     lock.releaseLock();
   }
+}
+
+/**
+ * 会員自身が「モノ（おさがり）」または「たすけあい（貸せるもの・できること）」を
+ * 登録するための窓口。既存の「公開商品」「提供者情報」シートをそのまま使い、
+ * 分類列に 'たすけあい' 系の値が入るかどうかで見た目上の区別をする（スキーマ変更なし）。
+ * 表示チェックボックスは常にfalseで作成し、管理者がスプレッドシート上で内容を確認して
+ * オンにするまでは一覧に出ない（既存のおさがり商品と同じモデレーションフロー）。
+ */
+const REGISTER_REQUIRED_FIELDS = ['category', 'title', 'description', 'area', 'providerName', 'providerContact'];
+
+function submitRegistration(body) {
+  // ハニーポット：フォームに隠しフィールドを仕込み、bot送信ならここで弾く
+  if (body.website) return { error: '送信できませんでした' };
+
+  for (const key of REGISTER_REQUIRED_FIELDS) {
+    if (!body[key] || String(body[key]).trim() === '') {
+      return { error: `${key} は必須です` };
+    }
+  }
+  if (!body.consent) {
+    return { error: '個人情報の取り扱いへの同意が必要です' };
+  }
+
+  const lock = LockService.getScriptLock();
+  lock.waitLock(10000);
+  try {
+    const itemId = 'u-' + new Date().getTime();
+
+    const itemsSheet = getSheet(SHEET_ITEMS);
+    itemsSheet.appendRow([
+      false, // 表示：管理者が内容確認してチェックを入れるまで非公開
+      itemId,
+      body.title,
+      body.category,
+      '', // 画像URL（自己登録は画像なしでスタート。必要なら後から管理者が追加）
+      '', // サイズ
+      body.area,
+      '', // 状態
+      body.handover || '',
+      '要確認',
+      body.description,
+      new Date(),
+    ]);
+
+    const providersSheet = getSheet(SHEET_PROVIDERS);
+    providersSheet.appendRow([
+      itemId,
+      body.providerName,
+      body.providerAddress || '',
+      body.providerContact,
+      body.providerEmail || '',
+      true,
+    ]);
+
+    notifyAdminRegistration(itemId, body);
+    return { ok: true, itemId };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+function notifyAdminRegistration(itemId, body) {
+  const adminEmail = PropertiesService.getScriptProperties().getProperty('ADMIN_EMAIL');
+  if (!adminEmail) return; // 未設定なら通知をスキップ（登録自体は成立させる）
+
+  const subject = `【新規登録】${body.title}（${itemId}）`;
+  const text = [
+    `分類：${body.category}`,
+    `タイトル：${body.title}`,
+    `地域：${body.area}`,
+    `説明：${body.description}`,
+    `対応範囲・受渡方法：${body.handover || '(未入力)'}`,
+    `登録者：${body.providerName}`,
+    `連絡先：${body.providerContact}`,
+    `メール：${body.providerEmail || '(未入力)'}`,
+    '',
+    '内容を確認し、問題なければ「公開商品」シートの該当行の「表示」チェックボックスをオンにしてください。',
+  ].join('\n');
+
+  MailApp.sendEmail(adminEmail, subject, text);
 }
 
 function notifyAdmin(item, body, applicationId) {

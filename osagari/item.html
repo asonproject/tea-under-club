@@ -85,7 +85,7 @@
     <div class="desc" id="desc"></div>
 
     <form id="apply-form">
-      <h3>譲ってほしい方はこちらから</h3>
+      <h3 id="apply-heading">譲ってほしい方はこちらから</h3>
       <label for="f-name">お名前</label>
       <input id="f-name" name="name" required>
 
@@ -164,6 +164,11 @@ function statusBadge(status) {
   return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeHtml(status)}</span>`;
 }
 
+function itemCat(item) {
+  const raw = item['分類'] || '';
+  return raw.indexOf('たすけあい') !== -1 ? 'たすけあい' : 'モノ';
+}
+
 function renderItem(item) {
   document.title = (item['商品名'] || '商品詳細') + '｜おさがりシェアリング';
   const photo = document.getElementById('photo');
@@ -172,8 +177,19 @@ function renderItem(item) {
   document.getElementById('name').textContent = item['商品名'] || '';
   document.getElementById('status-badge').innerHTML = statusBadge(item['掲載状況'] || '');
   document.getElementById('area').textContent = '地域：' + (item['地域'] || '未設定');
-  document.getElementById('size').textContent = 'サイズ：' + (item['サイズ'] || '未設定');
-  document.getElementById('handover').textContent = '受渡方法：' + (item['受渡方法'] || '未設定');
+
+  const isHelp = itemCat(item) === 'たすけあい';
+  const sizeEl = document.getElementById('size');
+  const handoverEl = document.getElementById('handover');
+  if (isHelp) {
+    sizeEl.style.display = 'none';
+    handoverEl.textContent = '対応できる範囲：' + (item['受渡方法'] || '未設定');
+    document.getElementById('apply-heading').textContent = '頼みたい方はこちらから';
+  } else {
+    sizeEl.style.display = '';
+    sizeEl.textContent = 'サイズ：' + (item['サイズ'] || '未設定');
+    handoverEl.textContent = '受渡方法：' + (item['受渡方法'] || '未設定');
+  }
   document.getElementById('desc').textContent = item['説明文'] || '';
 }
 

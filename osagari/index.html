@@ -64,22 +64,48 @@
     padding: 1px 8px;
     margin-top: 4px;
   }
+  .register-link {
+    display: inline-block;
+    margin-top: 10px;
+    background: #fff;
+    color: #507131;
+    font-weight: bold;
+    font-size: 0.8rem;
+    text-decoration: none;
+    padding: 7px 16px;
+    border-radius: 20px;
+  }
+  .cat-tabs { display: flex; gap: 8px; margin-bottom: 14px; }
+  .cat-tab {
+    flex: 1; text-align: center; padding: 9px 6px; border-radius: 8px;
+    background: #fff; border: 1.5px solid #ddd; font-size: 0.8rem; font-weight: bold;
+    color: #666; cursor: pointer;
+  }
+  .cat-tab.on { border-color: #91BD5A; background: #EAF5D3; color: #507131; }
 </style>
 </head>
 <body>
 <header>
   <h1>🛋️ おさがりシェアリング</h1>
-  <p>会員のあいだで、モノを次の人へつなぐ場所です</p>
+  <p>会員のあいだで、モノや「たすけあい」を次の人へつなぐ場所です</p>
+  <a class="register-link" href="register.html">＋ 登録する</a>
 </header>
 <main>
+  <div class="cat-tabs">
+    <div class="cat-tab on" data-cat="all" onclick="filterCat('all')">すべて</div>
+    <div class="cat-tab" data-cat="モノ" onclick="filterCat('モノ')">🛋️ モノ</div>
+    <div class="cat-tab" data-cat="たすけあい" onclick="filterCat('たすけあい')">🤝 たすけあい</div>
+  </div>
   <div id="status" class="status-msg">読み込み中です…</div>
   <div id="list" class="item-list"></div>
 </main>
 
 <script>
+let ALL_ITEMS = [];
+let CURRENT_CAT = 'all';
+
 async function loadItems() {
   const statusEl = document.getElementById('status');
-  const listEl = document.getElementById('list');
   try {
     const res = await fetch('/osagari/api/items', { credentials: 'same-origin' });
     const data = await res.json();
@@ -87,16 +113,44 @@ async function loadItems() {
       statusEl.textContent = data.error || '読み込みに失敗しました。時間をおいて再度お試しください。';
       return;
     }
-    const items = data.items || [];
-    if (items.length === 0) {
-      statusEl.textContent = '現在、掲載中のおさがりはありません。';
+    ALL_ITEMS = data.items || [];
+    if (ALL_ITEMS.length === 0) {
+      statusEl.textContent = '現在、掲載中のおさがり・たすけあいはありません。';
       return;
     }
     statusEl.style.display = 'none';
-    listEl.innerHTML = items.map(renderCard).join('');
+    renderList();
   } catch (e) {
     statusEl.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
   }
+}
+
+function itemCat(item) {
+  // 分類列に「たすけあい」を含む値が入っていれば、たすけあいカテゴリとして扱う
+  const raw = item['分類'] || '';
+  return raw.indexOf('たすけあい') !== -1 ? 'たすけあい' : 'モノ';
+}
+
+function filterCat(cat) {
+  CURRENT_CAT = cat;
+  document.querySelectorAll('.cat-tab').forEach(el => {
+    el.classList.toggle('on', el.dataset.cat === cat);
+  });
+  renderList();
+}
+
+function renderList() {
+  const listEl = document.getElementById('list');
+  const statusEl = document.getElementById('status');
+  const items = CURRENT_CAT === 'all' ? ALL_ITEMS : ALL_ITEMS.filter(i => itemCat(i) === CURRENT_CAT);
+  if (items.length === 0) {
+    listEl.innerHTML = '';
+    statusEl.style.display = 'block';
+    statusEl.textContent = '該当する掲載はありません。';
+    return;
+  }
+  statusEl.style.display = 'none';
+  listEl.innerHTML = items.map(renderCard).join('');
 }
 
 function proxyImageUrl(rawUrl) {
@@ -122,15 +176,20 @@ function renderCard(item) {
   const name = escapeHtml(item['商品名'] || '(名称未設定)');
   const area = escapeHtml(item['地域'] || '');
   const status = item['掲載状況'] || '';
+  const cat = itemCat(item);
+  const catBadge = cat === 'たすけあい'
+    ? `<span class="badge" style="background:#F9C733;color:#5c4b00;">🤝 たすけあい</span>`
+    : '';
   const imgTag = img
     ? `<img src="${escapeHtml(img)}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">`
-    : `<div style="width:100%;aspect-ratio:1/1;background:#eee;"></div>`;
+    : `<div style="width:100%;aspect-ratio:1/1;background:#eee;display:flex;align-items:center;justify-content:center;font-size:2em;">${cat === 'たすけあい' ? '🤝' : '🛋️'}</div>`;
   return `
     <a class="item-card" href="item.html?id=${encodeURIComponent(item['商品ID'])}">
       ${imgTag}
       <div class="info">
         <p class="name">${name}</p>
         <p class="meta">${area}</p>
+        ${catBadge}
         ${statusBadge(status)}
       </div>
     </a>

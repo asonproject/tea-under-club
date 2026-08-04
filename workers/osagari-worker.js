@@ -10,7 +10,7 @@
  */
 
 export default {
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     const url = new URL(request.url);
 
     if (!env.GAS_WEBAPP_URL || !env.SHARED_SECRET) {
@@ -18,15 +18,21 @@ export default {
     }
 
     try {
+      // 一覧・詳細はGAS（スプレッドシート読み込み）が絡み体感速度に直結するため、
+      // Cloudflareエッジで短時間キャッシュしてGASの往復を省略する（データは頻繁には変わらない前提）
       if (url.pathname === '/osagari/api/items' && request.method === 'GET') {
-        const res = await callGas(env, { method: 'GET', params: { action: 'items' } });
-        return passThrough(res);
+        return withEdgeCache(request, ctx, 30, async () => {
+          const res = await callGas(env, { method: 'GET', params: { action: 'items' } });
+          return passThrough(res);
+        });
       }
 
       if (url.pathname === '/osagari/api/item' && request.method === 'GET') {
-        const id = url.searchParams.get('id');
-        const res = await callGas(env, { method: 'GET', params: { action: 'item', id } });
-        return passThrough(res);
+        return withEdgeCache(request, ctx, 30, async () => {
+          const id = url.searchParams.get('id');
+          const res = await callGas(env, { method: 'GET', params: { action: 'item', id } });
+          return passThrough(res);
+        });
       }
 
       if (url.pathname === '/osagari/api/apply' && request.method === 'POST') {
@@ -41,8 +47,20 @@ export default {
         return passThrough(res);
       }
 
+      if (url.pathname === '/osagari/api/register' && request.method === 'POST') {
+        let payload;
+        try {
+          payload = await request.json();
+        } catch {
+          return jsonResponse({ error: '不正なリクエストです' }, 400);
+        }
+        payload.action = 'register';
+        const res = await callGas(env, { method: 'POST', body: payload });
+        return passThrough(res);
+      }
+
       if (url.pathname === '/osagari/api/image' && request.method === 'GET') {
-        return proxyImage(url.searchParams.get('src'));
+        return withEdgeCache(request, ctx, 86400, () => proxyImage(url.searchParams.get('src')));
       }
 
       return jsonResponse({ error: 'Not Found' }, 404);
@@ -51,6 +69,28 @@ export default {
     }
   },
 };
+
+// Cloudflareのキャッシュ(Cache API)を明示的に使う。ヘッダーのCache-Control任せにせず
+// 確実にエッジキャッシュさせ、GAS往復・Drive往復の回数を減らして体感速度を上げる。
+// 注: tea-under.clubゾーンのBrowser Cache TTLが4時間固定(Free/Proプランのため「既存ヘッダーを尊重」を選べず、
+// Page Ruleでの上書きも効果なし)のため、Cache HIT時のクライアント向けCache-Controlは実際には4時間として
+// 扱われる。掲載状況の更新反映が最大4時間遅れうる点は許容のうえ運用する。
+async function withEdgeCache(request, ctx, maxAgeSeconds, generate) {
+  const cache = caches.default;
+  const cacheKey = new Request(request.url, { method: 'GET' });
+
+  const cached = await cache.match(cacheKey);
+  if (cached) return cached;
+
+  const response = await generate();
+  if (response.status === 200) {
+    const headers = new Headers(response.headers);
+    headers.set('Cache-Control', `public, max-age=${maxAgeSeconds}`);
+    const toCache = new Response(response.clone().body, { status: 200, headers });
+    ctx.waitUntil(cache.put(cacheKey, toCache));
+  }
+  return response;
+}
 
 async function callGas(env, { method, params, body }) {
   const target = new URL(env.GAS_WEBAPP_URL);

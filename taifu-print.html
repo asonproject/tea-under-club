@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>台風・防災 印刷用シート｜てぃあんだぁクラブ</title>
+<link rel="icon" href="favicon.jpg" type="image/jpeg">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff; --txt:#2a2a2a; --txt-m:#595959; --txt-s:#767676;
+  --acc:#BADA7A; --acc-d:#91BD5A; --acc-dd:#507131;
+  --hi:#EAF5D3; --info:#f5f5f5; --border:#cfcfcf; --red:#d64545;
+}
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:var(--info); font-size:15px; line-height:1.65; }
+.wrap { max-width:760px; margin:0 auto; background:#fff; min-height:100vh; padding-bottom:30px; }
+
+.no-print { }
+.hdr { background:var(--acc-dd); color:#fff; padding:14px 16px 18px; }
+.back { display:inline-block; color:#fff; text-decoration:none; font-size:13px; opacity:.85; margin-bottom:8px; }
+.hdr h1 { font-size:19px; margin-bottom:4px; }
+.hdr p { font-size:13px; opacity:.92; }
+
+.controls { background:var(--hi); padding:14px 16px; display:flex; flex-wrap:wrap; gap:10px; align-items:center; border-bottom:2px dashed var(--acc-d); }
+.controls label { font-size:13px; font-weight:700; color:var(--acc-dd); }
+.controls select { font-family:inherit; font-size:14px; padding:7px 10px; border-radius:6px; border:1px solid var(--border); background:#fff; }
+.controls button { font-family:inherit; font-size:13px; font-weight:700; padding:8px 16px; border-radius:6px; border:none; background:var(--acc-d); color:#fff; cursor:pointer; }
+.controls .hint { font-size:11.5px; color:var(--txt-s); width:100%; }
+
+.sheet { padding:18px 20px; }
+.sheet h2 { font-size:15px; color:var(--acc-dd); border-left:4px solid var(--acc-d); padding-left:8px; margin:18px 0 8px; }
+.sheet h2:first-child { margin-top:0; }
+table { width:100%; border-collapse:collapse; margin-bottom:6px; }
+td { border:1px solid var(--border); padding:6px 9px; font-size:13.5px; vertical-align:top; }
+td.k { width:34%; background:var(--info); font-weight:700; color:var(--txt-m); }
+.tel { font-weight:700; letter-spacing:.02em; }
+.small { font-size:11.5px; color:var(--txt-s); margin:4px 0 12px; }
+.memo { border:1.5px dashed var(--border); border-radius:6px; height:110px; margin-top:6px; }
+.memo-lbl { font-size:12px; color:var(--txt-s); margin-bottom:4px; }
+
+.city-block { display:none; }
+.city-block.active { display:block; }
+.common-block { display:block; }
+
+.ftr { padding:16px 20px; text-align:center; }
+.ftr a { color:var(--acc-dd); font-size:13px; text-decoration:none; font-weight:700; margin:0 8px; }
+
+@media print {
+  body { background:#fff; font-size:12.5px; }
+  .no-print { display:none !important; }
+  .wrap { max-width:none; padding:0; }
+  .hdr { background:#fff !important; color:var(--txt) !important; padding:0 0 10px; border-bottom:2px solid var(--acc-dd); }
+  .back { display:none; }
+  .sheet { padding:10px 4px; }
+  a[href]::after { content:""; }
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="hdr">
+    <a class="back no-print" href="taifu-dashboard.html">← ダッシュボードに戻る</a>
+    <h1>🖨️ 台風・防災 印刷用シート</h1>
+    <p>停電・通信障害のときのための紙1枚。お住まいの市町村を選んで印刷してください。</p>
+  </div>
+
+  <div class="controls no-print">
+    <label for="city-select">市町村を選ぶ：</label>
+    <select id="city-select" onchange="showCity(this.value)">
+      <option value="all">すべて表示（比較用）</option>
+      <option value="yomitan">読谷村</option>
+      <option value="tomigusuku">豊見城市</option>
+      <option value="uruma">うるま市</option>
+      <option value="kitanakagusuku">北中城村</option>
+      <option value="ogimi">大宜味村</option>
+    </select>
+    <button onclick="window.print()">🖨️ このページを印刷する</button>
+    <div class="hint">1つの市町村を選ぶと用紙1枚に収まりやすくなります。印刷前にプレビューで確認してください。</div>
+  </div>
+
+  <div class="sheet">
+
+    <div class="common-block">
+      <h2>☎️ 共通の緊急連絡先</h2>
+      <table>
+        <tr><td class="k">警察</td><td class="tel">110</td></tr>
+        <tr><td class="k">消防・救急</td><td class="tel">119</td></tr>
+        <tr><td class="k">沖縄県 防災危機管理課</td><td class="tel">098-866-2143</td></tr>
+      </table>
+
+      <h2>🚌 バス4社の連絡先（運行状況の問い合わせ）</h2>
+      <table>
+        <tr><td class="k">那覇バス・琉球バス交通<br>（那覇営業所）</td><td class="tel">098-863-2821</td></tr>
+        <tr><td class="k">沖縄バス（本社）</td><td class="tel">098-862-6737</td></tr>
+        <tr><td class="k">東陽バス（那覇営業所）</td><td class="tel">098-947-1040</td></tr>
+        <tr><td class="k">やんばる急行バス</td><td class="tel">0980-56-5760</td></tr>
+      </table>
+      <p class="small">バスの運行中止＝休校とは限りません。最終判断は学校・園からの連絡で必ず確認してください。</p>
+
+      <h2>🌀 台風の進路情報（ネットが使えるとき）</h2>
+      <table>
+        <tr><td class="k">気象庁</td><td>jma.go.jp/bosai/typhoon/</td></tr>
+        <tr><td class="k">沖縄気象台</td><td>jma-net.go.jp/okinawa/</td></tr>
+        <tr><td class="k">tenki.jp</td><td>tenki.jp/bousai/typhoon/</td></tr>
+        <tr><td class="k">ウェザーニュース</td><td>weathernews.jp/onebox/typhoon/</td></tr>
+        <tr><td class="k">Windy.com</td><td>windy.com</td></tr>
+      </table>
+    </div>
+
+    <div class="city-block" data-city="yomitan">
+      <h2>🏘️ 読谷村</h2>
+      <table>
+        <tr><td class="k">防災担当</td><td>総務課</td></tr>
+        <tr><td class="k">電話番号</td><td class="tel">098-982-9201</td></tr>
+        <tr><td class="k">防災マップ・避難所</td><td>vill.yomitan.okinawa.jp（総務課「防災」ページ）</td></tr>
+      </table>
+    </div>
+
+    <div class="city-block" data-city="tomigusuku">
+      <h2>🏘️ 豊見城市</h2>
+      <table>
+        <tr><td class="k">防災担当</td><td>防災管財課</td></tr>
+        <tr><td class="k">電話番号</td><td class="tel">098-850-8165</td></tr>
+        <tr><td class="k">指定避難所一覧</td><td>city.tomigusuku.lg.jp（くらし手続き→安心安全）</td></tr>
+        <tr><td class="k">WEB版防災マップ</td><td>city.tomigusuku.lg.jp/section/hazardmap/</td></tr>
+      </table>
+    </div>
+
+    <div class="city-block" data-city="uruma">
+      <h2>🏘️ うるま市</h2>
+      <table>
+        <tr><td class="k">防災担当</td><td>危機管理課</td></tr>
+        <tr><td class="k">電話番号</td><td class="tel">098-979-6760</td></tr>
+        <tr><td class="k">防災・防犯情報</td><td>city.uruma.lg.jp（防災・防犯ページ）</td></tr>
+      </table>
+      <p class="small">避難所は開設時にエリアメール・テレビで告知。開設前の確認は危機管理課へ直接電話を。</p>
+    </div>
+
+    <div class="city-block" data-city="kitanakagusuku">
+      <h2>🏘️ 北中城村</h2>
+      <table>
+        <tr><td class="k">防災担当</td><td>総務課</td></tr>
+        <tr><td class="k">電話番号</td><td class="tel">098-935-2233</td></tr>
+        <tr><td class="k">防災情報</td><td>vill.kitanakagusuku.lg.jp（総務課「防災」ページ）</td></tr>
+      </table>
+      <p class="small">緊急時は村役場 第1庁舎が自主避難所として開設される場合あり。</p>
+    </div>
+
+    <div class="city-block" data-city="ogimi">
+      <h2>🏘️ 大宜味村</h2>
+      <table>
+        <tr><td class="k">防災担当</td><td>総務課</td></tr>
+        <tr><td class="k">電話番号</td><td class="tel">0980-44-3001</td></tr>
+        <tr><td class="k">防災情報・避難所</td><td>vill.ogimi.okinawa.jp（くらし→安全安心→防災）</td></tr>
+      </table>
+    </div>
+
+    <h2>✏️ メモ（避難先・持ち出し品・連絡した人など）</h2>
+    <div class="memo"></div>
+
+  </div>
+
+  <div class="ftr no-print">
+    <a href="taifu-dashboard.html">ダッシュボードへ</a>
+    <a href="taifu.html">リンク一覧版へ</a>
+    <a href="index.html">ホームへ</a>
+  </div>
+
+</div>
+
+<script>
+function showCity(val) {
+  document.querySelectorAll('.city-block').forEach(el => {
+    el.classList.toggle('active', val === 'all' || el.dataset.city === val);
+  });
+}
+// 初期表示：全市町村
+showCity('all');
+</script>
+
+</body>
+</html>

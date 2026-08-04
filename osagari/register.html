@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>登録する｜おさがりシェアリング</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background: #F5EFE6;
+    color: #2a2a2a;
+    line-height: 1.7;
+  }
+  header {
+    background: #91BD5A;
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  header a { color: #fff; text-decoration: none; font-size: 0.9rem; }
+  main { max-width: 480px; margin: 0 auto; padding: 16px; }
+  .lead { background: #fff; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px; font-size: 0.875rem; color: #555; }
+  .cat-choice { display: flex; gap: 8px; margin-bottom: 16px; }
+  .cat-choice label {
+    flex: 1; text-align: center; padding: 14px 8px; border-radius: 10px;
+    border: 2px solid #ddd; background: #fff; cursor: pointer; font-size: 0.85rem; font-weight: bold;
+  }
+  .cat-choice input { display: none; }
+  .cat-choice input:checked + span { color: #507131; }
+  .cat-choice label:has(input:checked) { border-color: #91BD5A; background: #EAF5D3; }
+
+  form {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  fieldset { border: none; padding: 0; margin: 0; }
+  legend { font-size: 0.8rem; font-weight: bold; color: #507131; margin-bottom: 6px; padding: 0; }
+  label.field-label { font-size: 0.85rem; font-weight: bold; display: block; margin-bottom: 4px; }
+  input, textarea, select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+  }
+  .hint { font-size: 0.75rem; color: #888; margin-top: 3px; }
+  .consent-row { display: flex; align-items: flex-start; gap: 8px; font-size: 0.82rem; }
+  .consent-row input { width: auto; margin-top: 3px; }
+  .website-field { position: absolute; left: -9999px; }
+  button {
+    background: #91BD5A;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 13px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:disabled { opacity: 0.6; }
+  #form-msg { font-size: 0.9rem; text-align: center; min-height: 1.2em; }
+</style>
+</head>
+<body>
+<header><a href="index.html">← 一覧にもどる</a></header>
+<main>
+
+  <div class="lead">
+    ここから登録した内容は、<strong>すぐには公開されません。</strong>担当が内容を確認してから一覧に掲載します（数日かかることがあります）。
+  </div>
+
+  <form id="register-form">
+    <div class="cat-choice">
+      <label>
+        <input type="radio" name="category" value="モノ（おさがり）" checked>
+        <span>🛋️ モノを譲りたい<br><small>(おさがり)</small></span>
+      </label>
+      <label>
+        <input type="radio" name="category" value="たすけあい（貸せるもの・できること）">
+        <span>🤝 貸せる・できる<br><small>(たすけあい)</small></span>
+      </label>
+    </div>
+
+    <div>
+      <label class="field-label" for="f-title">タイトル</label>
+      <input id="f-title" name="title" required placeholder="例：ベビーベッド／例：発電機お貸しできます">
+    </div>
+
+    <div>
+      <label class="field-label" for="f-description">説明</label>
+      <textarea id="f-description" name="description" rows="4" required placeholder="状態、対応できる範囲、条件など、わかる範囲で書いてください"></textarea>
+    </div>
+
+    <div>
+      <label class="field-label" for="f-area">地域</label>
+      <input id="f-area" name="area" required placeholder="例：豊見城市">
+    </div>
+
+    <div>
+      <label class="field-label" for="f-handover">受渡方法・対応できる範囲（任意）</label>
+      <input id="f-handover" name="handover" placeholder="例：平日夜と土日／例：手渡しのみ・要相談">
+    </div>
+
+    <fieldset>
+      <legend>登録者情報（一覧には公開されません。担当のみが確認します）</legend>
+
+      <label class="field-label" for="f-name">お名前</label>
+      <input id="f-name" name="providerName" required>
+
+      <label class="field-label" for="f-contact" style="margin-top:10px;">連絡先（電話番号 or LINE等）</label>
+      <input id="f-contact" name="providerContact" required>
+
+      <label class="field-label" for="f-email" style="margin-top:10px;">メールアドレス（任意）</label>
+      <input id="f-email" name="providerEmail" type="email">
+
+      <label class="field-label" for="f-address" style="margin-top:10px;">ご住所（任意・受け渡し調整用）</label>
+      <input id="f-address" name="providerAddress">
+    </fieldset>
+
+    <div class="consent-row">
+      <input type="checkbox" id="f-consent" name="consent" required>
+      <label for="f-consent">登録者情報は担当者が受け渡し調整のためだけに使用し、一覧には公開されないことに同意します。</label>
+    </div>
+
+    <div class="website-field" aria-hidden="true">
+      <label for="f-website">ウェブサイト</label>
+      <input id="f-website" name="website" tabindex="-1" autocomplete="off">
+    </div>
+
+    <button type="submit" id="submit-btn">この内容で登録する</button>
+    <p id="form-msg"></p>
+  </form>
+</main>
+
+<script>
+document.getElementById('register-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('submit-btn');
+  const msg = document.getElementById('form-msg');
+  const form = e.target;
+
+  const payload = {
+    category: form.category.value,
+    title: form.title.value.trim(),
+    description: form.description.value.trim(),
+    area: form.area.value.trim(),
+    handover: form.handover.value.trim(),
+    providerName: form.providerName.value.trim(),
+    providerContact: form.providerContact.value.trim(),
+    providerEmail: form.providerEmail.value.trim(),
+    providerAddress: form.providerAddress.value.trim(),
+    consent: form.consent.checked,
+    website: form.website.value, // ハニーポット。人間は空のまま送信する
+  };
+
+  btn.disabled = true;
+  msg.textContent = '送信しています…';
+  msg.style.color = '#666';
+
+  try {
+    const res = await fetch('/osagari/api/register', {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) {
+      msg.textContent = data.error || '送信に失敗しました。';
+      msg.style.color = '#c0392b';
+      btn.disabled = false;
+      return;
+    }
+    msg.textContent = '登録を受け付けました。内容確認後、一覧に掲載されます。';
+    msg.style.color = '#2e7d32';
+    form.querySelectorAll('input, textarea, button').forEach(el => el.disabled = true);
+  } catch (e) {
+    msg.textContent = '通信エラーが発生しました。時間をおいて再度お試しください。';
+    msg.style.color = '#c0392b';
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
