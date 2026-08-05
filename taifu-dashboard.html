@@ -81,11 +81,7 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
   <div class="hdr">
     <a class="back" href="index.html">← ホームに戻る</a>
     <h1>🌀 台風・防災ダッシュボード</h1>
-    <p>台風の風の動きと、バス4社の最新お知らせを、このページ内でそのまま確認できます。数値の詳細（進路・気圧・警報）は仕様上埋め込みができないため、下部のリンクからご覧ください。</p>
-  </div>
-
-  <div class="note">
-    表示されるのは各サイトの「今の中身」がそのまま映っています。読み込みに数秒かかることがあります。表示が崩れる・出ない場合は、パネル右上の「元のページを開く」からご確認ください。
+    <p>台風の風の動きをこのページ内で確認できます。バス4社の最新お知らせ・進路予想などの数値情報は、下部のリンクから各公式サイトでご確認ください。</p>
   </div>
 
   <div class="sec">
@@ -105,82 +101,58 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
       <iframe
         src="https://embed.windy.com/embed2.html?lat=26.21&lon=127.68&detailLat=26.21&detailLon=127.68&width=650&height=450&zoom=7&level=surface&overlay=wind&product=ecmwf&menu=true&message=true&marker=&calendar=now&pressure=true&type=map&location=coordinates&detail=&metricWind=default&metricTemp=default&radarRange=-1"
         loading="lazy" title="Windy 沖縄本島 風マップ"></iframe>
+      <div class="panel-fallback">この地図はWindy.comが公式に提供する埋め込みウィジェットです。<a href="https://embed.windy.com/" target="_blank" rel="noopener" style="color:var(--acc-dd);font-weight:700;">埋め込みウィジェットについて（Windy.com公式）</a></div>
     </div>
   </div>
 
   <div class="sec">
     <div class="sec-lbl">🚌 バス運行お知らせ（4社）</div>
-    <div class="sec-desc">沖縄本島のバス4社は、沖縄県バス協会で運行の継続・中止を共通協議して発表します。各社の最新お知らせをそのまま埋め込んでいます。</div>
+    <div class="sec-desc">沖縄本島のバス4社は、沖縄県バス協会で運行の継続・中止を共通協議して発表します。各社の公式サイトから最新のお知らせをご確認ください。</div>
 
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-hdr-l">
-          <div class="panel-ico">🚏</div>
-          <div>
-            <div class="panel-title">沖縄県バス協会</div>
-            <div class="panel-sub">4社共通の方針・お知らせ</div>
-          </div>
-        </div>
-        <a class="panel-open" href="https://www.bus-okinawa.or.jp/" target="_blank" rel="noopener">元のページ ›</a>
+    <a class="lk" href="https://www.bus-okinawa.or.jp/" target="_blank" rel="noopener">
+      <div class="lk-ico">🚏</div>
+      <div class="lk-body">
+        <div class="lk-title">沖縄県バス協会</div>
+        <div class="lk-sub">4社共通の方針・お知らせ</div>
       </div>
-      <iframe src="https://www.bus-okinawa.or.jp/" loading="lazy" title="沖縄県バス協会"></iframe>
-    </div>
+      <div class="lk-arr">›</div>
+    </a>
 
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-hdr-l">
-          <div class="panel-ico">🚌</div>
-          <div>
-            <div class="panel-title">那覇バス・琉球バス交通</div>
-            <div class="panel-sub">お知らせ一覧</div>
-          </div>
-        </div>
-        <a class="panel-open" href="https://daiichibus.co.jp/news/" target="_blank" rel="noopener">元のページ ›</a>
+    <a class="lk" href="https://daiichibus.co.jp/news/" target="_blank" rel="noopener">
+      <div class="lk-ico">🚌</div>
+      <div class="lk-body">
+        <div class="lk-title">那覇バス・琉球バス交通</div>
+        <div class="lk-sub">お知らせ一覧</div>
       </div>
-      <iframe src="https://daiichibus.co.jp/news/" loading="lazy" title="那覇バス・琉球バス交通 お知らせ"></iframe>
-    </div>
+      <div class="lk-arr">›</div>
+    </a>
 
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-hdr-l">
-          <div class="panel-ico">🚍</div>
-          <div>
-            <div class="panel-title">沖縄バス</div>
-            <div class="panel-sub">お知らせ一覧</div>
-          </div>
-        </div>
-        <a class="panel-open" href="https://okinawabus.com/wp/category/ma_news/" target="_blank" rel="noopener">元のページ ›</a>
+    <a class="lk" href="https://okinawabus.com/" target="_blank" rel="noopener">
+      <div class="lk-ico">🚍</div>
+      <div class="lk-body">
+        <div class="lk-title">沖縄バス</div>
+        <div class="lk-sub">公式サイト（お知らせはサイト内でご確認ください）</div>
       </div>
-      <iframe src="https://okinawabus.com/wp/category/ma_news/" loading="lazy" title="沖縄バス お知らせ"></iframe>
-    </div>
+      <div class="lk-arr">›</div>
+    </a>
 
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-hdr-l">
-          <div class="panel-ico">📋</div>
-          <div>
-            <div class="panel-title">東陽バス</div>
-            <div class="panel-sub">台風時の運行取扱いルール</div>
-          </div>
-        </div>
-        <a class="panel-open" href="https://toyo-bus.com/typhoon/" target="_blank" rel="noopener">元のページ ›</a>
+    <a class="lk" href="https://toyo-bus.com/typhoon/" target="_blank" rel="noopener">
+      <div class="lk-ico">📋</div>
+      <div class="lk-body">
+        <div class="lk-title">東陽バス</div>
+        <div class="lk-sub">台風時の運行取扱いルール</div>
       </div>
-      <iframe src="https://toyo-bus.com/typhoon/" loading="lazy" title="東陽バス 台風時の運行取扱い"></iframe>
-    </div>
+      <div class="lk-arr">›</div>
+    </a>
 
-    <div class="panel">
-      <div class="panel-hdr">
-        <div class="panel-hdr-l">
-          <div class="panel-ico">🚐</div>
-          <div>
-            <div class="panel-title">やんばる急行バス</div>
-            <div class="panel-sub">公式サイト・お知らせ</div>
-          </div>
-        </div>
-        <a class="panel-open" href="https://yanbaru-expressbus.com/" target="_blank" rel="noopener">元のページ ›</a>
+    <a class="lk" href="https://yanbaru-expressbus.com/" target="_blank" rel="noopener">
+      <div class="lk-ico">🚐</div>
+      <div class="lk-body">
+        <div class="lk-title">やんばる急行バス</div>
+        <div class="lk-sub">公式サイト・お知らせ</div>
       </div>
-      <iframe src="https://yanbaru-expressbus.com/" loading="lazy" title="やんばる急行バス"></iframe>
-    </div>
+      <div class="lk-arr">›</div>
+    </a>
   </div>
 
   <div class="sec">
