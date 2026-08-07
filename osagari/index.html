@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="../favicon.jpg" type="image/jpeg">
 <title>おさがりシェアリング｜てぃあんだぁクラブ</title>
 <style>
   * { box-sizing: border-box; }
@@ -18,9 +19,21 @@
     color: #fff;
     padding: 20px 16px;
     text-align: center;
+    position: relative;
   }
   header h1 { margin: 0; font-size: 1.3rem; }
   header p { margin: 4px 0 0; font-size: 0.85rem; opacity: 0.9; }
+  .admin-link {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    color: #fff;
+    opacity: 0.7;
+    font-size: 1.1rem;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .admin-link:hover { opacity: 1; }
   main { max-width: 1100px; margin: 0 auto; padding: 16px; }
   .status-msg { text-align: center; padding: 40px 16px; color: #666; }
   .item-list {
@@ -86,6 +99,7 @@
 </head>
 <body>
 <header>
+  <a class="admin-link" href="https://docs.google.com/spreadsheets/d/1ATUAMkRrnC5QbY_AjXlHkLiVguYewqjEYSvvAg1kLRw/edit?gid=816451320#gid=816451320" target="_blank" title="管理者用スプレッドシート（担当者のみ）">⚙️</a>
   <h1>🛋️ おさがりシェアリング</h1>
   <p>会員のあいだで、モノや「たすけあい」を次の人へつなぐ場所です</p>
   <a class="register-link" href="register.html">＋ 登録する</a>
