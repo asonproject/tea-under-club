@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
-<title>葬儀・弔事ガイド（準備中）｜てぃあんだぁクラブ</title>
+<title>葬儀・弔事ガイド｜てぃあんだぁクラブ</title>
 <link rel="icon" href="favicon.jpg" type="image/jpeg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -48,6 +48,25 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
 
 .placeholder { background:var(--white); border:1.5px dashed var(--border); border-radius:10px; padding:20px 16px; text-align:center; color:var(--txt-s); font-size:13px; margin-bottom:10px; }
 
+.step { display:flex; gap:12px; background:var(--white); border:1px solid var(--border); border-radius:10px; padding:13px 15px; margin-bottom:8px; }
+.step-num { width:26px; height:26px; border-radius:50%; background:#6b6259; color:#fff; font-size:13px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.step-body { flex:1; min-width:0; }
+.step-title { font-size:14px; font-weight:700; color:var(--txt); margin-bottom:3px; }
+.step-desc { font-size:12.5px; color:var(--txt-m); line-height:1.7; }
+.step-later .step-num { background:#a9a099; }
+
+.lk { display:flex; align-items:center; gap:12px; background:var(--white); border:1px solid var(--border); border-radius:10px; padding:13px 15px; text-decoration:none; margin-bottom:8px; }
+.lk:hover { background:#f6f6f6; }
+.lk-ico { width:36px; height:36px; border-radius:10px; background:#f1eee9; display:flex; align-items:center; justify-content:center; font-size:18px; flex-shrink:0; }
+.lk-body { flex:1; min-width:0; }
+.lk-title { font-size:14px; font-weight:700; color:var(--txt); margin-bottom:2px; }
+.lk-sub { font-size:12px; color:var(--txt-m); line-height:1.6; }
+.lk-arr { color:#6b6259; font-size:16px; flex-shrink:0; }
+
+.custom-block { background:var(--white); border:1px solid var(--border); border-radius:10px; padding:14px 15px; margin-bottom:10px; }
+.custom-block h3 { font-size:13.5px; color:#6b6259; margin-bottom:4px; }
+.custom-block p { font-size:12.5px; color:var(--txt-m); line-height:1.75; }
+
 .ftr { padding:22px 16px 30px; text-align:center; }
 .ftr a { color:var(--acc-dd); font-size:13px; text-decoration:none; font-weight:700; margin:0 8px; }
 .ftr .cp { margin-top:14px; font-size:11px; color:var(--txt-s); }
@@ -64,25 +83,120 @@ body { font-family:'Zen Maru Gothic',sans-serif; color:var(--txt); background:va
   </div>
 
   <div class="note build">
-    🚧 このページは骨格のみです（台風・防災ダッシュボードと同じ構成を横展開しました）。中身は準備中です。
+    ここに書いているのは全国共通の法的な手続きの流れです。実際の段取りは地域・宗派・葬儀社によって前後します。困ったときはまず葬儀社か役場の窓口に相談してください。
   </div>
 
   <div class="sec">
     <div class="sec-lbl">📋 直後にやること（手続きチェックリスト）</div>
-    <div class="sec-desc">死亡診断書の受け取り、葬儀社への連絡、役所への届け出など、時間の流れに沿った手続きをまとめる予定です。</div>
-    <div class="placeholder">準備中</div>
+    <div class="sec-desc">時間の流れに沿った手続きです。1〜3は期限があるため優先してください。</div>
+
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">死亡診断書（死体検案書）を受け取る</div>
+        <div class="step-desc">主治医、または警察の指定医が発行します。死亡届と一体になった用紙です。原本提出前に必ずコピーを取っておいてください（生命保険・年金手続きなどで後日必要になります）。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">死亡届を提出する（7日以内）</div>
+        <div class="step-desc">死亡を知った日から7日以内（国外で亡くなった場合は3か月以内）に、死亡地・本籍地・届出人の住所地のいずれかの市区町村役場へ提出します。多くの場合、葬儀社が代行してくれます。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">死体埋火葬許可申請書を提出し、火葬許可証を受け取る</div>
+        <div class="step-desc">死亡届と同時に役場へ提出するのが一般的です。ここで交付される「火葬許可証」がないと火葬できません。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">葬儀社と打ち合わせる</div>
+        <div class="step-desc">ご遺体の搬送・安置、通夜・告別式の日程、火葬場の予約などを決めます。沖縄では火葬場の空き状況で日程が前後することがあります。</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <div class="step-title">通夜・告別式・火葬</div>
+        <div class="step-desc">火葬場に火葬許可証を提出します。火葬後、証明印が押されたものが「埋葬許可証」になります（お墓に納骨する際に必要）。</div>
+      </div>
+    </div>
+    <div class="step step-later">
+      <div class="step-num">6</div>
+      <div class="step-body">
+        <div class="step-title">（後日）年金・保険・世帯主変更などの手続き</div>
+        <div class="step-desc">年金受給停止、健康保険の資格喪失、世帯主変更などは死亡後14日以内が目安のものが多いですが、葬儀直後は無理せず、落ち着いてから役場の窓口でまとめて確認してください。</div>
+      </div>
+    </div>
   </div>
 
   <div class="sec">
     <div class="sec-lbl">📞 連絡先・手配</div>
-    <div class="sec-desc">葬儀社・火葬場・菩提寺などの連絡先リンク集を予定しています。</div>
-    <div class="placeholder">準備中</div>
+    <div class="sec-desc">死亡届・戸籍の届出窓口です（対象5市町村）。葬儀社・火葬場は個別業者のため掲載していません。かかりつけの葬儀社がなければ、役場の窓口や地域の方に相談すると紹介してもらえることがあります。</div>
+
+    <a class="lk" href="tel:098-982-9200">
+      <div class="lk-ico">🏘️</div>
+      <div class="lk-body">
+        <div class="lk-title">読谷村役場 住民年金課</div>
+        <div class="lk-sub">代表 098-982-9200（戸籍係へおつなぎします）</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+    <a class="lk" href="tel:098-850-0103">
+      <div class="lk-ico">🏘️</div>
+      <div class="lk-body">
+        <div class="lk-title">豊見城市役所 市民課</div>
+        <div class="lk-sub">098-850-0103</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+    <a class="lk" href="tel:098-973-3206">
+      <div class="lk-ico">🏘️</div>
+      <div class="lk-body">
+        <div class="lk-title">うるま市役所 市民課</div>
+        <div class="lk-sub">098-973-3206</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+    <a class="lk" href="tel:098-935-2242">
+      <div class="lk-ico">🏘️</div>
+      <div class="lk-body">
+        <div class="lk-title">北中城村役場 住民生活課 戸籍係</div>
+        <div class="lk-sub">098-935-2242（代表：098-935-2233）</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+    <a class="lk" href="tel:0980-44-3001">
+      <div class="lk-ico">🏘️</div>
+      <div class="lk-body">
+        <div class="lk-title">大宜味村役場 住民課</div>
+        <div class="lk-sub">代表 0980-44-3001（戸籍担当へおつなぎします）</div>
+      </div>
+      <div class="lk-arr">›</div>
+    </a>
+    <p class="step-desc" style="padding:4px 2px 0;">死亡届は本籍地・死亡地・届出人の住所地のいずれの役場でも提出できます。上記以外にお住まいの場合は、お住まいの市区町村役場（戸籍・住民担当）へご確認ください。</p>
   </div>
 
   <div class="sec">
     <div class="sec-lbl">📖 沖縄の慣習（必要に応じて）</div>
-    <div class="sec-desc">清明祭・十六日祭・トートーメー継承など、沖縄独自の慣習に関する情報を必要に応じて追加予定です。</div>
-    <div class="placeholder">準備中</div>
+    <div class="sec-desc">地域や門中（むんちゅう）によって内容ややり方は異なります。分からないことは親族の年長者や菩提寺、葬儀社に確認するのが確実です。</div>
+
+    <div class="custom-block">
+      <h3>清明祭（シーミー）</h3>
+      <p>旧暦3月（新暦4月頃）に一族が墓前に集まり、先祖を供養する行事。沖縄では法要と親族の集まりを兼ねる大切な機会とされています。</p>
+    </div>
+    <div class="custom-block">
+      <h3>十六日祭（ジュールクニチー）</h3>
+      <p>旧暦1月16日に行う先祖供養。「あの世の正月」ともいわれ、宮古・八重山地方では清明祭より重視される地域もあります。</p>
+    </div>
+    <div class="custom-block">
+      <h3>トートーメー（位牌）</h3>
+      <p>先祖の位牌のこと。継承には家系・門中ごとの独自のルールがあり、特に女性による継承や他家への持ち出しについては地域差・家系差が大きいテーマです。判断に迷う場合は、一人で決めず親族・門中の年長者に相談することをおすすめします。</p>
+    </div>
   </div>
 
   <div class="ftr">
