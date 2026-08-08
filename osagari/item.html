@@ -36,7 +36,8 @@
     margin-bottom: 4px;
   }
   .meta-row { font-size: 0.85rem; color: #666; margin: 2px 0; }
-  .desc { background: #fff; border-radius: 12px; padding: 14px; margin-top: 12px; white-space: pre-wrap; }
+  .desc { background: #fff; border-radius: 12px; padding: 14px; margin-top: 12px; white-space: pre-wrap; overflow-wrap: break-word; word-break: break-word; }
+  .desc a { color: #4E7A2E; }
   form {
     background: #fff;
     border-radius: 12px;
@@ -165,6 +166,13 @@ function statusBadge(status) {
   return `<span class="badge" style="background:${c.bg};color:${c.fg}">${escapeHtml(status)}</span>`;
 }
 
+function linkifyText(str) {
+  const escaped = escapeHtml(str);
+  return escaped.replace(/https?:\/\/[^\s<]+/g, url =>
+    `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`
+  );
+}
+
 function itemCat(item) {
   const raw = item['分類'] || '';
   return raw.indexOf('たすけあい') !== -1 ? 'たすけあい' : 'モノ';
@@ -191,7 +199,7 @@ function renderItem(item) {
     sizeEl.textContent = 'サイズ：' + (item['サイズ'] || '未設定');
     handoverEl.textContent = '受渡方法：' + (item['受渡方法'] || '未設定');
   }
-  document.getElementById('desc').textContent = item['説明文'] || '';
+  document.getElementById('desc').innerHTML = linkifyText(item['説明文'] || '');
 }
 
 document.getElementById('apply-form').addEventListener('submit', async (e) => {

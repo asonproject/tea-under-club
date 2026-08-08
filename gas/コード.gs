@@ -355,9 +355,34 @@ const AIRTABLE_FIELD = {
 };
 
 /**
- * Airtableの26件を一括インポートする。Apps Scriptエディタの関数選択で
- * importFromAirtable を選び実行する。商品ID（at-<AirtableレコードID>）で
- * 重複判定するため、何度実行しても取り込み済みの行は増えない。
+ * スプレッドシート上部メニュー「おさがり管理」から呼ばれる。
+ * importFromAirtable() を実行し、結果をダイアログで表示する。
+ * （Apps Scriptエディタから直接 importFromAirtable を実行した場合は
+ *   UIコンテキストが無いためこの関数は使わず、ログで結果を確認する）
+ */
+function onOpen() {
+  SpreadsheetApp.getUi()
+    .createMenu('おさがり管理')
+    .addItem('Airtableから一括インポート／更新', 'menuImportFromAirtable')
+    .addToUi();
+}
+
+function menuImportFromAirtable() {
+  const ui = SpreadsheetApp.getUi();
+  try {
+    const summary = importFromAirtable();
+    ui.alert('Airtableインポート完了', summary, ui.ButtonSet.OK);
+  } catch (err) {
+    ui.alert('Airtableインポートでエラーが発生しました', err.message, ui.ButtonSet.OK);
+  }
+}
+
+/**
+ * Airtable「BaaKee」テーブルの内容を`公開商品`・`提供者情報`シートへ取り込む。
+ * Apps Scriptエディタの関数選択で importFromAirtable を選び実行するか、
+ * スプレッドシートのメニュー「おさがり管理」→「Airtableから一括インポート／更新」から実行する。
+ * 商品ID（at-<AirtableレコードID>）が既存なら内容を上書き更新、無ければ新規追加する
+ * （何度実行しても行が重複して増えることはない）。
  * 事前に スクリプトプロパティ AIRTABLE_TOKEN の設定が必要（gas/README.md参照）。
  */
 function importFromAirtable() {
@@ -367,15 +392,24 @@ function importFromAirtable() {
   const records = fetchAllAirtableRecords_(token);
   const itemsSheet = getSheet(SHEET_ITEMS);
   const providersSheet = getSheet(SHEET_PROVIDERS);
-  const existingIds = new Set(sheetToObjects(itemsSheet).map(i => String(i['商品ID'])));
+
+  const itemRowIndex = buildRowIndexById_(itemsSheet, '商品ID');
+  const providerRowIndex = buildRowIndexById_(providersSheet, '商品ID');
+  const visibilityCol = headerCol_(itemsSheet, '表示');
 
   let imported = 0;
+  let updated = 0;
   let skipped = 0;
+  const skippedRecords = [];
 
   records.forEach(record => {
     const f = record.fields;
     const itemId = 'at-' + record.id;
-    if (existingIds.has(itemId) || !f[AIRTABLE_FIELD.name]) { skipped++; return; }
+    if (!f[AIRTABLE_FIELD.name]) {
+      skipped++;
+      skippedRecords.push(record.id);
+      return;
+    }
 
     const durationName = pickName_(f[AIRTABLE_FIELD.duration]);
     const status = durationName === '終了' ? '終了' : '受付中';
@@ -386,10 +420,13 @@ function importFromAirtable() {
     const targetText = targetNames.length ? `対象：${targetNames.join('・')}` : '';
     const description = [f[AIRTABLE_FIELD.message] || '', priceText, targetText].filter(Boolean).join('\n');
 
-    const imageUrl = importFirstAttachmentToDrive_(f[AIRTABLE_FIELD.image], itemId);
+    const existingRow = itemRowIndex[itemId];
+    // 画像は既に取り込み済みなら再取得しない（毎回Driveへ重複作成しないため）
+    const existingImageUrl = existingRow ? itemsSheet.getRange(existingRow, headerCol_(itemsSheet, '画像URL')).getValue() : '';
+    const imageUrl = existingImageUrl || importFirstAttachmentToDrive_(f[AIRTABLE_FIELD.image], itemId);
 
-    itemsSheet.appendRow([
-      status !== '終了', // 表示
+    const rowValues = [
+      status !== '終了', // 表示（新規時のみ使用。既存行では下で上書き判定する）
       itemId,
       f[AIRTABLE_FIELD.name],
       pickName_(f[AIRTABLE_FIELD.category]),
@@ -401,22 +438,76 @@ function importFromAirtable() {
       status,
       description,
       new Date(),
-    ]);
+    ];
+
+    if (existingRow) {
+      // 表示チェックボックスは管理者の手動判断を尊重し、猶予が「終了」になった場合のみ強制OFFにする。
+      // それ以外は既存の状態を保持する（自動で勝手にON/OFFを覆さない）。
+      const currentVisible = itemsSheet.getRange(existingRow, visibilityCol).getValue();
+      const previousStatus = itemsSheet.getRange(existingRow, headerCol_(itemsSheet, '掲載状況')).getValue();
+      if (status === '終了') {
+        rowValues[0] = false; // 猶予が「終了」になったら強制OFF
+      } else if (previousStatus === '終了') {
+        rowValues[0] = true; // 前回「終了」でOFFにされていたのが解除された場合は自動でONに戻す
+      } else {
+        rowValues[0] = currentVisible; // それ以外は管理者が手動で付け外しした状態を尊重する
+      }
+      itemsSheet.getRange(existingRow, 1, 1, rowValues.length).setValues([rowValues]);
+      updated++;
+    } else {
+      itemsSheet.appendRow(rowValues);
+      imported++;
+    }
 
     const address = f[AIRTABLE_FIELD.providerAddress];
-    providersSheet.appendRow([
+    const providerValues = [
       itemId,
       f[AIRTABLE_FIELD.providerName] || '',
       address === AIRTABLE_ADDRESS_PLACEHOLDER ? '' : (address || ''),
       f[AIRTABLE_FIELD.providerPhone] || '',
       f[AIRTABLE_FIELD.providerEmail] || '',
       !!f[AIRTABLE_FIELD.consent],
-    ]);
-
-    imported++;
+    ];
+    const existingProviderRow = providerRowIndex[itemId];
+    if (existingProviderRow) {
+      providersSheet.getRange(existingProviderRow, 1, 1, providerValues.length).setValues([providerValues]);
+    } else {
+      providersSheet.appendRow(providerValues);
+    }
   });
 
-  Logger.log(`インポート完了: 新規${imported}件、スキップ${skipped}件`);
+  let summary = `新規${imported}件、更新${updated}件、スキップ${skipped}件`;
+  if (skippedRecords.length) {
+    // 「名前」が未入力のAirtableレコードはUntitled表示になり探しにくいため、直接開けるURLを添える
+    const links = skippedRecords.map(id => `https://airtable.com/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_ID}/${id}`);
+    summary += `\nスキップされたレコード（「名前」列が空欄）:\n${links.join('\n')}`;
+  }
+  Logger.log(`インポート完了: ${summary}`);
+  return summary;
+}
+
+/**
+ * シートの指定列見出し（例:「商品ID」）を主キーとして、値→行番号(1-indexed)のMapを作る。
+ */
+function buildRowIndexById_(sheet, idHeader) {
+  const values = sheet.getDataRange().getValues();
+  const headers = values[0];
+  const idCol = headers.indexOf(idHeader);
+  if (idCol === -1) throw new Error(`シート「${sheet.getName()}」に列「${idHeader}」が見つかりません`);
+
+  const index = {};
+  for (let r = 1; r < values.length; r++) {
+    const id = values[r][idCol];
+    if (id !== '' && id !== null) index[String(id)] = r + 1; // 1-indexed sheet row
+  }
+  return index;
+}
+
+function headerCol_(sheet, headerName) {
+  const headers = sheet.getDataRange().getValues()[0];
+  const col = headers.indexOf(headerName);
+  if (col === -1) throw new Error(`シート「${sheet.getName()}」に列「${headerName}」が見つかりません`);
+  return col + 1; // 1-indexed
 }
 
 function pickName_(value) {
